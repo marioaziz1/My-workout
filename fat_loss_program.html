@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BURN PROTOCOL — 12-Week Fat Loss System</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fire: #FF3A1A;
+    --amber: #FF8C00;
+    --gold: #FFD700;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --card: #181818;
+    --border: #2a2a2a;
+    --text: #E8E8E8;
+    --muted: #888;
+    --green: #00E676;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 60px 20px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,58,26,0.18) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,58,26,0.04) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,58,26,0.04) 40px),
+      var(--black);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(transparent, var(--black));
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--fire);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,58,26,0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(255,58,26,0); }
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 15vw, 160px);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #fff 0%, #FF8C00 50%, #FF3A1A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .hero-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    letter-spacing: 6px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  .stat-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--fire);
+    padding: 20px 28px;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--fire);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .warning-box {
+    background: rgba(255,58,26,0.08);
+    border: 1px solid rgba(255,58,26,0.3);
+    border-left: 4px solid var(--fire);
+    padding: 16px 24px;
+    max-width: 600px;
+    font-size: 13px;
+    color: #ccc;
+    line-height: 1.6;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 80px 0;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--fire);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 40px;
+  }
+
+  /* ─── PHASE OVERVIEW ─── */
+  .phases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .phase-card {
+    background: var(--card);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .phase-card:nth-child(1)::before { background: #FF3A1A; }
+  .phase-card:nth-child(2)::before { background: #FF8C00; }
+  .phase-card:nth-child(3)::before { background: #FFD700; }
+
+  .phase-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    opacity: 0.06;
+    position: absolute;
+    top: 10px; right: 16px;
+    color: white;
+  }
+
+  .phase-weeks {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .phase-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .phase-card:nth-child(1) .phase-name { color: #FF3A1A; }
+  .phase-card:nth-child(2) .phase-name { color: #FF8C00; }
+  .phase-card:nth-child(3) .phase-name { color: #FFD700; }
+
+  .phase-desc {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .phase-goal {
+    font-size: 13px;
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ─── WEEKLY TEMPLATE ─── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  @media (max-width: 700px) {
+    .week-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .day-card {
+    background: var(--card);
+    padding: 20px 16px;
+    position: relative;
+  }
+
+  .day-card.rest {
+    background: #0f0f0f;
+    opacity: 0.6;
+  }
+
+  .day-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--border);
+    margin-bottom: 4px;
+  }
+
+  .day-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--fire);
+    margin-bottom: 8px;
+  }
+
+  .day-card.rest .day-title { color: var(--muted); }
+
+  .day-focus {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.5;
+  }
+
+  /* ─── PROGRAM PHASES ─── */
+  .program-section {
+    border-top: 1px solid var(--border);
+    padding: 80px 0;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 8px 20px;
+    border-radius: 2px;
+  }
+
+  .tag-red { background: var(--fire); color: white; }
+  .tag-amber { background: var(--amber); color: black; }
+  .tag-gold { background: var(--gold); color: black; }
+
+  .phase-title-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    letter-spacing: 4px;
+  }
+
+  /* ─── DAY BLOCKS ─── */
+  .days-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .day-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .day-block-header {
+    background: #1f1f1f;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .day-block-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  .focus-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .day-block-body {
+    padding: 20px;
+  }
+
+  /* ─── EXERCISE TABLES ─── */
+  .exercise-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .exercise-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exercise-table th {
+    text-align: left;
+    padding: 6px 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .exercise-table td {
+    padding: 8px 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #ccc;
+    vertical-align: top;
+  }
+
+  .exercise-table tr:last-child td { border-bottom: none; }
+
+  .ex-name { color: var(--text); font-weight: 500; }
+
+  .sets-badge {
+    display: inline-block;
+    background: rgba(255,58,26,0.15);
+    color: var(--fire);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  .note-pill {
+    display: inline-block;
+    background: rgba(0,230,118,0.1);
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ─── FLEXIBILITY BLOCK ─── */
+  .flex-block {
+    background: rgba(255,215,0,0.06);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-top: 12px;
+  }
+
+  .flex-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .flex-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .flex-list li {
+    font-size: 12px;
+    color: #bbb;
+    background: rgba(255,255,255,0.04);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* ─── FINISHER ─── */
+  .finisher-block {
+    background: rgba(255,58,26,0.07);
+    border: 1px solid rgba(255,58,26,0.2);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin-top: 12px;
+  }
+
+  .finisher-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--fire);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .finisher-items {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .finisher-items li {
+    font-size: 12px;
+    color: #ccc;
+    background: rgba(255,58,26,0.1);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* ─── DIET SECTION ─── */
+  .diet-section {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,230,118,0.07) 0%, transparent 70%),
+      var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .macros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .macro-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .macro-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .macro-card.protein::after { background: var(--fire); }
+  .macro-card.fat::after { background: var(--amber); }
+  .macro-card.carbs::after { background: var(--gold); }
+  .macro-card.calories::after { background: var(--green); }
+
+  .macro-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .macro-card.protein .macro-val { color: var(--fire); }
+  .macro-card.fat .macro-val { color: var(--amber); }
+  .macro-card.carbs .macro-val { color: var(--gold); }
+  .macro-card.calories .macro-val { color: var(--green); }
+
+  .macro-unit {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .macro-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .meals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .meal-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .meal-header {
+    background: #1a1a1a;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meal-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  .meal-cal {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--green);
+  }
+
+  .meal-body {
+    padding: 16px 18px;
+  }
+
+  .meal-items {
+    list-style: none;
+  }
+
+  .meal-items li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+    color: #bbb;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .meal-items li:last-child { border-bottom: none; }
+
+  .meal-items .gram {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ─── FOODS GRID ─── */
+  .foods-section { margin-top: 48px; }
+
+  .foods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .food-group {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .food-group-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .food-group.protein-foods .food-group-title { color: var(--fire); }
+  .food-group.fat-foods .food-group-title { color: var(--amber); }
+  .food-group.veg-foods .food-group-title { color: var(--green); }
+  .food-group.avoid-foods .food-group-title { color: #ff4444; }
+
+  .food-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .food-list li {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    color: #ccc;
+  }
+
+  .food-group.protein-foods .food-list li { background: rgba(255,58,26,0.1); }
+  .food-group.fat-foods .food-list li { background: rgba(255,140,0,0.1); }
+  .food-group.veg-foods .food-list li { background: rgba(0,230,118,0.08); }
+  .food-group.avoid-foods .food-list li { background: rgba(255,68,68,0.1); color: #ff8888; text-decoration: line-through; }
+
+  /* ─── RULES ─── */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .rule-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    position: relative;
+  }
+
+  .rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: rgba(255,58,26,0.12);
+    position: absolute;
+    top: 12px; right: 16px;
+  }
+
+  .rule-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--fire);
+    margin-bottom: 10px;
+  }
+
+  .rule-text {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  /* ─── PROGRESS ─── */
+  .progress-section {
+    border-top: 1px solid var(--border);
+    padding: 80px 0;
+  }
+
+  .progress-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .progress-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: #1a1a1a;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .progress-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #bbb;
+  }
+
+  .progress-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .target-weight {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--gold);
+  }
+
+  .deficit-val {
+    color: var(--fire);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    padding: 60px 0 40px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, var(--fire), var(--amber));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .footer-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ─── UTILS ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  .highlight { color: var(--fire); font-weight: 700; }
+  .highlight-green { color: var(--green); font-weight: 700; }
+  .highlight-gold { color: var(--gold); font-weight: 700; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero">
+  <div class="badge">🔥 Aggressive Fat Loss Protocol — Intermediate</div>
+  <h1>BURN<br>PROTOCOL</h1>
+  <p class="hero-sub">12-Week Shred + Flexibility System</p>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num">110</div>
+      <div class="stat-label">Start kg</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">91</div>
+      <div class="stat-label">Target kg</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">−19</div>
+      <div class="stat-label">kg Lost</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">179</div>
+      <div class="stat-label">cm Height</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">26</div>
+      <div class="stat-label">Age</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Weeks</div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    ⚠️ COACH NOTE — Losing 19 kg in 12 weeks = ~1.6 kg/week. This requires an aggressive 1,000–1,200 kcal daily deficit with perfect adherence to training + nutrition. This is at the upper limit of safe rapid fat loss. Medical clearance is strongly advised.
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PHASE OVERVIEW
+══════════════════════════════════════ -->
+<section>
+  <div class="container reveal">
+    <p class="section-label">// Program Architecture</p>
+    <h2 class="section-title">THREE PHASES.<br>ONE MISSION.</h2>
+
+    <div class="phases-grid">
+      <div class="phase-card">
+        <div class="phase-num">01</div>
+        <div class="phase-weeks">Weeks 1–4</div>
+        <div class="phase-name">IGNITE</div>
+        <p class="phase-desc">Metabolic reset + movement re-education. Build aerobic base, introduce flexibility as daily practice. Establish the fat-burning environment.</p>
+        <div class="phase-goal">🎯 Target: −6 kg</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">02</div>
+        <div class="phase-weeks">Weeks 5–8</div>
+        <div class="phase-name">ACCELERATE</div>
+        <p class="phase-desc">Increase intensity, introduce HIIT protocols, deepen flexibility work. Metabolism is now primed. Push harder without overreaching.</p>
+        <div class="phase-goal">🎯 Target: −7 kg</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">03</div>
+        <div class="phase-weeks">Weeks 9–12</div>
+        <div class="phase-name">INCINERATE</div>
+        <p class="phase-desc">Peak intensity conditioning, maximum EPOC, full-body metabolic circuits. Flexibility maintained for recovery. Final push to 91 kg.</p>
+        <div class="phase-goal">🎯 Target: −6 kg</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     WEEKLY STRUCTURE
+══════════════════════════════════════ -->
+<section style="padding-top:0">
+  <div class="container reveal">
+    <p class="section-label">// Base Weekly Template</p>
+    <h2 class="section-title">YOUR WEEK</h2>
+
+    <div class="week-grid">
+      <div class="day-card">
+        <div class="day-num">01</div>
+        <div class="day-title">🏋️ Strength</div>
+        <div class="day-focus">Lower Body + Mobility Flow</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">02</div>
+        <div class="day-title">🔥 HIIT</div>
+        <div class="day-focus">Metabolic Conditioning + Stretch</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">03</div>
+        <div class="day-title">💪 Strength</div>
+        <div class="day-focus">Upper Body + Flexibility Focus</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">04</div>
+        <div class="day-title">🧘 Active</div>
+        <div class="day-focus">Zone 2 Cardio + Deep Stretch</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">05</div>
+        <div class="day-title">💀 Full</div>
+        <div class="day-focus">Full Body + Circuit Finisher</div>
+      </div>
+      <div class="day-card">
+        <div class="day-num">06</div>
+        <div class="day-title">🏃 Cardio</div>
+        <div class="day-focus">Steady State + Hip Mobility</div>
+      </div>
+      <div class="day-card rest">
+        <div class="day-num">07</div>
+        <div class="day-title">😴 Rest</div>
+        <div class="day-focus">Passive recovery + foam roll</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 1
+══════════════════════════════════════ -->
+<div class="program-section" id="phase1">
+  <div class="container">
+    <div class="phase-header reveal">
+      <div class="phase-tag tag-red">PHASE 01</div>
+      <div>
+        <div class="section-label">// Weeks 1–4 — Foundation</div>
+        <div class="phase-title-big">IGNITE</div>
+      </div>
+    </div>
+
+    <div class="days-container">
+
+      <!-- DAY 1 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">🏋️</div>
+          <div>
+            <div class="day-block-title">Day 1 — Lower Body Strength</div>
+            <div class="focus-tag">Strength + Hamstring/Hip Flexibility</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Goblet Squat</td><td><span class="sets-badge">3×12</span></td><td>Deep range</td></tr>
+              <tr><td class="ex-name">Romanian Deadlift</td><td><span class="sets-badge">3×10</span></td><td>Feel hamstrings</td></tr>
+              <tr><td class="ex-name">Walking Lunges</td><td><span class="sets-badge">3×12/leg</span></td><td>Long stride</td></tr>
+              <tr><td class="ex-name">Glute Bridge</td><td><span class="sets-badge">3×15</span></td><td>Hold top 2s</td></tr>
+              <tr><td class="ex-name">Step-Ups</td><td><span class="sets-badge">3×10/leg</span></td><td>Controlled</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Flexibility Focus — 15 min</div>
+            <ul class="flex-list">
+              <li>Hip flexor stretch 60s/side</li>
+              <li>Seated hamstring stretch 60s</li>
+              <li>Pigeon pose 60s/side</li>
+              <li>Lying quad stretch 45s/side</li>
+              <li>90/90 hip stretch 60s/side</li>
+            </ul>
+          </div>
+          <div class="finisher-block">
+            <div class="finisher-title">⚡ Cardio Finisher — 10 min</div>
+            <ul class="finisher-items">
+              <li>5× 20m sprints</li>
+              <li>90s walk recovery</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,140,0,0.2);">🔥</div>
+          <div>
+            <div class="day-block-title">Day 2 — HIIT Conditioning</div>
+            <div class="focus-tag">Metabolic Burn + Upper Body Stretch</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Circuit — 3 Rounds</th><th>Work</th><th>Rest</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Burpees</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
+              <tr><td class="ex-name">Jump Rope / High Knees</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
+              <tr><td class="ex-name">Kettlebell Swing</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
+              <tr><td class="ex-name">Mountain Climbers</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
+              <tr><td class="ex-name">Box Step-Ups</td><td><span class="sets-badge">40s</span></td><td>2 min</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Flexibility Focus — 15 min</div>
+            <ul class="flex-list">
+              <li>Doorway chest stretch 60s</li>
+              <li>Thread-the-needle 60s/side</li>
+              <li>Child's pose 90s</li>
+              <li>Lat stretch overhead 60s/side</li>
+              <li>Thoracic rotation 10 reps/side</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💪</div>
+          <div>
+            <div class="day-block-title">Day 3 — Upper Body Strength</div>
+            <div class="focus-tag">Push/Pull + Shoulder Flexibility</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Bench Press</td><td><span class="sets-badge">3×10</span></td><td>Full ROM</td></tr>
+              <tr><td class="ex-name">Lat Pulldown</td><td><span class="sets-badge">3×12</span></td><td>Full stretch</td></tr>
+              <tr><td class="ex-name">Dumbbell Row</td><td><span class="sets-badge">3×12/arm</span></td><td>Controlled</td></tr>
+              <tr><td class="ex-name">Shoulder Press</td><td><span class="sets-badge">3×10</span></td><td>Overhead</td></tr>
+              <tr><td class="ex-name">Tricep Dips</td><td><span class="sets-badge">3×12</span></td><td>Bodyweight</td></tr>
+              <tr><td class="ex-name">Bicep Curls</td><td><span class="sets-badge">3×12</span></td><td>Slow negative</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Flexibility Focus — 15 min</div>
+            <ul class="flex-list">
+              <li>Cross-body shoulder stretch 60s/side</li>
+              <li>Overhead tricep stretch 45s/side</li>
+              <li>Pec minor stretch 60s/side</li>
+              <li>Wrist circles + extensions 60s</li>
+              <li>Neck mobility sequence 2 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 4 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(0,230,118,0.15);">🧘</div>
+          <div>
+            <div class="day-block-title">Day 4 — Active Recovery</div>
+            <div class="focus-tag">Zone 2 Cardio + Deep Mobility</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Activity</th><th>Duration</th><th>Intensity</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Brisk Walk / Light Cycle</td><td><span class="sets-badge">30–40 min</span></td><td>Zone 2 (60–70% HR)</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Deep Flexibility Session — 25 min</div>
+            <ul class="flex-list">
+              <li>Full-body foam roll 5 min</li>
+              <li>Standing forward fold 2 min</li>
+              <li>Butterfly stretch 2 min</li>
+              <li>Seated spinal twist 60s/side</li>
+              <li>Lizard pose 90s/side</li>
+              <li>Supine figure-4 stretch 60s/side</li>
+              <li>Happy baby pose 2 min</li>
+              <li>Legs-up-the-wall 3 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 5 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💀</div>
+          <div>
+            <div class="day-block-title">Day 5 — Full Body + Finisher</div>
+            <div class="focus-tag">Compound Lifts + Metabolic Circuit</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Deadlift</td><td><span class="sets-badge">4×6</span></td><td>Main compound</td></tr>
+              <tr><td class="ex-name">Push-ups (Weighted)</td><td><span class="sets-badge">3×15</span></td><td>Full range</td></tr>
+              <tr><td class="ex-name">Dumbbell Squat</td><td><span class="sets-badge">3×12</span></td><td>Slow tempo</td></tr>
+              <tr><td class="ex-name">Farmer Carry</td><td><span class="sets-badge">3×30m</span></td><td>Heavy grip</td></tr>
+              <tr><td class="ex-name">Plank</td><td><span class="sets-badge">3×45s</span></td><td>Hollow position</td></tr>
+            </tbody>
+          </table>
+          <div class="finisher-block">
+            <div class="finisher-title">💥 10-min Metabolic Finisher — AMRAP</div>
+            <ul class="finisher-items">
+              <li>10× Goblet Squat</li>
+              <li>10× Push-ups</li>
+              <li>10× KB Swing</li>
+              <li>10× Box Jumps</li>
+            </ul>
+          </div>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Flexibility Cool-down — 10 min</div>
+            <ul class="flex-list">
+              <li>Hip flexor lunge 60s/side</li>
+              <li>Spinal decompression hang 60s</li>
+              <li>Thoracic extension over roller</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 6 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,215,0,0.15);">🏃</div>
+          <div>
+            <div class="day-block-title">Day 6 — Endurance + Hip Mobility</div>
+            <div class="focus-tag">Steady Cardio + Hip/Ankle Flexibility</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Activity</th><th>Duration</th><th>Target</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Steady Run / Bike / Swim</td><td><span class="sets-badge">35–45 min</span></td><td>Zone 2–3 (65–75% HR)</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Hip & Lower Body Focus — 20 min</div>
+            <ul class="flex-list">
+              <li>Low squat hold (ATG) 2 min</li>
+              <li>World's greatest stretch 5 reps/side</li>
+              <li>Standing IT band stretch 60s/side</li>
+              <li>Calf stretch (bent + straight) 60s/side</li>
+              <li>Ankle circles 1 min/side</li>
+              <li>Couch stretch 90s/side</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /days-container -->
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 2
+══════════════════════════════════════ -->
+<div class="program-section" id="phase2">
+  <div class="container">
+    <div class="phase-header reveal">
+      <div class="phase-tag tag-amber">PHASE 02</div>
+      <div>
+        <div class="section-label">// Weeks 5–8 — Escalation</div>
+        <div class="phase-title-big">ACCELERATE</div>
+      </div>
+    </div>
+
+    <div class="days-container">
+
+      <!-- DAY 1 P2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,140,0,0.2);">🏋️</div>
+          <div>
+            <div class="day-block-title">Day 1 — Lower Strength (Heavier)</div>
+            <div class="focus-tag">Progressive Overload + Sprint Work</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Back Squat</td><td><span class="sets-badge">4×6</span></td><td>+5% from Phase 1</td></tr>
+              <tr><td class="ex-name">Romanian Deadlift</td><td><span class="sets-badge">4×8</span></td><td>Heavier load</td></tr>
+              <tr><td class="ex-name">Bulgarian Split Squat</td><td><span class="sets-badge">3×8/leg</span></td><td>Deep stretch</td></tr>
+              <tr><td class="ex-name">Leg Press</td><td><span class="sets-badge">3×12</span></td><td>Full ROM</td></tr>
+              <tr><td class="ex-name">Nordic Curl</td><td><span class="sets-badge">3×6</span></td><td>Hamstring focus</td></tr>
+            </tbody>
+          </table>
+          <div class="finisher-block">
+            <div class="finisher-title">⚡ Sprint Protocol — 8 reps</div>
+            <ul class="finisher-items">
+              <li>8× 30m sprints</li>
+              <li>Walk 60s recovery</li>
+              <li>Build to 85% effort</li>
+            </ul>
+          </div>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Post-Workout Flexibility</div>
+            <ul class="flex-list">
+              <li>Pancake stretch 2 min</li>
+              <li>Pigeon pose 90s/side</li>
+              <li>Deep squat hold 2 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 2 P2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">🔥</div>
+          <div>
+            <div class="day-block-title">Day 2 — Advanced HIIT</div>
+            <div class="focus-tag">Tabata + Conditioning Circuits</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Protocol</th><th>Work</th><th>Rest</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Tabata A — 4 rounds</td><td></td><td></td></tr>
+              <tr><td class="ex-name">→ Squat Jumps</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
+              <tr><td class="ex-name">→ Push-ups</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
+              <tr><td class="ex-name">Rest 2 min, then Tabata B</td><td></td><td></td></tr>
+              <tr><td class="ex-name">→ KB Swings</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
+              <tr><td class="ex-name">→ Burpee + Tuck Jump</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13px;color:var(--fire);margin-top:8px;font-family:'Space Mono',monospace;">+ 15 min Zone 2 cooldown walk</p>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Upper Body Flexibility — 12 min</div>
+            <ul class="flex-list">
+              <li>Thread the needle 90s/side</li>
+              <li>Eagle arms stretch 60s/side</li>
+              <li>Foam roll thoracic spine 3 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 3 P2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,140,0,0.2);">💪</div>
+          <div>
+            <div class="day-block-title">Day 3 — Upper Strength (Heavier)</div>
+            <div class="focus-tag">Pull-ups + Compound Push</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Bench Press</td><td><span class="sets-badge">4×6</span></td><td>+5% load</td></tr>
+              <tr><td class="ex-name">Pull-ups / Assisted</td><td><span class="sets-badge">4×6</span></td><td>Full hang</td></tr>
+              <tr><td class="ex-name">Overhead Press</td><td><span class="sets-badge">3×8</span></td><td>Strict form</td></tr>
+              <tr><td class="ex-name">Chest-Supported Row</td><td><span class="sets-badge">3×10</span></td><td>Full retraction</td></tr>
+              <tr><td class="ex-name">Face Pulls</td><td><span class="sets-badge">3×15</span></td><td>Shoulder health</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Shoulder Mobility Deep Work — 15 min</div>
+            <ul class="flex-list">
+              <li>Banded shoulder distraction 2 min/side</li>
+              <li>Sleeper stretch 90s/side</li>
+              <li>Overhead hang 60s</li>
+              <li>Wall slides 2×15</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 4 P2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(0,230,118,0.15);">🧘</div>
+          <div>
+            <div class="day-block-title">Day 4 — Extended Recovery</div>
+            <div class="focus-tag">Zone 2 + Full Body Mobility Flow</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Activity</th><th>Duration</th><th>HR Target</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Cycling / Elliptical / Walk</td><td><span class="sets-badge">40–50 min</span></td><td>60–70% max HR</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Full Body Flow — 30 min</div>
+            <ul class="flex-list">
+              <li>Cat-cow + spinal waves 2 min</li>
+              <li>Sun salutation ×5 rounds</li>
+              <li>Low lunge with twist 90s/side</li>
+              <li>Seated forward fold 2 min</li>
+              <li>Supine spinal twist 90s/side</li>
+              <li>Foam roll full body 5 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 5 P2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💀</div>
+          <div>
+            <div class="day-block-title">Day 5 — Full Body + Hard Conditioning</div>
+            <div class="focus-tag">Heavy Compounds + 15-min Intervals</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Conventional Deadlift</td><td><span class="sets-badge">4×5</span></td><td>Max effort</td></tr>
+              <tr><td class="ex-name">Front Squat</td><td><span class="sets-badge">3×8</span></td><td>Upright torso</td></tr>
+              <tr><td class="ex-name">Incline DB Press</td><td><span class="sets-badge">3×10</span></td><td>Upper chest</td></tr>
+              <tr><td class="ex-name">TRX Row</td><td><span class="sets-badge">3×12</span></td><td>Retract shoulder blades</td></tr>
+            </tbody>
+          </table>
+          <div class="finisher-block">
+            <div class="finisher-title">💥 15-min AMRAP Circuit</div>
+            <ul class="finisher-items">
+              <li>12× Burpees</li>
+              <li>15× KB Swings</li>
+              <li>10× Box Jumps</li>
+              <li>12× Goblet Squats</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 6 P2 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,215,0,0.15);">🏃</div>
+          <div>
+            <div class="day-block-title">Day 6 — Tempo Endurance</div>
+            <div class="focus-tag">Interval Run + Full Hip & Ankle Work</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Protocol</th><th>Duration</th><th>Effort</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Warm-up jog</td><td><span class="sets-badge">10 min</span></td><td>Easy</td></tr>
+              <tr><td class="ex-name">Tempo intervals ×6</td><td><span class="sets-badge">3 min hard / 2 min easy</span></td><td>75–85% HR</td></tr>
+              <tr><td class="ex-name">Cooldown walk</td><td><span class="sets-badge">10 min</span></td><td>Easy</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Ankle & Hip Mobility — 15 min</div>
+            <ul class="flex-list">
+              <li>Calf raise + eccentric lower 3×15</li>
+              <li>Ankle 3D mobility circles 2 min/side</li>
+              <li>Hip 90/90 transitions 10 reps</li>
+              <li>Lateral hip stretch 90s/side</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     PHASE 3
+══════════════════════════════════════ -->
+<div class="program-section" id="phase3">
+  <div class="container">
+    <div class="phase-header reveal">
+      <div class="phase-tag tag-gold">PHASE 03</div>
+      <div>
+        <div class="section-label">// Weeks 9–12 — Peak Intensity</div>
+        <div class="phase-title-big">INCINERATE</div>
+      </div>
+    </div>
+
+    <div class="days-container">
+
+      <!-- DAY 1 P3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,215,0,0.2);">🏋️</div>
+          <div>
+            <div class="day-block-title">Day 1 — Power + Strength Lower</div>
+            <div class="focus-tag">Explosive Strength + Stretch Depth</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Back Squat</td><td><span class="sets-badge">5×4</span></td><td>Peak load</td></tr>
+              <tr><td class="ex-name">Jump Squats</td><td><span class="sets-badge">3×6</span></td><td>Max jump height</td></tr>
+              <tr><td class="ex-name">RDL</td><td><span class="sets-badge">3×6</span></td><td>Maximum load</td></tr>
+              <tr><td class="ex-name">Single-Leg Deadlift</td><td><span class="sets-badge">3×8/leg</span></td><td>Balance + stretch</td></tr>
+            </tbody>
+          </table>
+          <div class="finisher-block">
+            <div class="finisher-title">⚡ Explosive Sprint Protocol</div>
+            <ul class="finisher-items">
+              <li>10× 20m max sprints</li>
+              <li>90s full recovery</li>
+              <li>100% effort each rep</li>
+            </ul>
+          </div>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Flexibility — Advanced Depth</div>
+            <ul class="flex-list">
+              <li>Full straddle hold 3 min</li>
+              <li>Deep pigeon + forward fold 2 min/side</li>
+              <li>ATG squat hold 3 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 2 P3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">🔥</div>
+          <div>
+            <div class="day-block-title">Day 2 — Elite HIIT Complex</div>
+            <div class="focus-tag">Max Effort Conditioning</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Complex — 4 Rounds</th><th>Work</th><th>Rest</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Assault Bike / Rower Sprint</td><td><span class="sets-badge">30s</span></td><td>30s</td></tr>
+              <tr><td class="ex-name">Burpee Box Jumps</td><td><span class="sets-badge">30s</span></td><td>30s</td></tr>
+              <tr><td class="ex-name">DB Thrusters</td><td><span class="sets-badge">30s</span></td><td>30s</td></tr>
+              <tr><td class="ex-name">Battle Ropes / KB Swings</td><td><span class="sets-badge">30s</span></td><td>2 min</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13px;color:var(--amber);margin-top:8px;font-family:'Space Mono',monospace;">Total work: ~24 min high intensity</p>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Recovery Flexibility — 20 min</div>
+            <ul class="flex-list">
+              <li>Prone cobra 90s</li>
+              <li>Chest opener foam roll 3 min</li>
+              <li>Neck and trap release 2 min</li>
+              <li>Full forward fold hang 2 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 3 P3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,215,0,0.2);">💪</div>
+          <div>
+            <div class="day-block-title">Day 3 — Peak Upper Strength</div>
+            <div class="focus-tag">Max Loads + Med Ball Power</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Bench Press</td><td><span class="sets-badge">5×3</span></td><td>Near max</td></tr>
+              <tr><td class="ex-name">Weighted Pull-ups</td><td><span class="sets-badge">4×5</span></td><td>Add belt weight</td></tr>
+              <tr><td class="ex-name">Med Ball Chest Throw</td><td><span class="sets-badge">4×5</span></td><td>Explosive</td></tr>
+              <tr><td class="ex-name">Pendlay Row</td><td><span class="sets-badge">3×6</span></td><td>Power pull</td></tr>
+              <tr><td class="ex-name">Arnold Press</td><td><span class="sets-badge">3×10</span></td><td>Full ROM</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Full Upper Flexibility Flow — 15 min</div>
+            <ul class="flex-list">
+              <li>Doorway PNF chest stretch 3× 30s</li>
+              <li>Lat traction stretch 2 min/side</li>
+              <li>Thoracic spine rotation 10 reps/side</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 4 P3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(0,230,118,0.15);">🧘</div>
+          <div>
+            <div class="day-block-title">Day 4 — Zone 2 + Advanced Mobility</div>
+            <div class="focus-tag">Nervous System Recovery</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Activity</th><th>Duration</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Low Intensity Cardio</td><td><span class="sets-badge">50 min</span></td><td>60–65% max HR</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Advanced Flexibility Session — 35 min</div>
+            <ul class="flex-list">
+              <li>PNF hamstring stretch 3×30s/side</li>
+              <li>Hip 90/90 + forward lean 2 min/side</li>
+              <li>Weighted overhead squat stretch</li>
+              <li>Jefferson curl 3×8 (light)</li>
+              <li>Standing split stretch 2 min/side</li>
+              <li>Full lotus attempt / baddha konasana 3 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 5 P3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💀</div>
+          <div>
+            <div class="day-block-title">Day 5 — Hybrid Conditioning</div>
+            <div class="focus-tag">Peak Metabolic Session</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Deadlift</td><td><span class="sets-badge">3×3</span></td><td>Heavy triples</td></tr>
+              <tr><td class="ex-name">Trap Bar Jump</td><td><span class="sets-badge">3×5</span></td><td>Explosive</td></tr>
+            </tbody>
+          </table>
+          <div class="finisher-block">
+            <div class="finisher-title">💥 20-min MAX Effort Circuit — AMRAP</div>
+            <ul class="finisher-items">
+              <li>10× Clean & Press</li>
+              <li>12× Burpee Pull-ups</li>
+              <li>200m Row Sprint</li>
+              <li>15× KB Swings Heavy</li>
+              <li>10× Box Jump Overs</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 6 P3 -->
+      <div class="day-block reveal">
+        <div class="day-block-header">
+          <div class="day-icon" style="background:rgba(255,215,0,0.15);">🏃</div>
+          <div>
+            <div class="day-block-title">Day 6 — Peak Endurance</div>
+            <div class="focus-tag">60+ min Mixed Zone + Total Flexibility</div>
+          </div>
+        </div>
+        <div class="day-block-body">
+          <table class="exercise-table">
+            <thead><tr><th>Protocol</th><th>Duration</th><th>Zone</th></tr></thead>
+            <tbody>
+              <tr><td class="ex-name">Easy warm-up</td><td><span class="sets-badge">10 min</span></td><td>Zone 1</td></tr>
+              <tr><td class="ex-name">Steady state</td><td><span class="sets-badge">30 min</span></td><td>Zone 2</td></tr>
+              <tr><td class="ex-name">Tempo surges ×6</td><td><span class="sets-badge">2 min hard / 1 min easy</span></td><td>Zone 3–4</td></tr>
+              <tr><td class="ex-name">Cooldown</td><td><span class="sets-badge">10 min</span></td><td>Zone 1</td></tr>
+            </tbody>
+          </table>
+          <div class="flex-block">
+            <div class="flex-title">🧘 Total Body Flexibility — 20 min</div>
+            <ul class="flex-list">
+              <li>Full sun salutation flow 5 min</li>
+              <li>Yin yoga hip sequence 10 min</li>
+              <li>Spinal decompression + twist 5 min</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     NUTRITION SECTION
+══════════════════════════════════════ -->
+<section class="diet-section">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">// Nutrition Protocol — Low Carb Aggressive</p>
+      <h2 class="section-title">FUEL THE<br>DEFICIT</h2>
+      <p style="font-size:15px;color:#aaa;max-width:640px;margin-bottom:48px;line-height:1.7;">
+        Based on: <span class="highlight">110 kg | 179 cm | 26 yo male</span> — Estimated TDEE ~2,900–3,100 kcal/day. 
+        Target intake: <span class="highlight-green">1,800–1,900 kcal</span> daily (≈1,100 kcal deficit). 
+        This creates ~<span class="highlight-gold">1.5–1.7 kg/week</span> fat loss at high adherence.
+      </p>
+    </div>
+
+    <div class="macros-grid reveal">
+      <div class="macro-card protein">
+        <div class="macro-val">200</div>
+        <div class="macro-unit">g / day</div>
+        <div class="macro-label">Protein</div>
+      </div>
+      <div class="macro-card fat">
+        <div class="macro-val">80</div>
+        <div class="macro-unit">g / day</div>
+        <div class="macro-label">Fat</div>
+      </div>
+      <div class="macro-card carbs">
+        <div class="macro-val">60</div>
+        <div class="macro-unit">g / day</div>
+        <div class="macro-label">Net Carbs</div>
+      </div>
+      <div class="macro-card calories">
+        <div class="macro-val">1,860</div>
+        <div class="macro-unit">kcal / day</div>
+        <div class="macro-label">Total Calories</div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="section-label" style="margin-bottom:24px;">// Daily Meal Plan Template</p>
+    </div>
+
+    <div class="meals-grid reveal">
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">MEAL 1 — 7:00 AM</div>
+          <div class="meal-cal">~450 kcal</div>
+        </div>
+        <div class="meal-body">
+          <ul class="meal-items">
+            <li>Whole eggs <span class="gram">4 eggs</span></li>
+            <li>Egg whites <span class="gram">4 whites</span></li>
+            <li>Spinach / baby greens <span class="gram">60g</span></li>
+            <li>Avocado <span class="gram">½ medium</span></li>
+            <li>Olive oil (cooking) <span class="gram">5ml</span></li>
+            <li>Black coffee <span class="gram">no sugar</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">MEAL 2 — 12:30 PM</div>
+          <div class="meal-cal">~520 kcal</div>
+        </div>
+        <div class="meal-body">
+          <ul class="meal-items">
+            <li>Grilled chicken breast <span class="gram">200g</span></li>
+            <li>Broccoli / cauliflower <span class="gram">150g</span></li>
+            <li>Mixed salad greens <span class="gram">80g</span></li>
+            <li>Olive oil + lemon dressing <span class="gram">15ml</span></li>
+            <li>Feta cheese <span class="gram">30g</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">PRE-WORKOUT — 3:30 PM</div>
+          <div class="meal-cal">~200 kcal</div>
+        </div>
+        <div class="meal-body">
+          <ul class="meal-items">
+            <li>Whey protein shake <span class="gram">30g protein</span></li>
+            <li>Greek yogurt (full fat) <span class="gram">100g</span></li>
+            <li>Black coffee / pre-workout <span class="gram">optional</span></li>
+          </ul>
+          <p style="font-size:11px;color:var(--amber);margin-top:10px;font-family:'Space Mono',monospace;">30–45 min before training</p>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">POST-WORKOUT — 6:30 PM</div>
+          <div class="meal-cal">~480 kcal</div>
+        </div>
+        <div class="meal-body">
+          <ul class="meal-items">
+            <li>Salmon / tuna / lean beef <span class="gram">180g</span></li>
+            <li>Zucchini / green beans <span class="gram">150g</span></li>
+            <li>Sweet potato (training day) <span class="gram">80g</span></li>
+            <li>Olive oil <span class="gram">10ml</span></li>
+          </ul>
+          <p style="font-size:11px;color:var(--green);margin-top:10px;font-family:'Space Mono',monospace;">Carb slightly higher post-workout only</p>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-header">
+          <div class="meal-name">MEAL 5 — 9:00 PM</div>
+          <div class="meal-cal">~210 kcal</div>
+        </div>
+        <div class="meal-body">
+          <ul class="meal-items">
+            <li>Cottage cheese / casein <span class="gram">150g</span></li>
+            <li>Almonds / walnuts <span class="gram">20g</span></li>
+            <li>Cucumber slices <span class="gram">80g</span></li>
+          </ul>
+          <p style="font-size:11px;color:var(--muted);margin-top:10px;font-family:'Space Mono',monospace;">Slow protein for overnight recovery</p>
+        </div>
+      </div>
+
+      <div class="meal-card" style="border-color:rgba(0,230,118,0.3);">
+        <div class="meal-header" style="border-color:rgba(0,230,118,0.2);">
+          <div class="meal-name" style="color:var(--green)">HYDRATION</div>
+          <div class="meal-cal">Daily</div>
+        </div>
+        <div class="meal-body">
+          <ul class="meal-items">
+            <li>Water <span class="gram">4–5 litres/day</span></li>
+            <li>Electrolytes (sodium/potassium) <span class="gram">supplement</span></li>
+            <li>Green tea <span class="gram">2–3 cups</span></li>
+            <li>Zero-calorie drinks <span class="gram">allowed</span></li>
+            <li>Alcohol <span class="gram">❌ avoid</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Foods -->
+    <div class="foods-section reveal">
+      <p class="section-label" style="margin-bottom:24px;">// Food Selection Guide</p>
+      <div class="foods-grid">
+        <div class="food-group protein-foods">
+          <div class="food-group-title">✅ Proteins</div>
+          <ul class="food-list">
+            <li>Chicken breast</li>
+            <li>Turkey</li>
+            <li>Salmon</li>
+            <li>Tuna</li>
+            <li>Eggs</li>
+            <li>Egg whites</li>
+            <li>Lean beef</li>
+            <li>Whey protein</li>
+            <li>Casein</li>
+            <li>Cottage cheese</li>
+            <li>Greek yogurt</li>
+            <li>Shrimp</li>
+          </ul>
+        </div>
+        <div class="food-group fat-foods">
+          <div class="food-group-title">✅ Healthy Fats</div>
+          <ul class="food-list">
+            <li>Avocado</li>
+            <li>Olive oil</li>
+            <li>Almonds</li>
+            <li>Walnuts</li>
+            <li>Brazil nuts</li>
+            <li>Full-fat yogurt</li>
+            <li>Feta / hard cheese</li>
+            <li>Fatty fish</li>
+            <li>Flaxseed</li>
+          </ul>
+        </div>
+        <div class="food-group veg-foods">
+          <div class="food-group-title">✅ Low Carb Veg &amp; Fruit</div>
+          <ul class="food-list">
+            <li>Spinach</li>
+            <li>Broccoli</li>
+            <li>Cauliflower</li>
+            <li>Zucchini</li>
+            <li>Cucumber</li>
+            <li>Green beans</li>
+            <li>Bell peppers</li>
+            <li>Mushrooms</li>
+            <li>Kale</li>
+            <li>Berries (small)</li>
+          </ul>
+        </div>
+        <div class="food-group avoid-foods">
+          <div class="food-group-title">❌ Avoid Completely</div>
+          <ul class="food-list">
+            <li>White rice</li>
+            <li>Bread / pasta</li>
+            <li>Soft drinks</li>
+            <li>Juice</li>
+            <li>Sweets / candy</li>
+            <li>Fast food</li>
+            <li>Fried food</li>
+            <li>Chips / crackers</li>
+            <li>Alcohol</li>
+            <li>High-sugar fruit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     WEEKLY WEIGHT TARGETS
+══════════════════════════════════════ -->
+<section class="progress-section">
+  <div class="container reveal">
+    <p class="section-label">// Progress Tracking</p>
+    <h2 class="section-title">WEEKLY<br>TARGETS</h2>
+
+    <div style="overflow-x:auto;">
+      <table class="progress-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Phase</th>
+            <th>Target Weight</th>
+            <th>Weekly Loss</th>
+            <th>Calorie Deficit</th>
+            <th>Key Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>IGNITE</td><td class="target-weight">108.4 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Movement quality + diet adherence</td></tr>
+          <tr><td>2</td><td>IGNITE</td><td class="target-weight">106.8 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Increase flexibility session duration</td></tr>
+          <tr><td>3</td><td>IGNITE</td><td class="target-weight">105.2 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Build aerobic base intensity</td></tr>
+          <tr><td>4 (Deload)</td><td>IGNITE</td><td class="target-weight">104.0 kg</td><td class="deficit-val">−1.2 kg</td><td>Reduce training 30%</td><td>Deload week — same diet</td></tr>
+          <tr><td>5</td><td>ACCELERATE</td><td class="target-weight">102.4 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Introduce HIIT progressions</td></tr>
+          <tr><td>6</td><td>ACCELERATE</td><td class="target-weight">100.8 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Deepen flexibility work PNF</td></tr>
+          <tr><td>7</td><td>ACCELERATE</td><td class="target-weight">99.2 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Increase sprint distance</td></tr>
+          <tr><td>8 (Deload)</td><td>ACCELERATE</td><td class="target-weight">98.2 kg</td><td class="deficit-val">−1.0 kg</td><td>Reduce intensity 20%</td><td>Deload — assess progress</td></tr>
+          <tr><td>9</td><td>INCINERATE</td><td class="target-weight">96.6 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Peak conditioning circuits</td></tr>
+          <tr><td>10</td><td>INCINERATE</td><td class="target-weight">95.0 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Max effort HIIT complexes</td></tr>
+          <tr><td>11</td><td>INCINERATE</td><td class="target-weight">93.4 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Push endurance + flexibility peak</td></tr>
+          <tr><td>12</td><td>INCINERATE</td><td class="target-weight" style="color:var(--green);">91.0 kg ✓</td><td class="deficit-val">−2.4 kg</td><td>Final push</td><td>TARGET ACHIEVED</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     COACHING RULES
+══════════════════════════════════════ -->
+<section style="padding-top:0;padding-bottom:80px">
+  <div class="container reveal">
+    <p class="section-label">// Coaching Intelligence</p>
+    <h2 class="section-title">NON-NEGOTIABLE<br>RULES</h2>
+
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-num">01</div>
+        <div class="rule-title">Protein First, Always</div>
+        <p class="rule-text">Hit 200g protein every single day without exception. This is what prevents muscle loss during aggressive deficit. No excuses.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">02</div>
+        <div class="rule-title">Flexibility is Mandatory</div>
+        <p class="rule-text">Every session ends with flexibility work. No skipping. Tight muscles = reduced performance = injury = missed training days = failed program.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">03</div>
+        <div class="rule-title">Carbs are a Tool</div>
+        <p class="rule-text">Keep net carbs under 60g on rest days. On training days, add 40–60g carbs around the workout window only. Carb timing matters.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">04</div>
+        <div class="rule-title">Sleep 8 Hours</div>
+        <p class="rule-text">Sleep is where fat loss hormones reset. Ghrelin spikes when sleep-deprived. 8h minimum or the program fails despite perfect training.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">05</div>
+        <div class="rule-title">Track Everything</div>
+        <p class="rule-text">Weigh daily, track weekly average. Log food for at least the first 4 weeks until macro targets are memorized. What gets measured gets managed.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">06</div>
+        <div class="rule-title">Deloads are Sacred</div>
+        <p class="rule-text">Weeks 4 and 8 are deload weeks. Reduce training volume 30%. Maintain diet strictly. This is where body recomposition consolidates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-logo">BURN PROTOCOL</div>
+  <p class="footer-text">
+    12-Week Aggressive Fat Loss System — Intermediate Athlete<br>
+    110 kg → 91 kg | 179 cm | 26 yr | Low Carb + Daily Flexibility<br><br>
+    ⚠️ Consult a physician before starting any aggressive diet or training program.
+  </p>
+</div>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
