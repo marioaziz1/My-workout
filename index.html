@@ -1,1898 +1,1565 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BURN PROTOCOL — 12-Week Fat Loss System</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>PEAK — نظام التحول الأداء ٨ أسابيع</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root {
-    --fire: #FF3A1A;
-    --amber: #FF8C00;
-    --gold: #FFD700;
-    --black: #0A0A0A;
-    --dark: #111111;
-    --card: #181818;
-    --border: #2a2a2a;
-    --text: #E8E8E8;
-    --muted: #888;
-    --green: #00E676;
+    --bg: #080a0d;
+    --surface: #0d1117;
+    --panel: #111820;
+    --border: #1e2d3d;
+    --border-glow: #2a4a6b;
+    --amber: #f59e0b;
+    --amber-dim: #92600a;
+    --amber-glow: rgba(245,158,11,0.15);
+    --cyan: #06b6d4;
+    --cyan-dim: #0e4f5c;
+    --red: #ef4444;
+    --green: #22c55e;
+    --green-dim: #14532d;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #334155;
+    --mono: 'Share Tech Mono', monospace;
+    --arabic: 'Noto Kufi Arabic', sans-serif;
+    --display: 'Bebas Neue', sans-serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--black);
+    background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--arabic);
+    min-height: 100vh;
     overflow-x: hidden;
   }
 
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    padding: 60px 20px;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,58,26,0.18) 0%, transparent 70%),
-      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,58,26,0.04) 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,58,26,0.04) 40px),
-      var(--black);
-  }
-
-  .hero::after {
+  /* Grid noise texture overlay */
+  body::before {
     content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 200px;
-    background: linear-gradient(transparent, var(--black));
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,158,11,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,158,11,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
   }
 
-  .badge {
-    display: inline-block;
-    background: var(--fire);
-    color: white;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 6px 18px;
+  /* ── HEADER ────────────────────────────────────────── */
+  .header {
+    position: relative;
+    z-index: 10;
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(13,17,23,0.98) 0%, transparent 100%);
+    text-align: center;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--amber-glow);
+    border: 1px solid var(--amber-dim);
     border-radius: 2px;
-    margin-bottom: 28px;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,58,26,0.4); }
-    50% { box-shadow: 0 0 0 12px rgba(255,58,26,0); }
-  }
-
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(72px, 15vw, 160px);
-    line-height: 0.9;
-    letter-spacing: 4px;
-    background: linear-gradient(135deg, #fff 0%, #FF8C00 50%, #FF3A1A 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 12px;
-  }
-
-  .hero-sub {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(28px, 5vw, 52px);
-    letter-spacing: 6px;
-    color: var(--muted);
-    margin-bottom: 40px;
-  }
-
-  .stats-row {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 50px;
-  }
-
-  .stat-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-top: 2px solid var(--fire);
-    padding: 20px 28px;
-    text-align: center;
-    min-width: 120px;
-  }
-
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    color: var(--fire);
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 4px;
-    font-family: 'Space Mono', monospace;
-  }
-
-  .warning-box {
-    background: rgba(255,58,26,0.08);
-    border: 1px solid rgba(255,58,26,0.3);
-    border-left: 4px solid var(--fire);
-    padding: 16px 24px;
-    max-width: 600px;
-    font-size: 13px;
-    color: #ccc;
-    line-height: 1.6;
-    font-family: 'Space Mono', monospace;
-  }
-
-  /* ─── LAYOUT ─── */
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  section {
-    padding: 80px 0;
-  }
-
-  .section-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--fire);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 6vw, 72px);
+    padding: 4px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
     letter-spacing: 3px;
-    line-height: 1;
-    margin-bottom: 40px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
   }
 
-  /* ─── PHASE OVERVIEW ─── */
-  .phases-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .phase-card {
-    background: var(--card);
-    padding: 32px 28px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .phase-card::before {
+  .header-badge::before {
     content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
+    width: 6px; height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
   }
 
-  .phase-card:nth-child(1)::before { background: #FF3A1A; }
-  .phase-card:nth-child(2)::before { background: #FF8C00; }
-  .phase-card:nth-child(3)::before { background: #FFD700; }
-
-  .phase-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 80px;
+  .header-title {
+    font-family: var(--display);
+    font-size: clamp(42px, 10vw, 80px);
+    letter-spacing: 6px;
+    color: #fff;
     line-height: 1;
-    opacity: 0.06;
-    position: absolute;
-    top: 10px; right: 16px;
-    color: white;
+    text-shadow: 0 0 40px rgba(245,158,11,0.3);
   }
 
-  .phase-weeks {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--muted);
-    margin-bottom: 8px;
+  .header-title span {
+    color: var(--amber);
   }
 
-  .phase-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-  }
-
-  .phase-card:nth-child(1) .phase-name { color: #FF3A1A; }
-  .phase-card:nth-child(2) .phase-name { color: #FF8C00; }
-  .phase-card:nth-child(3) .phase-name { color: #FFD700; }
-
-  .phase-desc {
-    font-size: 14px;
-    color: #aaa;
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-
-  .phase-goal {
+  .header-sub {
+    font-family: var(--arabic);
     font-size: 13px;
-    color: var(--green);
-    font-family: 'Space Mono', monospace;
-  }
-
-  /* ─── WEEKLY TEMPLATE ─── */
-  .week-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 2px;
-    background: var(--border);
-  }
-
-  @media (max-width: 700px) {
-    .week-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  .day-card {
-    background: var(--card);
-    padding: 20px 16px;
-    position: relative;
-  }
-
-  .day-card.rest {
-    background: #0f0f0f;
-    opacity: 0.6;
-  }
-
-  .day-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    line-height: 1;
-    color: var(--border);
-    margin-bottom: 4px;
-  }
-
-  .day-title {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 8px;
     letter-spacing: 1px;
-    color: var(--fire);
-    margin-bottom: 8px;
   }
 
-  .day-card.rest .day-title { color: var(--muted); }
-
-  .day-focus {
-    font-size: 13px;
-    color: #aaa;
-    line-height: 1.5;
-  }
-
-  /* ─── PROGRAM PHASES ─── */
-  .program-section {
-    border-top: 1px solid var(--border);
-    padding: 80px 0;
-  }
-
-  .phase-header {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 48px;
-    padding-bottom: 24px;
+  /* ── STATS ROW ─────────────────────────────────────── */
+  .stats-row {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
     border-bottom: 1px solid var(--border);
   }
 
-  .phase-tag {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    padding: 8px 20px;
-    border-radius: 2px;
+  .stat-cell {
+    background: var(--surface);
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+    transition: background 0.2s;
   }
 
-  .tag-red { background: var(--fire); color: white; }
-  .tag-amber { background: var(--amber); color: black; }
-  .tag-gold { background: var(--gold); color: black; }
+  .stat-cell:hover { background: var(--panel); }
 
-  .phase-title-big {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(32px, 5vw, 56px);
-    letter-spacing: 4px;
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
   }
 
-  /* ─── DAY BLOCKS ─── */
-  .days-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 16px;
+  .stat-value {
+    font-family: var(--display);
+    font-size: 28px;
+    color: var(--amber);
+    line-height: 1;
   }
 
-  .day-block {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
+  .stat-unit {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
   }
 
-  .day-block-header {
-    background: #1f1f1f;
-    padding: 14px 20px;
+  /* ── MAIN LAYOUT ───────────────────────────────────── */
+  .main {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  /* ── SECTION TITLE ─────────────────────────────────── */
+  .section-title {
     display: flex;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+    margin-top: 32px;
   }
 
-  .day-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+  .section-title h2 {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #fff;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-glow), transparent);
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    background: var(--amber-glow);
+    border: 1px solid var(--amber-dim);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* ── WEEK NAVIGATOR ────────────────────────────────── */
+  .week-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .week-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 12px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: var(--arabic);
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.2s;
+    position: relative;
+    text-align: center;
+  }
+
+  .week-btn .week-num {
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--text-dim);
+    display: block;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .week-btn .week-label {
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 3px;
+    display: block;
+  }
+
+  .week-btn:hover {
+    border-color: var(--border-glow);
+    background: var(--panel);
+  }
+
+  .week-btn.active {
+    border-color: var(--amber);
+    background: var(--amber-glow);
+  }
+
+  .week-btn.active .week-num { color: var(--amber); }
+  .week-btn.active .week-label { color: var(--amber); }
+
+  .week-btn.completed::after {
+    content: '✓';
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-size: 9px;
+    color: var(--green);
+    font-family: var(--mono);
+  }
+
+  /* ── WEEK DETAIL PANEL ─────────────────────────────── */
+  .week-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .week-header {
+    background: linear-gradient(135deg, var(--panel) 0%, rgba(245,158,11,0.05) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .day-block-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    letter-spacing: 2px;
-  }
-
-  .focus-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .day-block-body {
-    padding: 20px;
-  }
-
-  /* ─── EXERCISE TABLES ─── */
-  .exercise-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-
-  .exercise-table thead tr {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .exercise-table th {
-    text-align: left;
-    padding: 6px 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .exercise-table td {
-    padding: 8px 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    color: #ccc;
-    vertical-align: top;
-  }
-
-  .exercise-table tr:last-child td { border-bottom: none; }
-
-  .ex-name { color: var(--text); font-weight: 500; }
-
-  .sets-badge {
-    display: inline-block;
-    background: rgba(255,58,26,0.15);
-    color: var(--fire);
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-
-  .note-pill {
-    display: inline-block;
-    background: rgba(0,230,118,0.1);
-    color: var(--green);
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-
-  /* ─── FLEXIBILITY BLOCK ─── */
-  .flex-block {
-    background: rgba(255,215,0,0.06);
-    border: 1px solid rgba(255,215,0,0.2);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin-top: 12px;
-  }
-
-  .flex-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .flex-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .flex-list li {
-    font-size: 12px;
-    color: #bbb;
-    background: rgba(255,255,255,0.04);
-    padding: 4px 10px;
-    border-radius: 2px;
-  }
-
-  /* ─── FINISHER ─── */
-  .finisher-block {
-    background: rgba(255,58,26,0.07);
-    border: 1px solid rgba(255,58,26,0.2);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin-top: 12px;
-  }
-
-  .finisher-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--fire);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .finisher-items {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .finisher-items li {
-    font-size: 12px;
-    color: #ccc;
-    background: rgba(255,58,26,0.1);
-    padding: 4px 10px;
-    border-radius: 2px;
-  }
-
-  /* ─── DIET SECTION ─── */
-  .diet-section {
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(0,230,118,0.07) 0%, transparent 70%),
-      var(--dark);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .macros-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
-    margin-bottom: 48px;
   }
 
-  .macro-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 24px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .macro-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-  }
-
-  .macro-card.protein::after { background: var(--fire); }
-  .macro-card.fat::after { background: var(--amber); }
-  .macro-card.carbs::after { background: var(--gold); }
-  .macro-card.calories::after { background: var(--green); }
-
-  .macro-val {
-    font-family: 'Bebas Neue', sans-serif;
+  .week-number-display {
+    font-family: var(--display);
     font-size: 52px;
+    color: var(--amber);
     line-height: 1;
+    opacity: 0.9;
+    text-shadow: 0 0 20px var(--amber);
+  }
+
+  .week-info h3 {
+    font-family: var(--arabic);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
     margin-bottom: 4px;
   }
 
-  .macro-card.protein .macro-val { color: var(--fire); }
-  .macro-card.fat .macro-val { color: var(--amber); }
-  .macro-card.carbs .macro-val { color: var(--gold); }
-  .macro-card.calories .macro-val { color: var(--green); }
-
-  .macro-unit {
-    font-size: 14px;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
+  .week-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
   }
 
-  .macro-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
+  .week-phase-tag {
+    margin-right: auto;
+    font-family: var(--mono);
+    font-size: 9px;
     letter-spacing: 2px;
-    color: var(--muted);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .phase-build { background: rgba(6,182,212,0.1); border: 1px solid var(--cyan-dim); color: var(--cyan); }
+  .phase-intensity { background: rgba(245,158,11,0.1); border: 1px solid var(--amber-dim); color: var(--amber); }
+  .phase-peak { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+  .phase-deload { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+
+  /* ── DAYS GRID ─────────────────────────────────────── */
+  .days-grid {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .day-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .day-card:hover { border-color: var(--border-glow); }
+
+  .day-card.day-rest {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .day-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .day-number {
+    font-family: var(--display);
+    font-size: 28px;
+    color: var(--text-dim);
+    line-height: 1;
+    min-width: 32px;
+  }
+
+  .day-label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .day-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .day-chevron {
+    margin-right: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+  }
+
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+  .day-card.open { border-color: var(--amber-dim); }
+
+  .session-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-right: auto;
+  }
+
+  .stag {
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 2px 7px;
+    border-radius: 1px;
+    letter-spacing: 1px;
+  }
+
+  .stag-morning { background: rgba(245,158,11,0.12); border: 1px solid var(--amber-dim); color: var(--amber); }
+  .stag-evening { background: rgba(6,182,212,0.12); border: 1px solid var(--cyan-dim); color: var(--cyan); }
+  .stag-flex { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+
+  .day-detail {
+    display: none;
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .day-card.open .day-detail { display: block; }
+
+  .session-block {
+    margin-top: 14px;
+  }
+
+  .session-block-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    margin-top: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .meals-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+  .sbt-morning { color: var(--amber); }
+  .sbt-evening { color: var(--cyan); }
+  .sbt-flex { color: var(--green); }
+
+  .exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  .meal-card {
-    background: var(--card);
+  .exercise-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--surface);
+    border-radius: 2px;
+    border-right: 2px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .exercise-item:hover {
+    border-right-color: var(--amber-dim);
+    background: rgba(245,158,11,0.03);
+  }
+
+  .exercise-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .exercise-sets {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+
+  .exercise-check {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    font-size: 10px;
+    color: transparent;
+  }
+
+  .exercise-check.checked {
+    background: var(--green-dim);
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* ── WARM-UP SECTION ───────────────────────────────── */
+  .warmup-card {
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
     overflow: hidden;
   }
 
-  .meal-header {
-    background: #1a1a1a;
-    padding: 12px 18px;
+  .warmup-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+  }
+
+  .warmup-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .warmup-header .tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--cyan);
+    background: rgba(6,182,212,0.1);
+    border: 1px solid var(--cyan-dim);
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    margin-right: auto;
+  }
+
+  .warmup-body {
+    padding: 16px 20px;
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .warmup-body.open { display: grid; }
+
+  .warmup-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border);
   }
 
-  .meal-name {
-    font-family: 'Bebas Neue', sans-serif;
+  .warmup-item span:first-child {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .warmup-item span:last-child {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--cyan);
+  }
+
+  /* ── MOBILITY TABLE ────────────────────────────────── */
+  .mobility-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .mobility-header {
+    padding: 16px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mobility-header h3 {
+    font-family: var(--display);
     font-size: 18px;
     letter-spacing: 2px;
+    color: #fff;
   }
 
-  .meal-cal {
-    font-family: 'Space Mono', monospace;
+  .mobility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .mobility-item {
+    background: var(--surface);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobility-item span:first-child {
     font-size: 12px;
+    font-weight: 500;
+  }
+
+  .mobility-item span:last-child {
+    font-family: var(--mono);
+    font-size: 10px;
     color: var(--green);
   }
 
-  .meal-body {
-    padding: 16px 18px;
-  }
-
-  .meal-items {
-    list-style: none;
-  }
-
-  .meal-items li {
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 13px;
-    color: #bbb;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .meal-items li:last-child { border-bottom: none; }
-
-  .meal-items .gram {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  /* ─── FOODS GRID ─── */
-  .foods-section { margin-top: 48px; }
-
-  .foods-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-
-  .food-group {
-    background: var(--card);
-    border: 1px solid var(--border);
+  /* ── ANKLE PROTOCOL ────────────────────────────────── */
+  .ankle-card {
+    background: var(--surface);
+    border: 1px solid rgba(239,68,68,0.25);
     border-radius: 4px;
-    padding: 20px;
+    overflow: hidden;
   }
 
-  .food-group-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .food-group.protein-foods .food-group-title { color: var(--fire); }
-  .food-group.fat-foods .food-group-title { color: var(--amber); }
-  .food-group.veg-foods .food-group-title { color: var(--green); }
-  .food-group.avoid-foods .food-group-title { color: #ff4444; }
-
-  .food-list {
-    list-style: none;
+  .ankle-header {
+    padding: 16px 20px;
+    background: rgba(239,68,68,0.05);
+    border-bottom: 1px solid rgba(239,68,68,0.2);
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+    align-items: center;
+    gap: 12px;
   }
 
-  .food-list li {
-    font-size: 12px;
-    padding: 4px 10px;
+  .ankle-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--red);
+  }
+
+  .ankle-icon {
+    font-size: 20px;
+  }
+
+  .ankle-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ankle-rule {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
     border-radius: 2px;
-    color: #ccc;
+    background: var(--panel);
+    border: 1px solid var(--border);
   }
 
-  .food-group.protein-foods .food-list li { background: rgba(255,58,26,0.1); }
-  .food-group.fat-foods .food-list li { background: rgba(255,140,0,0.1); }
-  .food-group.veg-foods .food-list li { background: rgba(0,230,118,0.08); }
-  .food-group.avoid-foods .food-list li { background: rgba(255,68,68,0.1); color: #ff8888; text-decoration: line-through; }
-
-  /* ─── RULES ─── */
-  .rules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 16px;
+  .pain-level {
+    font-family: var(--display);
+    font-size: 22px;
+    min-width: 50px;
   }
 
-  .rule-card {
-    background: var(--card);
+  .pain-level.safe { color: var(--green); }
+  .pain-level.caution { color: var(--amber); }
+  .pain-level.stop { color: var(--red); }
+
+  .ankle-action {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── METRICS TABLE ─────────────────────────────────── */
+  .metrics-card {
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 24px;
+    overflow: hidden;
+  }
+
+  .metrics-header {
+    padding: 16px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .metrics-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .metric-cell {
+    background: var(--surface);
+    padding: 14px 16px;
     position: relative;
   }
 
-  .rule-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    color: rgba(255,58,26,0.12);
+  .metric-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .metric-goal {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .metric-arrow {
     position: absolute;
-    top: 12px; right: 16px;
+    top: 14px;
+    left: 16px;
+    font-size: 14px;
+    color: var(--amber);
   }
 
-  .rule-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: var(--fire);
-    margin-bottom: 10px;
+  /* ── GOLDEN RULE ───────────────────────────────────── */
+  .golden-rule {
+    background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
+    border: 1px solid var(--amber-dim);
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
 
-  .rule-text {
-    font-size: 13px;
-    color: #aaa;
+  .golden-rule::before {
+    content: 'GOLDEN RULE';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--amber-dim);
+    letter-spacing: 3px;
+  }
+
+  .golden-rule p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--amber);
     line-height: 1.7;
   }
 
-  /* ─── PROGRESS ─── */
-  .progress-section {
-    border-top: 1px solid var(--border);
-    padding: 80px 0;
+  /* ── PROGRESS TRACKER ──────────────────────────────── */
+  .progress-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 16px;
+    gap: 8px;
   }
 
-  .progress-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
+  .progress-week {
+    flex: 1;
+    height: 6px;
+    background: var(--panel);
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.1s;
   }
 
-  .progress-table th {
-    text-align: left;
-    padding: 12px 16px;
-    background: #1a1a1a;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
+  .progress-week:hover { transform: scaleY(2); }
+
+  .progress-week.done { background: var(--amber); }
+  .progress-week.current { background: linear-gradient(90deg, var(--amber), transparent); animation: shimmer 2s ease-in-out infinite; }
+
+  /* ── RESULTS SECTION ───────────────────────────────── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
-  .progress-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    color: #bbb;
+  .result-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .progress-table tr:hover td { background: rgba(255,255,255,0.02); }
-
-  .target-weight {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    color: var(--gold);
+  .result-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
   }
 
-  .deficit-val {
-    color: var(--fire);
-    font-family: 'Space Mono', monospace;
+  .result-text {
     font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
   }
 
-  /* ─── FOOTER ─── */
-  .footer {
-    padding: 60px 0 40px;
+  /* ── TIMER WIDGET ──────────────────────────────────── */
+  .timer-widget {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
     text-align: center;
-    border-top: 1px solid var(--border);
   }
 
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    letter-spacing: 8px;
-    background: linear-gradient(135deg, var(--fire), var(--amber));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 16px;
+  .timer-display {
+    font-family: var(--display);
+    font-size: 56px;
+    color: var(--amber);
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(245,158,11,0.4);
+    margin: 12px 0;
+    line-height: 1;
   }
 
-  .footer-text {
-    font-family: 'Space Mono', monospace;
+  .timer-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+  }
+
+  .timer-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .timer-btn {
+    font-family: var(--arabic);
     font-size: 12px;
-    color: var(--muted);
-    line-height: 1.8;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 2px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.15s;
   }
 
-  /* ─── UTILS ─── */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 0;
+  .btn-start {
+    background: var(--amber-glow);
+    border-color: var(--amber);
+    color: var(--amber);
   }
 
-  .highlight { color: var(--fire); font-weight: 700; }
-  .highlight-green { color: var(--green); font-weight: 700; }
-  .highlight-gold { color: var(--gold); font-weight: 700; }
-
-  /* ─── SCROLL REVEAL ─── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+  .btn-start:hover {
+    background: var(--amber);
+    color: #000;
   }
 
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
+  .btn-pause {
+    background: rgba(6,182,212,0.1);
+    border-color: var(--cyan-dim);
+    color: var(--cyan);
   }
 
+  .btn-reset {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text-muted);
+  }
+
+  .btn-reset:hover { border-color: var(--red); color: var(--red); }
+
+  .preset-btns {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .preset-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-muted);
+    background: var(--panel);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .preset-btn:hover {
+    border-color: var(--amber-dim);
+    color: var(--amber);
+  }
+
+  /* ── ANIMATIONS ────────────────────────────────────── */
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* ── MOBILE ────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .week-nav { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .week-btn .week-num { font-size: 18px; }
+    .week-btn .week-label { display: none; }
+    .week-btn { padding: 10px 4px; }
+    .warmup-body { grid-template-columns: 1fr; }
+    .mobility-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .session-tags { display: none; }
+    .week-phase-tag { display: none; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     HERO
-══════════════════════════════════════ -->
-<section class="hero">
-  <div class="badge">🔥 Aggressive Fat Loss Protocol — Intermediate</div>
-  <h1>BURN<br>PROTOCOL</h1>
-  <p class="hero-sub">12-Week Shred + Flexibility System</p>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-badge">PERFORMANCE SYSTEM · ACTIVE</div>
+  <div class="header-title">PEAK <span>8</span></div>
+  <div class="header-sub">نظام التحول الأداء الشخصي · ٨ أسابيع · ٥ أيام تدريب · جلستان يومياً</div>
+</header>
 
-  <div class="stats-row">
-    <div class="stat-box">
-      <div class="stat-num">110</div>
-      <div class="stat-label">Start kg</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">91</div>
-      <div class="stat-label">Target kg</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">−19</div>
-      <div class="stat-label">kg Lost</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">179</div>
-      <div class="stat-label">cm Height</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">26</div>
-      <div class="stat-label">Age</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-num">12</div>
-      <div class="stat-label">Weeks</div>
-    </div>
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-cell">
+    <div class="stat-label">الأسابيع</div>
+    <div class="stat-value">8</div>
+    <div class="stat-unit">WEEKS</div>
   </div>
-
-  <div class="warning-box">
-    ⚠️ COACH NOTE — Losing 19 kg in 12 weeks = ~1.6 kg/week. This requires an aggressive 1,000–1,200 kcal daily deficit with perfect adherence to training + nutrition. This is at the upper limit of safe rapid fat loss. Medical clearance is strongly advised.
+  <div class="stat-cell">
+    <div class="stat-label">الجلسات</div>
+    <div class="stat-value">80</div>
+    <div class="stat-unit">SESSIONS</div>
   </div>
-</section>
-
-
-<!-- ══════════════════════════════════════
-     PHASE OVERVIEW
-══════════════════════════════════════ -->
-<section>
-  <div class="container reveal">
-    <p class="section-label">// Program Architecture</p>
-    <h2 class="section-title">THREE PHASES.<br>ONE MISSION.</h2>
-
-    <div class="phases-grid">
-      <div class="phase-card">
-        <div class="phase-num">01</div>
-        <div class="phase-weeks">Weeks 1–4</div>
-        <div class="phase-name">IGNITE</div>
-        <p class="phase-desc">Metabolic reset + movement re-education. Build aerobic base, introduce flexibility as daily practice. Establish the fat-burning environment.</p>
-        <div class="phase-goal">🎯 Target: −6 kg</div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">02</div>
-        <div class="phase-weeks">Weeks 5–8</div>
-        <div class="phase-name">ACCELERATE</div>
-        <p class="phase-desc">Increase intensity, introduce HIIT protocols, deepen flexibility work. Metabolism is now primed. Push harder without overreaching.</p>
-        <div class="phase-goal">🎯 Target: −7 kg</div>
-      </div>
-      <div class="phase-card">
-        <div class="phase-num">03</div>
-        <div class="phase-weeks">Weeks 9–12</div>
-        <div class="phase-name">INCINERATE</div>
-        <p class="phase-desc">Peak intensity conditioning, maximum EPOC, full-body metabolic circuits. Flexibility maintained for recovery. Final push to 91 kg.</p>
-        <div class="phase-goal">🎯 Target: −6 kg</div>
-      </div>
-    </div>
+  <div class="stat-cell">
+    <div class="stat-label">دقيقة / جلسة</div>
+    <div class="stat-value">30</div>
+    <div class="stat-unit">MIN EACH</div>
   </div>
-</section>
-
-
-<!-- ══════════════════════════════════════
-     WEEKLY STRUCTURE
-══════════════════════════════════════ -->
-<section style="padding-top:0">
-  <div class="container reveal">
-    <p class="section-label">// Base Weekly Template</p>
-    <h2 class="section-title">YOUR WEEK</h2>
-
-    <div class="week-grid">
-      <div class="day-card">
-        <div class="day-num">01</div>
-        <div class="day-title">🏋️ Strength</div>
-        <div class="day-focus">Lower Body + Mobility Flow</div>
-      </div>
-      <div class="day-card">
-        <div class="day-num">02</div>
-        <div class="day-title">🔥 HIIT</div>
-        <div class="day-focus">Metabolic Conditioning + Stretch</div>
-      </div>
-      <div class="day-card">
-        <div class="day-num">03</div>
-        <div class="day-title">💪 Strength</div>
-        <div class="day-focus">Upper Body + Flexibility Focus</div>
-      </div>
-      <div class="day-card">
-        <div class="day-num">04</div>
-        <div class="day-title">🧘 Active</div>
-        <div class="day-focus">Zone 2 Cardio + Deep Stretch</div>
-      </div>
-      <div class="day-card">
-        <div class="day-num">05</div>
-        <div class="day-title">💀 Full</div>
-        <div class="day-focus">Full Body + Circuit Finisher</div>
-      </div>
-      <div class="day-card">
-        <div class="day-num">06</div>
-        <div class="day-title">🏃 Cardio</div>
-        <div class="day-focus">Steady State + Hip Mobility</div>
-      </div>
-      <div class="day-card rest">
-        <div class="day-num">07</div>
-        <div class="day-title">😴 Rest</div>
-        <div class="day-focus">Passive recovery + foam roll</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════════
-     PHASE 1
-══════════════════════════════════════ -->
-<div class="program-section" id="phase1">
-  <div class="container">
-    <div class="phase-header reveal">
-      <div class="phase-tag tag-red">PHASE 01</div>
-      <div>
-        <div class="section-label">// Weeks 1–4 — Foundation</div>
-        <div class="phase-title-big">IGNITE</div>
-      </div>
-    </div>
-
-    <div class="days-container">
-
-      <!-- DAY 1 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">🏋️</div>
-          <div>
-            <div class="day-block-title">Day 1 — Lower Body Strength</div>
-            <div class="focus-tag">Strength + Hamstring/Hip Flexibility</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Goblet Squat</td><td><span class="sets-badge">3×12</span></td><td>Deep range</td></tr>
-              <tr><td class="ex-name">Romanian Deadlift</td><td><span class="sets-badge">3×10</span></td><td>Feel hamstrings</td></tr>
-              <tr><td class="ex-name">Walking Lunges</td><td><span class="sets-badge">3×12/leg</span></td><td>Long stride</td></tr>
-              <tr><td class="ex-name">Glute Bridge</td><td><span class="sets-badge">3×15</span></td><td>Hold top 2s</td></tr>
-              <tr><td class="ex-name">Step-Ups</td><td><span class="sets-badge">3×10/leg</span></td><td>Controlled</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Flexibility Focus — 15 min</div>
-            <ul class="flex-list">
-              <li>Hip flexor stretch 60s/side</li>
-              <li>Seated hamstring stretch 60s</li>
-              <li>Pigeon pose 60s/side</li>
-              <li>Lying quad stretch 45s/side</li>
-              <li>90/90 hip stretch 60s/side</li>
-            </ul>
-          </div>
-          <div class="finisher-block">
-            <div class="finisher-title">⚡ Cardio Finisher — 10 min</div>
-            <ul class="finisher-items">
-              <li>5× 20m sprints</li>
-              <li>90s walk recovery</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,140,0,0.2);">🔥</div>
-          <div>
-            <div class="day-block-title">Day 2 — HIIT Conditioning</div>
-            <div class="focus-tag">Metabolic Burn + Upper Body Stretch</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Circuit — 3 Rounds</th><th>Work</th><th>Rest</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Burpees</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
-              <tr><td class="ex-name">Jump Rope / High Knees</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
-              <tr><td class="ex-name">Kettlebell Swing</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
-              <tr><td class="ex-name">Mountain Climbers</td><td><span class="sets-badge">40s</span></td><td>20s</td></tr>
-              <tr><td class="ex-name">Box Step-Ups</td><td><span class="sets-badge">40s</span></td><td>2 min</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Flexibility Focus — 15 min</div>
-            <ul class="flex-list">
-              <li>Doorway chest stretch 60s</li>
-              <li>Thread-the-needle 60s/side</li>
-              <li>Child's pose 90s</li>
-              <li>Lat stretch overhead 60s/side</li>
-              <li>Thoracic rotation 10 reps/side</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💪</div>
-          <div>
-            <div class="day-block-title">Day 3 — Upper Body Strength</div>
-            <div class="focus-tag">Push/Pull + Shoulder Flexibility</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Bench Press</td><td><span class="sets-badge">3×10</span></td><td>Full ROM</td></tr>
-              <tr><td class="ex-name">Lat Pulldown</td><td><span class="sets-badge">3×12</span></td><td>Full stretch</td></tr>
-              <tr><td class="ex-name">Dumbbell Row</td><td><span class="sets-badge">3×12/arm</span></td><td>Controlled</td></tr>
-              <tr><td class="ex-name">Shoulder Press</td><td><span class="sets-badge">3×10</span></td><td>Overhead</td></tr>
-              <tr><td class="ex-name">Tricep Dips</td><td><span class="sets-badge">3×12</span></td><td>Bodyweight</td></tr>
-              <tr><td class="ex-name">Bicep Curls</td><td><span class="sets-badge">3×12</span></td><td>Slow negative</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Flexibility Focus — 15 min</div>
-            <ul class="flex-list">
-              <li>Cross-body shoulder stretch 60s/side</li>
-              <li>Overhead tricep stretch 45s/side</li>
-              <li>Pec minor stretch 60s/side</li>
-              <li>Wrist circles + extensions 60s</li>
-              <li>Neck mobility sequence 2 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 4 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(0,230,118,0.15);">🧘</div>
-          <div>
-            <div class="day-block-title">Day 4 — Active Recovery</div>
-            <div class="focus-tag">Zone 2 Cardio + Deep Mobility</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Activity</th><th>Duration</th><th>Intensity</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Brisk Walk / Light Cycle</td><td><span class="sets-badge">30–40 min</span></td><td>Zone 2 (60–70% HR)</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Deep Flexibility Session — 25 min</div>
-            <ul class="flex-list">
-              <li>Full-body foam roll 5 min</li>
-              <li>Standing forward fold 2 min</li>
-              <li>Butterfly stretch 2 min</li>
-              <li>Seated spinal twist 60s/side</li>
-              <li>Lizard pose 90s/side</li>
-              <li>Supine figure-4 stretch 60s/side</li>
-              <li>Happy baby pose 2 min</li>
-              <li>Legs-up-the-wall 3 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 5 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💀</div>
-          <div>
-            <div class="day-block-title">Day 5 — Full Body + Finisher</div>
-            <div class="focus-tag">Compound Lifts + Metabolic Circuit</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Deadlift</td><td><span class="sets-badge">4×6</span></td><td>Main compound</td></tr>
-              <tr><td class="ex-name">Push-ups (Weighted)</td><td><span class="sets-badge">3×15</span></td><td>Full range</td></tr>
-              <tr><td class="ex-name">Dumbbell Squat</td><td><span class="sets-badge">3×12</span></td><td>Slow tempo</td></tr>
-              <tr><td class="ex-name">Farmer Carry</td><td><span class="sets-badge">3×30m</span></td><td>Heavy grip</td></tr>
-              <tr><td class="ex-name">Plank</td><td><span class="sets-badge">3×45s</span></td><td>Hollow position</td></tr>
-            </tbody>
-          </table>
-          <div class="finisher-block">
-            <div class="finisher-title">💥 10-min Metabolic Finisher — AMRAP</div>
-            <ul class="finisher-items">
-              <li>10× Goblet Squat</li>
-              <li>10× Push-ups</li>
-              <li>10× KB Swing</li>
-              <li>10× Box Jumps</li>
-            </ul>
-          </div>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Flexibility Cool-down — 10 min</div>
-            <ul class="flex-list">
-              <li>Hip flexor lunge 60s/side</li>
-              <li>Spinal decompression hang 60s</li>
-              <li>Thoracic extension over roller</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 6 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,215,0,0.15);">🏃</div>
-          <div>
-            <div class="day-block-title">Day 6 — Endurance + Hip Mobility</div>
-            <div class="focus-tag">Steady Cardio + Hip/Ankle Flexibility</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Activity</th><th>Duration</th><th>Target</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Steady Run / Bike / Swim</td><td><span class="sets-badge">35–45 min</span></td><td>Zone 2–3 (65–75% HR)</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Hip & Lower Body Focus — 20 min</div>
-            <ul class="flex-list">
-              <li>Low squat hold (ATG) 2 min</li>
-              <li>World's greatest stretch 5 reps/side</li>
-              <li>Standing IT band stretch 60s/side</li>
-              <li>Calf stretch (bent + straight) 60s/side</li>
-              <li>Ankle circles 1 min/side</li>
-              <li>Couch stretch 90s/side</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /days-container -->
+  <div class="stat-cell">
+    <div class="stat-label">أيام راحة</div>
+    <div class="stat-value">2</div>
+    <div class="stat-unit">REST DAYS</div>
   </div>
 </div>
 
+<!-- MAIN -->
+<div class="main">
 
-<!-- ══════════════════════════════════════
-     PHASE 2
-══════════════════════════════════════ -->
-<div class="program-section" id="phase2">
-  <div class="container">
-    <div class="phase-header reveal">
-      <div class="phase-tag tag-amber">PHASE 02</div>
-      <div>
-        <div class="section-label">// Weeks 5–8 — Escalation</div>
-        <div class="phase-title-big">ACCELERATE</div>
-      </div>
+  <!-- WEEK PROGRESS -->
+  <div class="section-title" style="margin-top:0;">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>تتبع التقدم</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="progress-track" style="margin-bottom:16px;">
+    <div class="progress-week" id="pw1" onclick="selectWeek(1)" title="أسبوع 1"></div>
+    <div class="progress-week" id="pw2" onclick="selectWeek(2)" title="أسبوع 2"></div>
+    <div class="progress-week" id="pw3" onclick="selectWeek(3)" title="أسبوع 3"></div>
+    <div class="progress-week" id="pw4" onclick="selectWeek(4)" title="أسبوع 4"></div>
+    <div class="progress-week" id="pw5" onclick="selectWeek(5)" title="أسبوع 5"></div>
+    <div class="progress-week" id="pw6" onclick="selectWeek(6)" title="أسبوع 6"></div>
+    <div class="progress-week" id="pw7" onclick="selectWeek(7)" title="أسبوع 7"></div>
+    <div class="progress-week" id="pw8" onclick="selectWeek(8)" title="أسبوع 8"></div>
+  </div>
+
+  <!-- WEEK SELECTOR -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>اختر الأسبوع</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="week-nav" id="weekNav"></div>
+
+  <!-- WEEK DETAIL -->
+  <div id="weekPanel"></div>
+
+  <!-- WARM-UP -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>الإحماء الثابت</h2>
+    <div class="section-line"></div>
+    <div class="section-tag">5 MIN</div>
+  </div>
+
+  <div class="warmup-card">
+    <div class="warmup-header" onclick="toggleWarmup()">
+      <h3>WARM-UP PROTOCOL</h3>
+      <span style="font-family:var(--mono);font-size:9px;color:var(--text-muted)">قبل كل جلسة</span>
+      <span class="tag">اضغط للتفاصيل ▾</span>
     </div>
-
-    <div class="days-container">
-
-      <!-- DAY 1 P2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,140,0,0.2);">🏋️</div>
-          <div>
-            <div class="day-block-title">Day 1 — Lower Strength (Heavier)</div>
-            <div class="focus-tag">Progressive Overload + Sprint Work</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Back Squat</td><td><span class="sets-badge">4×6</span></td><td>+5% from Phase 1</td></tr>
-              <tr><td class="ex-name">Romanian Deadlift</td><td><span class="sets-badge">4×8</span></td><td>Heavier load</td></tr>
-              <tr><td class="ex-name">Bulgarian Split Squat</td><td><span class="sets-badge">3×8/leg</span></td><td>Deep stretch</td></tr>
-              <tr><td class="ex-name">Leg Press</td><td><span class="sets-badge">3×12</span></td><td>Full ROM</td></tr>
-              <tr><td class="ex-name">Nordic Curl</td><td><span class="sets-badge">3×6</span></td><td>Hamstring focus</td></tr>
-            </tbody>
-          </table>
-          <div class="finisher-block">
-            <div class="finisher-title">⚡ Sprint Protocol — 8 reps</div>
-            <ul class="finisher-items">
-              <li>8× 30m sprints</li>
-              <li>Walk 60s recovery</li>
-              <li>Build to 85% effort</li>
-            </ul>
-          </div>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Post-Workout Flexibility</div>
-            <ul class="flex-list">
-              <li>Pancake stretch 2 min</li>
-              <li>Pigeon pose 90s/side</li>
-              <li>Deep squat hold 2 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 2 P2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">🔥</div>
-          <div>
-            <div class="day-block-title">Day 2 — Advanced HIIT</div>
-            <div class="focus-tag">Tabata + Conditioning Circuits</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Protocol</th><th>Work</th><th>Rest</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Tabata A — 4 rounds</td><td></td><td></td></tr>
-              <tr><td class="ex-name">→ Squat Jumps</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
-              <tr><td class="ex-name">→ Push-ups</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
-              <tr><td class="ex-name">Rest 2 min, then Tabata B</td><td></td><td></td></tr>
-              <tr><td class="ex-name">→ KB Swings</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
-              <tr><td class="ex-name">→ Burpee + Tuck Jump</td><td><span class="sets-badge">20s</span></td><td>10s</td></tr>
-            </tbody>
-          </table>
-          <p style="font-size:13px;color:var(--fire);margin-top:8px;font-family:'Space Mono',monospace;">+ 15 min Zone 2 cooldown walk</p>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Upper Body Flexibility — 12 min</div>
-            <ul class="flex-list">
-              <li>Thread the needle 90s/side</li>
-              <li>Eagle arms stretch 60s/side</li>
-              <li>Foam roll thoracic spine 3 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 3 P2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,140,0,0.2);">💪</div>
-          <div>
-            <div class="day-block-title">Day 3 — Upper Strength (Heavier)</div>
-            <div class="focus-tag">Pull-ups + Compound Push</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Bench Press</td><td><span class="sets-badge">4×6</span></td><td>+5% load</td></tr>
-              <tr><td class="ex-name">Pull-ups / Assisted</td><td><span class="sets-badge">4×6</span></td><td>Full hang</td></tr>
-              <tr><td class="ex-name">Overhead Press</td><td><span class="sets-badge">3×8</span></td><td>Strict form</td></tr>
-              <tr><td class="ex-name">Chest-Supported Row</td><td><span class="sets-badge">3×10</span></td><td>Full retraction</td></tr>
-              <tr><td class="ex-name">Face Pulls</td><td><span class="sets-badge">3×15</span></td><td>Shoulder health</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Shoulder Mobility Deep Work — 15 min</div>
-            <ul class="flex-list">
-              <li>Banded shoulder distraction 2 min/side</li>
-              <li>Sleeper stretch 90s/side</li>
-              <li>Overhead hang 60s</li>
-              <li>Wall slides 2×15</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 4 P2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(0,230,118,0.15);">🧘</div>
-          <div>
-            <div class="day-block-title">Day 4 — Extended Recovery</div>
-            <div class="focus-tag">Zone 2 + Full Body Mobility Flow</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Activity</th><th>Duration</th><th>HR Target</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Cycling / Elliptical / Walk</td><td><span class="sets-badge">40–50 min</span></td><td>60–70% max HR</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Full Body Flow — 30 min</div>
-            <ul class="flex-list">
-              <li>Cat-cow + spinal waves 2 min</li>
-              <li>Sun salutation ×5 rounds</li>
-              <li>Low lunge with twist 90s/side</li>
-              <li>Seated forward fold 2 min</li>
-              <li>Supine spinal twist 90s/side</li>
-              <li>Foam roll full body 5 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 5 P2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💀</div>
-          <div>
-            <div class="day-block-title">Day 5 — Full Body + Hard Conditioning</div>
-            <div class="focus-tag">Heavy Compounds + 15-min Intervals</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Conventional Deadlift</td><td><span class="sets-badge">4×5</span></td><td>Max effort</td></tr>
-              <tr><td class="ex-name">Front Squat</td><td><span class="sets-badge">3×8</span></td><td>Upright torso</td></tr>
-              <tr><td class="ex-name">Incline DB Press</td><td><span class="sets-badge">3×10</span></td><td>Upper chest</td></tr>
-              <tr><td class="ex-name">TRX Row</td><td><span class="sets-badge">3×12</span></td><td>Retract shoulder blades</td></tr>
-            </tbody>
-          </table>
-          <div class="finisher-block">
-            <div class="finisher-title">💥 15-min AMRAP Circuit</div>
-            <ul class="finisher-items">
-              <li>12× Burpees</li>
-              <li>15× KB Swings</li>
-              <li>10× Box Jumps</li>
-              <li>12× Goblet Squats</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 6 P2 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,215,0,0.15);">🏃</div>
-          <div>
-            <div class="day-block-title">Day 6 — Tempo Endurance</div>
-            <div class="focus-tag">Interval Run + Full Hip & Ankle Work</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Protocol</th><th>Duration</th><th>Effort</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Warm-up jog</td><td><span class="sets-badge">10 min</span></td><td>Easy</td></tr>
-              <tr><td class="ex-name">Tempo intervals ×6</td><td><span class="sets-badge">3 min hard / 2 min easy</span></td><td>75–85% HR</td></tr>
-              <tr><td class="ex-name">Cooldown walk</td><td><span class="sets-badge">10 min</span></td><td>Easy</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Ankle & Hip Mobility — 15 min</div>
-            <ul class="flex-list">
-              <li>Calf raise + eccentric lower 3×15</li>
-              <li>Ankle 3D mobility circles 2 min/side</li>
-              <li>Hip 90/90 transitions 10 reps</li>
-              <li>Lateral hip stretch 90s/side</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
+    <div class="warmup-body" id="warmupBody">
+      <div class="warmup-item"><span>مشي سريع / March in Place</span><span>60 ث</span></div>
+      <div class="warmup-item"><span>دوران كاحل</span><span>30ث / جهة</span></div>
+      <div class="warmup-item"><span>Arm Circles</span><span>30 ث</span></div>
+      <div class="warmup-item"><span>Bodyweight Squat</span><span>×15</span></div>
+      <div class="warmup-item"><span>Hip Hinge</span><span>×15</span></div>
+      <div class="warmup-item"><span>Calf Raises</span><span>×15</span></div>
     </div>
   </div>
-</div>
 
+  <!-- TIMER -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>مؤقت التدريب</h2>
+    <div class="section-line"></div>
+  </div>
 
-<!-- ══════════════════════════════════════
-     PHASE 3
-══════════════════════════════════════ -->
-<div class="program-section" id="phase3">
-  <div class="container">
-    <div class="phase-header reveal">
-      <div class="phase-tag tag-gold">PHASE 03</div>
-      <div>
-        <div class="section-label">// Weeks 9–12 — Peak Intensity</div>
-        <div class="phase-title-big">INCINERATE</div>
-      </div>
+  <div class="timer-widget">
+    <div class="timer-label">SESSION TIMER</div>
+    <div class="timer-display" id="timerDisplay">00:00</div>
+    <div class="timer-controls">
+      <button class="timer-btn btn-start" onclick="startTimer()">▶ ابدأ</button>
+      <button class="timer-btn btn-pause" onclick="pauseTimer()">⏸ إيقاف</button>
+      <button class="timer-btn btn-reset" onclick="resetTimer()">↺ إعادة</button>
     </div>
-
-    <div class="days-container">
-
-      <!-- DAY 1 P3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,215,0,0.2);">🏋️</div>
-          <div>
-            <div class="day-block-title">Day 1 — Power + Strength Lower</div>
-            <div class="focus-tag">Explosive Strength + Stretch Depth</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Back Squat</td><td><span class="sets-badge">5×4</span></td><td>Peak load</td></tr>
-              <tr><td class="ex-name">Jump Squats</td><td><span class="sets-badge">3×6</span></td><td>Max jump height</td></tr>
-              <tr><td class="ex-name">RDL</td><td><span class="sets-badge">3×6</span></td><td>Maximum load</td></tr>
-              <tr><td class="ex-name">Single-Leg Deadlift</td><td><span class="sets-badge">3×8/leg</span></td><td>Balance + stretch</td></tr>
-            </tbody>
-          </table>
-          <div class="finisher-block">
-            <div class="finisher-title">⚡ Explosive Sprint Protocol</div>
-            <ul class="finisher-items">
-              <li>10× 20m max sprints</li>
-              <li>90s full recovery</li>
-              <li>100% effort each rep</li>
-            </ul>
-          </div>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Flexibility — Advanced Depth</div>
-            <ul class="flex-list">
-              <li>Full straddle hold 3 min</li>
-              <li>Deep pigeon + forward fold 2 min/side</li>
-              <li>ATG squat hold 3 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 2 P3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">🔥</div>
-          <div>
-            <div class="day-block-title">Day 2 — Elite HIIT Complex</div>
-            <div class="focus-tag">Max Effort Conditioning</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Complex — 4 Rounds</th><th>Work</th><th>Rest</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Assault Bike / Rower Sprint</td><td><span class="sets-badge">30s</span></td><td>30s</td></tr>
-              <tr><td class="ex-name">Burpee Box Jumps</td><td><span class="sets-badge">30s</span></td><td>30s</td></tr>
-              <tr><td class="ex-name">DB Thrusters</td><td><span class="sets-badge">30s</span></td><td>30s</td></tr>
-              <tr><td class="ex-name">Battle Ropes / KB Swings</td><td><span class="sets-badge">30s</span></td><td>2 min</td></tr>
-            </tbody>
-          </table>
-          <p style="font-size:13px;color:var(--amber);margin-top:8px;font-family:'Space Mono',monospace;">Total work: ~24 min high intensity</p>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Recovery Flexibility — 20 min</div>
-            <ul class="flex-list">
-              <li>Prone cobra 90s</li>
-              <li>Chest opener foam roll 3 min</li>
-              <li>Neck and trap release 2 min</li>
-              <li>Full forward fold hang 2 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 3 P3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,215,0,0.2);">💪</div>
-          <div>
-            <div class="day-block-title">Day 3 — Peak Upper Strength</div>
-            <div class="focus-tag">Max Loads + Med Ball Power</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Bench Press</td><td><span class="sets-badge">5×3</span></td><td>Near max</td></tr>
-              <tr><td class="ex-name">Weighted Pull-ups</td><td><span class="sets-badge">4×5</span></td><td>Add belt weight</td></tr>
-              <tr><td class="ex-name">Med Ball Chest Throw</td><td><span class="sets-badge">4×5</span></td><td>Explosive</td></tr>
-              <tr><td class="ex-name">Pendlay Row</td><td><span class="sets-badge">3×6</span></td><td>Power pull</td></tr>
-              <tr><td class="ex-name">Arnold Press</td><td><span class="sets-badge">3×10</span></td><td>Full ROM</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Full Upper Flexibility Flow — 15 min</div>
-            <ul class="flex-list">
-              <li>Doorway PNF chest stretch 3× 30s</li>
-              <li>Lat traction stretch 2 min/side</li>
-              <li>Thoracic spine rotation 10 reps/side</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 4 P3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(0,230,118,0.15);">🧘</div>
-          <div>
-            <div class="day-block-title">Day 4 — Zone 2 + Advanced Mobility</div>
-            <div class="focus-tag">Nervous System Recovery</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Activity</th><th>Duration</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Low Intensity Cardio</td><td><span class="sets-badge">50 min</span></td><td>60–65% max HR</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Advanced Flexibility Session — 35 min</div>
-            <ul class="flex-list">
-              <li>PNF hamstring stretch 3×30s/side</li>
-              <li>Hip 90/90 + forward lean 2 min/side</li>
-              <li>Weighted overhead squat stretch</li>
-              <li>Jefferson curl 3×8 (light)</li>
-              <li>Standing split stretch 2 min/side</li>
-              <li>Full lotus attempt / baddha konasana 3 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 5 P3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,58,26,0.2);">💀</div>
-          <div>
-            <div class="day-block-title">Day 5 — Hybrid Conditioning</div>
-            <div class="focus-tag">Peak Metabolic Session</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Note</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Deadlift</td><td><span class="sets-badge">3×3</span></td><td>Heavy triples</td></tr>
-              <tr><td class="ex-name">Trap Bar Jump</td><td><span class="sets-badge">3×5</span></td><td>Explosive</td></tr>
-            </tbody>
-          </table>
-          <div class="finisher-block">
-            <div class="finisher-title">💥 20-min MAX Effort Circuit — AMRAP</div>
-            <ul class="finisher-items">
-              <li>10× Clean & Press</li>
-              <li>12× Burpee Pull-ups</li>
-              <li>200m Row Sprint</li>
-              <li>15× KB Swings Heavy</li>
-              <li>10× Box Jump Overs</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- DAY 6 P3 -->
-      <div class="day-block reveal">
-        <div class="day-block-header">
-          <div class="day-icon" style="background:rgba(255,215,0,0.15);">🏃</div>
-          <div>
-            <div class="day-block-title">Day 6 — Peak Endurance</div>
-            <div class="focus-tag">60+ min Mixed Zone + Total Flexibility</div>
-          </div>
-        </div>
-        <div class="day-block-body">
-          <table class="exercise-table">
-            <thead><tr><th>Protocol</th><th>Duration</th><th>Zone</th></tr></thead>
-            <tbody>
-              <tr><td class="ex-name">Easy warm-up</td><td><span class="sets-badge">10 min</span></td><td>Zone 1</td></tr>
-              <tr><td class="ex-name">Steady state</td><td><span class="sets-badge">30 min</span></td><td>Zone 2</td></tr>
-              <tr><td class="ex-name">Tempo surges ×6</td><td><span class="sets-badge">2 min hard / 1 min easy</span></td><td>Zone 3–4</td></tr>
-              <tr><td class="ex-name">Cooldown</td><td><span class="sets-badge">10 min</span></td><td>Zone 1</td></tr>
-            </tbody>
-          </table>
-          <div class="flex-block">
-            <div class="flex-title">🧘 Total Body Flexibility — 20 min</div>
-            <ul class="flex-list">
-              <li>Full sun salutation flow 5 min</li>
-              <li>Yin yoga hip sequence 10 min</li>
-              <li>Spinal decompression + twist 5 min</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
+    <div class="preset-btns">
+      <button class="preset-btn" onclick="setPreset(20)">20ث عمل</button>
+      <button class="preset-btn" onclick="setPreset(30)">30ث عمل</button>
+      <button class="preset-btn" onclick="setPreset(40)">40ث عمل</button>
+      <button class="preset-btn" onclick="setPreset(1800)">30 دقيقة</button>
     </div>
   </div>
-</div>
 
+  <!-- MOBILITY -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>المرونة اليومية</h2>
+    <div class="section-line"></div>
+    <div class="section-tag">5–8 MIN</div>
+  </div>
 
-<!-- ══════════════════════════════════════
-     NUTRITION SECTION
-══════════════════════════════════════ -->
-<section class="diet-section">
-  <div class="container">
-    <div class="reveal">
-      <p class="section-label">// Nutrition Protocol — Low Carb Aggressive</p>
-      <h2 class="section-title">FUEL THE<br>DEFICIT</h2>
-      <p style="font-size:15px;color:#aaa;max-width:640px;margin-bottom:48px;line-height:1.7;">
-        Based on: <span class="highlight">110 kg | 179 cm | 26 yo male</span> — Estimated TDEE ~2,900–3,100 kcal/day. 
-        Target intake: <span class="highlight-green">1,800–1,900 kcal</span> daily (≈1,100 kcal deficit). 
-        This creates ~<span class="highlight-gold">1.5–1.7 kg/week</span> fat loss at high adherence.
-      </p>
+  <div class="mobility-card">
+    <div class="mobility-header">
+      <span style="font-size:16px">🟢</span>
+      <h3>DAILY MOBILITY PROTOCOL</h3>
+      <span style="font-family:var(--mono);font-size:9px;color:var(--text-muted);margin-right:auto;">بعد كل جلسة</span>
     </div>
-
-    <div class="macros-grid reveal">
-      <div class="macro-card protein">
-        <div class="macro-val">200</div>
-        <div class="macro-unit">g / day</div>
-        <div class="macro-label">Protein</div>
-      </div>
-      <div class="macro-card fat">
-        <div class="macro-val">80</div>
-        <div class="macro-unit">g / day</div>
-        <div class="macro-label">Fat</div>
-      </div>
-      <div class="macro-card carbs">
-        <div class="macro-val">60</div>
-        <div class="macro-unit">g / day</div>
-        <div class="macro-label">Net Carbs</div>
-      </div>
-      <div class="macro-card calories">
-        <div class="macro-val">1,860</div>
-        <div class="macro-unit">kcal / day</div>
-        <div class="macro-label">Total Calories</div>
-      </div>
+    <div class="mobility-grid">
+      <div class="mobility-item"><span>Hip Flexor Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Hamstring Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Glute Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Calf Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Chest Opener</span><span>30 ث</span></div>
+      <div class="mobility-item"><span>Thoracic Rotation</span><span>×6 / جهة</span></div>
+      <div class="mobility-item" style="grid-column:span 2;"><span>Child's Pose</span><span>30–45 ث</span></div>
     </div>
+  </div>
 
-    <div class="reveal">
-      <p class="section-label" style="margin-bottom:24px;">// Daily Meal Plan Template</p>
+  <!-- METRICS -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>مؤشرات القياس</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="metrics-card">
+    <div class="metrics-header">
+      <span style="font-size:16px">📊</span>
+      <h3>WEEKLY PERFORMANCE METRICS</h3>
     </div>
-
-    <div class="meals-grid reveal">
-      <div class="meal-card">
-        <div class="meal-header">
-          <div class="meal-name">MEAL 1 — 7:00 AM</div>
-          <div class="meal-cal">~450 kcal</div>
-        </div>
-        <div class="meal-body">
-          <ul class="meal-items">
-            <li>Whole eggs <span class="gram">4 eggs</span></li>
-            <li>Egg whites <span class="gram">4 whites</span></li>
-            <li>Spinach / baby greens <span class="gram">60g</span></li>
-            <li>Avocado <span class="gram">½ medium</span></li>
-            <li>Olive oil (cooking) <span class="gram">5ml</span></li>
-            <li>Black coffee <span class="gram">no sugar</span></li>
-          </ul>
-        </div>
+    <div class="metrics-grid">
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Push-ups Max</div>
+        <div class="metric-goal">زيادة تدريجية كل أسبوع</div>
       </div>
-
-      <div class="meal-card">
-        <div class="meal-header">
-          <div class="meal-name">MEAL 2 — 12:30 PM</div>
-          <div class="meal-cal">~520 kcal</div>
-        </div>
-        <div class="meal-body">
-          <ul class="meal-items">
-            <li>Grilled chicken breast <span class="gram">200g</span></li>
-            <li>Broccoli / cauliflower <span class="gram">150g</span></li>
-            <li>Mixed salad greens <span class="gram">80g</span></li>
-            <li>Olive oil + lemon dressing <span class="gram">15ml</span></li>
-            <li>Feta cheese <span class="gram">30g</span></li>
-          </ul>
-        </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Plank Time</div>
+        <div class="metric-goal">زيادة الزمن الأسبوعي</div>
       </div>
-
-      <div class="meal-card">
-        <div class="meal-header">
-          <div class="meal-name">PRE-WORKOUT — 3:30 PM</div>
-          <div class="meal-cal">~200 kcal</div>
-        </div>
-        <div class="meal-body">
-          <ul class="meal-items">
-            <li>Whey protein shake <span class="gram">30g protein</span></li>
-            <li>Greek yogurt (full fat) <span class="gram">100g</span></li>
-            <li>Black coffee / pre-workout <span class="gram">optional</span></li>
-          </ul>
-          <p style="font-size:11px;color:var(--amber);margin-top:10px;font-family:'Space Mono',monospace;">30–45 min before training</p>
-        </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Rope / Shadow Rope</div>
+        <div class="metric-goal">زيادة الاستمرارية</div>
       </div>
-
-      <div class="meal-card">
-        <div class="meal-header">
-          <div class="meal-name">POST-WORKOUT — 6:30 PM</div>
-          <div class="meal-cal">~480 kcal</div>
-        </div>
-        <div class="meal-body">
-          <ul class="meal-items">
-            <li>Salmon / tuna / lean beef <span class="gram">180g</span></li>
-            <li>Zucchini / green beans <span class="gram">150g</span></li>
-            <li>Sweet potato (training day) <span class="gram">80g</span></li>
-            <li>Olive oil <span class="gram">10ml</span></li>
-          </ul>
-          <p style="font-size:11px;color:var(--green);margin-top:10px;font-family:'Space Mono',monospace;">Carb slightly higher post-workout only</p>
-        </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Goblet Squat</div>
+        <div class="metric-goal">وزن أو تكرار أعلى</div>
       </div>
-
-      <div class="meal-card">
-        <div class="meal-header">
-          <div class="meal-name">MEAL 5 — 9:00 PM</div>
-          <div class="meal-cal">~210 kcal</div>
-        </div>
-        <div class="meal-body">
-          <ul class="meal-items">
-            <li>Cottage cheese / casein <span class="gram">150g</span></li>
-            <li>Almonds / walnuts <span class="gram">20g</span></li>
-            <li>Cucumber slices <span class="gram">80g</span></li>
-          </ul>
-          <p style="font-size:11px;color:var(--muted);margin-top:10px;font-family:'Space Mono',monospace;">Slow protein for overnight recovery</p>
-        </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Deadlift</div>
+        <div class="metric-goal">قوة أعلى تدريجياً</div>
       </div>
-
-      <div class="meal-card" style="border-color:rgba(0,230,118,0.3);">
-        <div class="meal-header" style="border-color:rgba(0,230,118,0.2);">
-          <div class="meal-name" style="color:var(--green)">HYDRATION</div>
-          <div class="meal-cal">Daily</div>
-        </div>
-        <div class="meal-body">
-          <ul class="meal-items">
-            <li>Water <span class="gram">4–5 litres/day</span></li>
-            <li>Electrolytes (sodium/potassium) <span class="gram">supplement</span></li>
-            <li>Green tea <span class="gram">2–3 cups</span></li>
-            <li>Zero-calorie drinks <span class="gram">allowed</span></li>
-            <li>Alcohol <span class="gram">❌ avoid</span></li>
-          </ul>
-        </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↓</div>
+        <div class="metric-name">RPE</div>
+        <div class="metric-goal">تحكم وكفاءة أعلى</div>
       </div>
     </div>
+  </div>
 
-    <!-- Foods -->
-    <div class="foods-section reveal">
-      <p class="section-label" style="margin-bottom:24px;">// Food Selection Guide</p>
-      <div class="foods-grid">
-        <div class="food-group protein-foods">
-          <div class="food-group-title">✅ Proteins</div>
-          <ul class="food-list">
-            <li>Chicken breast</li>
-            <li>Turkey</li>
-            <li>Salmon</li>
-            <li>Tuna</li>
-            <li>Eggs</li>
-            <li>Egg whites</li>
-            <li>Lean beef</li>
-            <li>Whey protein</li>
-            <li>Casein</li>
-            <li>Cottage cheese</li>
-            <li>Greek yogurt</li>
-            <li>Shrimp</li>
-          </ul>
+  <!-- ANKLE PROTOCOL -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>بروتوكول الكاحل</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="ankle-card">
+    <div class="ankle-header">
+      <span class="ankle-icon">⚠️</span>
+      <h3>ANKLE PAIN PROTOCOL</h3>
+    </div>
+    <div class="ankle-body">
+      <div class="ankle-rule">
+        <div class="pain-level safe">0–3</div>
+        <div>
+          <div class="ankle-action">استمر بحذر</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">مستوى الألم آمن — راقب باستمرار</div>
         </div>
-        <div class="food-group fat-foods">
-          <div class="food-group-title">✅ Healthy Fats</div>
-          <ul class="food-list">
-            <li>Avocado</li>
-            <li>Olive oil</li>
-            <li>Almonds</li>
-            <li>Walnuts</li>
-            <li>Brazil nuts</li>
-            <li>Full-fat yogurt</li>
-            <li>Feta / hard cheese</li>
-            <li>Fatty fish</li>
-            <li>Flaxseed</li>
-          </ul>
+      </div>
+      <div class="ankle-rule">
+        <div class="pain-level caution">4+</div>
+        <div>
+          <div class="ankle-action">Shadow Rope / March فقط</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">حول إلى بدائل منخفضة الصدمة</div>
         </div>
-        <div class="food-group veg-foods">
-          <div class="food-group-title">✅ Low Carb Veg &amp; Fruit</div>
-          <ul class="food-list">
-            <li>Spinach</li>
-            <li>Broccoli</li>
-            <li>Cauliflower</li>
-            <li>Zucchini</li>
-            <li>Cucumber</li>
-            <li>Green beans</li>
-            <li>Bell peppers</li>
-            <li>Mushrooms</li>
-            <li>Kale</li>
-            <li>Berries (small)</li>
-          </ul>
-        </div>
-        <div class="food-group avoid-foods">
-          <div class="food-group-title">❌ Avoid Completely</div>
-          <ul class="food-list">
-            <li>White rice</li>
-            <li>Bread / pasta</li>
-            <li>Soft drinks</li>
-            <li>Juice</li>
-            <li>Sweets / candy</li>
-            <li>Fast food</li>
-            <li>Fried food</li>
-            <li>Chips / crackers</li>
-            <li>Alcohol</li>
-            <li>High-sugar fruit</li>
-          </ul>
+      </div>
+      <div class="ankle-rule">
+        <div class="pain-level stop">مستمر</div>
+        <div>
+          <div class="ankle-action">تقليل الصدمات التام</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">ألم مستمر = تعديل كامل للبرنامج</div>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-
-<!-- ══════════════════════════════════════
-     WEEKLY WEIGHT TARGETS
-══════════════════════════════════════ -->
-<section class="progress-section">
-  <div class="container reveal">
-    <p class="section-label">// Progress Tracking</p>
-    <h2 class="section-title">WEEKLY<br>TARGETS</h2>
-
-    <div style="overflow-x:auto;">
-      <table class="progress-table">
-        <thead>
-          <tr>
-            <th>Week</th>
-            <th>Phase</th>
-            <th>Target Weight</th>
-            <th>Weekly Loss</th>
-            <th>Calorie Deficit</th>
-            <th>Key Focus</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>IGNITE</td><td class="target-weight">108.4 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Movement quality + diet adherence</td></tr>
-          <tr><td>2</td><td>IGNITE</td><td class="target-weight">106.8 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Increase flexibility session duration</td></tr>
-          <tr><td>3</td><td>IGNITE</td><td class="target-weight">105.2 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Build aerobic base intensity</td></tr>
-          <tr><td>4 (Deload)</td><td>IGNITE</td><td class="target-weight">104.0 kg</td><td class="deficit-val">−1.2 kg</td><td>Reduce training 30%</td><td>Deload week — same diet</td></tr>
-          <tr><td>5</td><td>ACCELERATE</td><td class="target-weight">102.4 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Introduce HIIT progressions</td></tr>
-          <tr><td>6</td><td>ACCELERATE</td><td class="target-weight">100.8 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Deepen flexibility work PNF</td></tr>
-          <tr><td>7</td><td>ACCELERATE</td><td class="target-weight">99.2 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Increase sprint distance</td></tr>
-          <tr><td>8 (Deload)</td><td>ACCELERATE</td><td class="target-weight">98.2 kg</td><td class="deficit-val">−1.0 kg</td><td>Reduce intensity 20%</td><td>Deload — assess progress</td></tr>
-          <tr><td>9</td><td>INCINERATE</td><td class="target-weight">96.6 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Peak conditioning circuits</td></tr>
-          <tr><td>10</td><td>INCINERATE</td><td class="target-weight">95.0 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Max effort HIIT complexes</td></tr>
-          <tr><td>11</td><td>INCINERATE</td><td class="target-weight">93.4 kg</td><td class="deficit-val">−1.6 kg</td><td>~1,100 kcal/day</td><td>Push endurance + flexibility peak</td></tr>
-          <tr><td>12</td><td>INCINERATE</td><td class="target-weight" style="color:var(--green);">91.0 kg ✓</td><td class="deficit-val">−2.4 kg</td><td>Final push</td><td>TARGET ACHIEVED</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <!-- RESULTS -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>النتائج المتوقعة</h2>
+    <div class="section-line"></div>
+    <div class="section-tag">8 WEEKS</div>
   </div>
-</section>
 
-
-<!-- ══════════════════════════════════════
-     COACHING RULES
-══════════════════════════════════════ -->
-<section style="padding-top:0;padding-bottom:80px">
-  <div class="container reveal">
-    <p class="section-label">// Coaching Intelligence</p>
-    <h2 class="section-title">NON-NEGOTIABLE<br>RULES</h2>
-
-    <div class="rules-grid">
-      <div class="rule-card">
-        <div class="rule-num">01</div>
-        <div class="rule-title">Protein First, Always</div>
-        <p class="rule-text">Hit 200g protein every single day without exception. This is what prevents muscle loss during aggressive deficit. No excuses.</p>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">02</div>
-        <div class="rule-title">Flexibility is Mandatory</div>
-        <p class="rule-text">Every session ends with flexibility work. No skipping. Tight muscles = reduced performance = injury = missed training days = failed program.</p>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">03</div>
-        <div class="rule-title">Carbs are a Tool</div>
-        <p class="rule-text">Keep net carbs under 60g on rest days. On training days, add 40–60g carbs around the workout window only. Carb timing matters.</p>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">04</div>
-        <div class="rule-title">Sleep 8 Hours</div>
-        <p class="rule-text">Sleep is where fat loss hormones reset. Ghrelin spikes when sleep-deprived. 8h minimum or the program fails despite perfect training.</p>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">05</div>
-        <div class="rule-title">Track Everything</div>
-        <p class="rule-text">Weigh daily, track weekly average. Log food for at least the first 4 weeks until macro targets are memorized. What gets measured gets managed.</p>
-      </div>
-      <div class="rule-card">
-        <div class="rule-num">06</div>
-        <div class="rule-title">Deloads are Sacred</div>
-        <p class="rule-text">Weeks 4 and 8 are deload weeks. Reduce training volume 30%. Maintain diet strictly. This is where body recomposition consolidates.</p>
-      </div>
-    </div>
+  <div class="results-grid">
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">حرق دهون واضح ومستمر</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">لياقة بدنية عامة أعلى</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">تحسن قوي في الكارديو</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">استعادة القوة الكاملة</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">تحمل عضلي أعلى</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">أداء رياضي منزلي قوي</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">قدرة أفضل على الحبل</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">تحسن في الحركة والمرونة</div></div>
   </div>
-</section>
 
+  <!-- GOLDEN RULE -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>القاعدة الذهبية</h2>
+    <div class="section-line"></div>
+  </div>
 
-<!-- ══════════════════════════════════════
-     FOOTER
-══════════════════════════════════════ -->
-<div class="footer">
-  <div class="footer-logo">BURN PROTOCOL</div>
-  <p class="footer-text">
-    12-Week Aggressive Fat Loss System — Intermediate Athlete<br>
-    110 kg → 91 kg | 179 cm | 26 yr | Low Carb + Daily Flexibility<br><br>
-    ⚠️ Consult a physician before starting any aggressive diet or training program.
-  </p>
-</div>
+  <div class="golden-rule">
+    <p>ابدأ ذكيًا · تقدّم تدريجيًا · لا تدمّر الكاحل · ابنِ الأداء الحقيقي</p>
+  </div>
+
+</div><!-- /main -->
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
+// ── DATA ───────────────────────────────────────────────────────────────
+
+const weeks = [
+  {
+    num: 1, name: "التأسيس + إعادة الدخول", phase: "BUILD", phaseClass: "phase-build",
+    desc: "أسبوع البداية الذكية — بناء الأساس بحذر وإعادة تأهيل الجسم",
+    days: [
+      {
+        n:1, name:"الساق + الأيروبيك", rest:false,
+        morning: { title:"صباح — Cardio", items:[
+          {name:"Brisk March / Shadow Rope", sets:"10 جولات · 40ث عمل / 20ث راحة"}
+        ]},
+        evening: { title:"مساء — Strength", items:[
+          {name:"Goblet Squat", sets:"4×8"},
+          {name:"DB Romanian Deadlift", sets:"4×10"},
+          {name:"Split Squat", sets:"3×8 / جهة"},
+          {name:"Plank", sets:"3×30ث"}
+        ]},
+        flex: "Hip Flexor / Hamstring / Calf / Glute"
+      },
+      {
+        n:2, name:"الجزء العلوي", rest:false,
+        morning: { title:"صباح — Cardio", items:[
+          {name:"Shadow Rope", sets:"8 جولات · 20ث عمل / 40ث راحة"}
+        ]},
+        evening: { title:"مساء — Strength", items:[
+          {name:"DB Floor Press", sets:"4×10"},
+          {name:"DB Row", sets:"4×10"},
+          {name:"Overhead Press", sets:"3×8"},
+          {name:"Face Pull", sets:"3×15"},
+          {name:"Push-up", sets:"2 مجموعات"}
+        ]},
+        flex: "Chest / Shoulder / Lat / Thoracic"
+      },
+      {
+        n:3, name:"Power + Conditioning", rest:false,
+        morning: { title:"صباح — Steady Cardio", items:[
+          {name:"Brisk Movement", sets:"5 جولات · 2 دقيقة / 1 دقيقة سهلة"}
+        ]},
+        evening: { title:"مساء — Power", items:[
+          {name:"KB Swing", sets:"5×12"},
+          {name:"Push Press", sets:"4×6"},
+          {name:"Reverse Lunge", sets:"3×8 / جهة"},
+          {name:"Dead Bug", sets:"3×10"}
+        ]},
+        flex: "Hip / Glute / Hamstring / Spine"
+      },
+      {
+        n:4, name:"Circuit + Capacity", rest:false,
+        morning: { title:"صباح — Rope", items:[
+          {name:"Shadow Rope", sets:"10 جولات · 20ث / 40ث"}
+        ]},
+        evening: { title:"مساء — Full Body Circuit", items:[
+          {name:"Goblet Squat → Push-up → Band Row → DB RDL → Carry", sets:"4 جولات"}
+        ]},
+        flex: "Quad / Chest / Calf / Lat"
+      },
+      {
+        n:5, name:"Benchmark Day", rest:false,
+        morning: { title:"صباح — Steady Cardio", items:[
+          {name:"Low-Impact Steady Cardio", sets:"20 دقيقة"}
+        ]},
+        evening: { title:"مساء — Strength", items:[
+          {name:"Deadlift", sets:"4×6"},
+          {name:"Floor Press", sets:"3×8"},
+          {name:"Pause Squat", sets:"3×8"},
+          {name:"DB Row", sets:"3×10"},
+          {name:"Plank", sets:"مجموعتان"}
+        ]},
+        flex: "Full Lower + Chest"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility خفيفة (اختياري)" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility خفيفة (اختياري)" }
+    ]
+  },
+  {
+    num: 2, name: "زيادة الحجم", phase: "VOLUME", phaseClass: "phase-build",
+    desc: "+1 مجموعة للتمرين الأول · أو +2 تكرار · Rope +5 ثوانٍ",
+    days: [
+      { n:1, name:"Goblet Squat 5×8", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"10–12 جولة"}]}, evening:{title:"مساء",items:[{name:"Goblet Squat",sets:"5×8 (زيادة مجموعة)"},{name:"DB RDL",sets:"4×10"},{name:"Split Squat",sets:"3×8"},{name:"Plank",sets:"3×30ث"}]}, flex:"Hip / Hamstring / Glute" },
+      { n:2, name:"Rope 10–12 جولة", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"10–12 جولة · 20ث / 40ث"}]}, evening:{title:"مساء",items:[{name:"DB Floor Press",sets:"4×10"},{name:"DB Row",sets:"4×10"},{name:"OHP",sets:"3×8"},{name:"Face Pull",sets:"3×15"}]}, flex:"Chest / Shoulder / Lat" },
+      { n:3, name:"KB Swing 6×12", rest:false, morning:{title:"صباح",items:[{name:"Brisk Movement",sets:"5 جولات · 2 د / 1 د"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"6×12 (زيادة مجموعة)"},{name:"Push Press",sets:"4×6"},{name:"Reverse Lunge",sets:"3×8"},{name:"Dead Bug",sets:"3×10"}]}, flex:"Hip / Glute / Spine" },
+      { n:4, name:"Circuit 5 جولات", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"10 جولات"}]}, evening:{title:"مساء",items:[{name:"Full Body Circuit",sets:"5 جولات (زيادة جولة)"}]}, flex:"Quad / Chest / Calf" },
+      { n:5, name:"Plank 40 ثانية", rest:false, morning:{title:"صباح",items:[{name:"Steady Cardio",sets:"20 دقيقة"}]}, evening:{title:"مساء",items:[{name:"Deadlift",sets:"4×6"},{name:"Floor Press",sets:"3×8"},{name:"Pause Squat",sets:"3×8"},{name:"Plank",sets:"3×40ث"}]}, flex:"Full Lower + Chest" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" }
+    ]
+  },
+  {
+    num: 3, name: "رفع الكثافة", phase: "INTENSITY", phaseClass: "phase-intensity",
+    desc: "تقليل الراحة 10–15ث · Rope 25ث عمل / 35ث راحة · زيادة أوزان",
+    days: [
+      { n:1, name:"وزن أعلى — Goblet / RDL", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"12 جولة · 25ث / 35ث"}]}, evening:{title:"مساء",items:[{name:"Goblet Squat",sets:"5×8 (وزن أعلى)"},{name:"DB RDL",sets:"4×10 (وزن أعلى)"},{name:"Split Squat",sets:"3×8"},{name:"Plank",sets:"3×40ث"}]}, flex:"Hip / Hamstring / Glute" },
+      { n:2, name:"Rope Volume أعلى", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"12–14 جولة · 25ث / 35ث"}]}, evening:{title:"مساء",items:[{name:"DB Floor Press",sets:"4×10"},{name:"DB Row",sets:"4×10"},{name:"OHP",sets:"3×8"},{name:"Face Pull",sets:"3×15"}]}, flex:"Chest / Shoulder / Thoracic" },
+      { n:3, name:"Push Press أقوى", rest:false, morning:{title:"صباح",items:[{name:"Steady Cardio",sets:"20–25 دقيقة"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"6×12"},{name:"Push Press",sets:"4×6 (وزن أعلى)"},{name:"Reverse Lunge",sets:"3×8"},{name:"Dead Bug",sets:"3×10"}]}, flex:"Hip / Glute / Spine" },
+      { n:4, name:"Circuit أسرع", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"12 جولة"}]}, evening:{title:"مساء",items:[{name:"Full Body Circuit",sets:"5 جولات (راحة أقل)"}]}, flex:"Quad / Calf / Chest" },
+      { n:5, name:"Deadlift Progression", rest:false, morning:{title:"صباح",items:[{name:"Steady Cardio",sets:"20 دقيقة"}]}, evening:{title:"مساء",items:[{name:"Deadlift",sets:"4×6 (وزن أعلى)"},{name:"Floor Press",sets:"3×8"},{name:"Pause Squat",sets:"3×8"},{name:"Plank",sets:"3×45ث"}]}, flex:"Full Lower + Chest" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" }
+    ]
+  },
+  {
+    num: 4, name: "تحسين الأداء", phase: "PERFORMANCE", phaseClass: "phase-intensity",
+    desc: "Push-up +1 مجموعة · Split Squat +2 تكرار · Rope +2 جولات · Benchmark Week",
+    days: [
+      { n:1, name:"قوة رجل + تقنية", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"14 جولة"}]}, evening:{title:"مساء",items:[{name:"Goblet Squat",sets:"5×8 ثقيل"},{name:"DB RDL",sets:"4×10"},{name:"Split Squat",sets:"3×10 (+2 تكرار)"},{name:"Plank",sets:"3×45ث"}]}, flex:"Hip / Glute / Hamstring" },
+      { n:2, name:"قوة علوي + Endurance", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope",sets:"14 جولة · 25ث / 35ث"}]}, evening:{title:"مساء",items:[{name:"DB Floor Press",sets:"4×10"},{name:"DB Row",sets:"4×10"},{name:"OHP",sets:"3×8"},{name:"Push-up",sets:"3 مجموعات (+1)"}]}, flex:"Chest / Shoulder / Lat" },
+      { n:3, name:"Power + Explosiveness", rest:false, morning:{title:"صباح",items:[{name:"Conditioning",sets:"25 دقيقة"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"6×12"},{name:"Push Press",sets:"4×6 قوي"},{name:"Reverse Lunge",sets:"3×10"},{name:"Dead Bug",sets:"3×10"}]}, flex:"Hip / Spine / Glute" },
+      { n:4, name:"Work Capacity", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope Density",sets:"14–16 جولة"}]}, evening:{title:"مساء",items:[{name:"Full Body Circuit",sets:"5 جولات (أسرع + ثقيل)"}]}, flex:"Full Body" },
+      { n:5, name:"Benchmark Week", rest:false, morning:{title:"صباح",items:[{name:"Steady Cardio",sets:"20 دقيقة"}]}, evening:{title:"مساء",items:[{name:"Deadlift",sets:"4×6 BENCHMARK"},{name:"Floor Press",sets:"3×8 BENCHMARK"},{name:"Pause Squat",sets:"3×8 BENCHMARK"}]}, flex:"Full Lower + Chest" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" }
+    ]
+  },
+  {
+    num: 5, name: "مرحلة الشدة", phase: "INTENSITY+", phaseClass: "phase-peak",
+    desc: "30/30 intervals · Goblet Squat 5×6 ثقيل · Deadlift 5×5",
+    days: [
+      { n:1, name:"30/30 Intervals", rest:false, morning:{title:"صباح — 30/30",items:[{name:"Shadow Rope 30/30 Intervals",sets:"12–15 جولة"}]}, evening:{title:"مساء — Heavy",items:[{name:"Goblet Squat",sets:"5×6 ثقيل"},{name:"DB RDL",sets:"4×10"},{name:"Split Squat",sets:"3×10"},{name:"Plank",sets:"3×50ث"}]}, flex:"Hip / Glute / Hamstring" },
+      { n:2, name:"Rope Skill", rest:false, morning:{title:"صباح",items:[{name:"Rope Skill / Shadow Rope",sets:"Volume أعلى"}]}, evening:{title:"مساء",items:[{name:"DB Floor Press",sets:"5×8"},{name:"DB Row",sets:"4×10"},{name:"OHP",sets:"3×8"},{name:"Push-up",sets:"3 مجموعات"}]}, flex:"Chest / Shoulder / Thoracic" },
+      { n:3, name:"Conditioning قوي", rest:false, morning:{title:"صباح",items:[{name:"Conditioning Block",sets:"25–30 دقيقة"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"6×12"},{name:"Push Press",sets:"4×6 قوي"},{name:"Reverse Lunge",sets:"3×10"},{name:"Dead Bug",sets:"3×10"}]}, flex:"Hip / Spine / Glute" },
+      { n:4, name:"Rope Density", rest:false, morning:{title:"صباح",items:[{name:"Rope Density Work",sets:"16–18 جولة"}]}, evening:{title:"مساء",items:[{name:"Full Body Circuit",sets:"5 جولات (Density)"}]}, flex:"Full Body" },
+      { n:5, name:"Aerobic + Deadlift 5×5", rest:false, morning:{title:"صباح",items:[{name:"Aerobic Steady State",sets:"25 دقيقة"}]}, evening:{title:"مساء",items:[{name:"Deadlift",sets:"5×5 (تقدم قوة)"},{name:"Floor Press",sets:"3×8"},{name:"Pause Squat",sets:"3×6"}]}, flex:"Full Lower" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" }
+    ]
+  },
+  {
+    num: 6, name: "Density Phase", phase: "DENSITY", phaseClass: "phase-peak",
+    desc: "نفس الحجم بزمن أقل · راحة 45–60ث · Circuit 5 جولات · KB Swing 8×10",
+    days: [
+      { n:1, name:"Lower — أقل راحة", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope 30/30",sets:"15 جولة"}]}, evening:{title:"مساء — Dense",items:[{name:"Goblet Squat",sets:"5×6"},{name:"DB RDL",sets:"4×10"},{name:"Split Squat",sets:"3×10"},{name:"Plank",sets:"3×50ث"}]}, flex:"Hip / Glute / Hamstring" },
+      { n:2, name:"Upper — Density", rest:false, morning:{title:"صباح",items:[{name:"Shadow Rope High Density",sets:"Volume أعلى"}]}, evening:{title:"مساء",items:[{name:"DB Floor Press",sets:"5×8"},{name:"DB Row",sets:"5×10"},{name:"OHP",sets:"3×8"},{name:"Push-up",sets:"3×Max"}]}, flex:"Chest / Shoulder / Lat" },
+      { n:3, name:"KB Swing 8×10", rest:false, morning:{title:"صباح",items:[{name:"Conditioning",sets:"25 دقيقة"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"8×10 (Density)"},{name:"Push Press",sets:"4×6"},{name:"Reverse Lunge",sets:"3×10"},{name:"Dead Bug",sets:"3×10"}]}, flex:"Hip / Spine / Glute" },
+      { n:4, name:"Full Body Circuit Peak", rest:false, morning:{title:"صباح",items:[{name:"Rope High Density",sets:"18 جولة"}]}, evening:{title:"مساء",items:[{name:"Full Body Circuit",sets:"5 جولات (Density - راحة 45ث)"}]}, flex:"Full Body" },
+      { n:5, name:"Strength + Power", rest:false, morning:{title:"صباح",items:[{name:"Aerobic Steady",sets:"25 دقيقة"}]}, evening:{title:"مساء",items:[{name:"Deadlift",sets:"5×5"},{name:"Floor Press",sets:"4×8"},{name:"Pause Squat",sets:"3×6"}]}, flex:"Full Lower + Chest" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" }
+    ]
+  },
+  {
+    num: 7, name: "أسبوع الذروة — Peak Week", phase: "PEAK", phaseClass: "phase-peak",
+    desc: "أعلى أسبوع أداء · 12–15 Rope Intervals · Heavy Squats / Press / Deadlift",
+    days: [
+      { n:1, name:"12–15 Rope + Squat Heavy", rest:false, morning:{title:"صباح — Peak Cardio",items:[{name:"Shadow Rope Peak",sets:"12–15 جولة · 30/30"}]}, evening:{title:"مساء — Heavy Squat",items:[{name:"Goblet Squat",sets:"5×5 ثقيل جداً"},{name:"DB RDL",sets:"4×8"},{name:"Split Squat",sets:"3×10"},{name:"Plank",sets:"3×60ث"}]}, flex:"Full Lower" },
+      { n:2, name:"Conditioning + Press Heavy", rest:false, morning:{title:"صباح",items:[{name:"Conditioning Block",sets:"Peak Volume"}]}, evening:{title:"مساء — Heavy Press",items:[{name:"DB Floor Press",sets:"5×6 ثقيل"},{name:"DB Row",sets:"5×8"},{name:"OHP",sets:"4×6 ثقيل"},{name:"Push-up",sets:"3×Max"}]}, flex:"Chest / Shoulder / Thoracic" },
+      { n:3, name:"Aerobic Power + Swing", rest:false, morning:{title:"صباح",items:[{name:"Aerobic Power",sets:"30 دقيقة"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"8×12 Peak"},{name:"Push Press",sets:"5×5 ثقيل"},{name:"Reverse Lunge",sets:"3×10"},{name:"Dead Bug",sets:"3×12"}]}, flex:"Hip / Spine / Glute" },
+      { n:4, name:"Full Body Circuit Peak", rest:false, morning:{title:"صباح",items:[{name:"Rope Density Peak",sets:"18–20 جولة"}]}, evening:{title:"مساء — Peak Circuit",items:[{name:"Full Body Circuit",sets:"6 جولات (Peak Performance)"}]}, flex:"Full Body" },
+      { n:5, name:"Benchmark — Deadlift / Press / Squat", rest:false, morning:{title:"صباح",items:[{name:"Steady Aerobic",sets:"25 دقيقة"}]}, evening:{title:"مساء — BENCHMARK",items:[{name:"Deadlift",sets:"BENCHMARK MAX"},{name:"Floor Press",sets:"BENCHMARK"},{name:"Squat",sets:"BENCHMARK"},{name:"Push-up Max",sets:"BENCHMARK"}]}, flex:"Full Body Recovery" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري" }
+    ]
+  },
+  {
+    num: 8, name: "Deload — استشفاء + تقييم", phase: "DELOAD", phaseClass: "phase-deload",
+    desc: "خفف الحجم 40% · خفف الوزن 15–20% · Rope أقل · لا فشل عضلي",
+    days: [
+      { n:1, name:"Lower — Deload", rest:false, morning:{title:"صباح — خفيف",items:[{name:"Shadow Rope / Walk",sets:"8 جولات فقط · راحة وافرة"}]}, evening:{title:"مساء — Deload",items:[{name:"Goblet Squat",sets:"3×6 (وزن خفيف 20% أقل)"},{name:"DB RDL",sets:"3×8"},{name:"Plank",sets:"2×30ث"}]}, flex:"Full Lower — طويل" },
+      { n:2, name:"Upper — Deload", rest:false, morning:{title:"صباح — خفيف",items:[{name:"Shadow Rope",sets:"8 جولات"}]}, evening:{title:"مساء — Deload",items:[{name:"DB Floor Press",sets:"3×8 خفيف"},{name:"DB Row",sets:"3×10"},{name:"OHP",sets:"2×6"}]}, flex:"Chest / Shoulder / Thoracic" },
+      { n:3, name:"Full Body — خفيف", rest:false, morning:{title:"صباح",items:[{name:"Steady Walk / Light Cardio",sets:"15–20 دقيقة"}]}, evening:{title:"مساء",items:[{name:"KB Swing",sets:"4×8 خفيف"},{name:"Push Press",sets:"3×4"},{name:"Dead Bug",sets:"2×10"}]}, flex:"Full Body — ممتد" },
+      { n:4, name:"Circuit — Deload", rest:false, morning:{title:"صباح",items:[{name:"Walk / March",sets:"خفيف"}]}, evening:{title:"مساء — Deload Circuit",items:[{name:"Full Body Circuit",sets:"3 جولات فقط (خفيف)"}]}, flex:"Full Body" },
+      { n:5, name:"تقييم الأداء", rest:false, morning:{title:"صباح",items:[{name:"Light Cardio",sets:"15 دقيقة"}]}, evening:{title:"مساء — Assessment",items:[{name:"Push-up Max Test",sets:"تقييم"},{name:"Plank Max Test",sets:"تقييم"},{name:"Goblet Squat",sets:"2×6 خفيف"}]}, flex:"Full Recovery" },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility خفيفة" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility خفيفة" }
+    ]
+  }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let currentWeek = 1;
+let completedWeeks = JSON.parse(localStorage.getItem('peak8_completed') || '[]');
+let checkedExercises = JSON.parse(localStorage.getItem('peak8_exercises') || '{}');
+
+// ── RENDER WEEK NAV ────────────────────────────────────────────────────
+function renderWeekNav() {
+  const nav = document.getElementById('weekNav');
+  nav.innerHTML = weeks.map(w => `
+    <button class="week-btn ${w.num === currentWeek ? 'active' : ''} ${completedWeeks.includes(w.num) ? 'completed' : ''}"
+      onclick="selectWeek(${w.num})">
+      <span class="week-num">${w.num}</span>
+      <span class="week-label">${w.name.split('—')[0].trim().substring(0,8)}</span>
+    </button>
+  `).join('');
+}
+
+// ── RENDER WEEK PANEL ──────────────────────────────────────────────────
+function renderWeekPanel(wk) {
+  const panel = document.getElementById('weekPanel');
+  const w = weeks[wk - 1];
+  const daysHtml = w.days.map(d => renderDay(d, wk)).join('');
+  panel.innerHTML = `
+    <div class="week-panel">
+      <div class="week-header">
+        <div class="week-number-display">${w.num}</div>
+        <div class="week-info">
+          <h3>${w.name}</h3>
+          <p>${w.desc}</p>
+        </div>
+        <span class="week-phase-tag ${w.phaseClass}">${w.phase}</span>
+      </div>
+      <div class="days-grid">${daysHtml}</div>
+    </div>
+  `;
+}
+
+function renderDay(d, wk) {
+  if (d.rest) {
+    return `
+      <div class="day-card day-rest">
+        <div class="day-card-header">
+          <div class="day-number">${d.n}</div>
+          <div>
+            <div class="day-label">${d.name}</div>
+            <div class="day-type">${d.flex}</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  const morningHtml = d.morning ? renderSession(d.morning, 'morning', wk, d.n) : '';
+  const eveningHtml = d.evening ? renderSession(d.evening, 'evening', wk, d.n) : '';
+  const flexHtml = `
+    <div class="session-block">
+      <div class="session-block-title sbt-flex">🟢 المرونة الليلية</div>
+      <div style="font-size:12px;color:var(--text-muted);padding:6px 0;">${d.flex}</div>
+    </div>`;
+
+  return `
+    <div class="day-card" id="day-${wk}-${d.n}">
+      <div class="day-card-header" onclick="toggleDay(${wk},${d.n})">
+        <div class="day-number">${d.n}</div>
+        <div style="flex:1">
+          <div class="day-label">${d.name}</div>
+          <div class="day-type">اليوم ${d.n}</div>
+        </div>
+        <div class="session-tags">
+          ${d.morning ? '<span class="stag stag-morning">صباح</span>' : ''}
+          ${d.evening ? '<span class="stag stag-evening">مساء</span>' : ''}
+          <span class="stag stag-flex">مرونة</span>
+        </div>
+        <div class="day-chevron">▾</div>
+      </div>
+      <div class="day-detail">
+        ${morningHtml}
+        ${eveningHtml}
+        ${flexHtml}
+      </div>
+    </div>`;
+}
+
+function renderSession(s, type, wk, dn) {
+  const cls = type === 'morning' ? 'sbt-morning' : 'sbt-evening';
+  const icon = type === 'morning' ? '🟡' : '🔵';
+  const itemsHtml = s.items.map((item, idx) => {
+    const key = `${wk}-${dn}-${type}-${idx}`;
+    const checked = checkedExercises[key] ? 'checked' : '';
+    return `
+      <div class="exercise-item">
+        <div class="exercise-check ${checked}" onclick="toggleCheck('${key}',event)">
+          ${checked ? '✓' : ''}
+        </div>
+        <div class="exercise-name">${item.name}</div>
+        <div class="exercise-sets">${item.sets}</div>
+      </div>`;
+  }).join('');
+  return `
+    <div class="session-block">
+      <div class="session-block-title ${cls}">${icon} ${s.title}</div>
+      <div class="exercise-list">${itemsHtml}</div>
+    </div>`;
+}
+
+function toggleDay(wk, dn) {
+  const card = document.getElementById(`day-${wk}-${dn}`);
+  if (card) card.classList.toggle('open');
+}
+
+function toggleCheck(key, e) {
+  e.stopPropagation();
+  const el = e.currentTarget;
+  const isChecked = el.classList.toggle('checked');
+  el.textContent = isChecked ? '✓' : '';
+  checkedExercises[key] = isChecked;
+  if (!isChecked) delete checkedExercises[key];
+  localStorage.setItem('peak8_exercises', JSON.stringify(checkedExercises));
+}
+
+function selectWeek(n) {
+  currentWeek = n;
+  renderWeekNav();
+  renderWeekPanel(n);
+  updateProgressBar();
+  document.getElementById('weekPanel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function updateProgressBar() {
+  weeks.forEach(w => {
+    const el = document.getElementById(`pw${w.num}`);
+    if (!el) return;
+    el.className = 'progress-week';
+    if (completedWeeks.includes(w.num)) el.classList.add('done');
+    else if (w.num === currentWeek) el.classList.add('current');
+  });
+}
+
+// ── WARM-UP TOGGLE ─────────────────────────────────────────────────────
+function toggleWarmup() {
+  const body = document.getElementById('warmupBody');
+  body.classList.toggle('open');
+}
+
+// ── TIMER ──────────────────────────────────────────────────────────────
+let timerInterval = null;
+let timerSeconds = 0;
+let timerRunning = false;
+let timerCountdown = false;
+let timerTarget = 0;
+
+function formatTime(s) {
+  const m = Math.floor(Math.abs(s) / 60).toString().padStart(2,'0');
+  const sec = (Math.abs(s) % 60).toString().padStart(2,'0');
+  return `${m}:${sec}`;
+}
+
+function updateTimerDisplay() {
+  const display = document.getElementById('timerDisplay');
+  display.textContent = formatTime(timerSeconds);
+  if (timerCountdown && timerSeconds <= 5 && timerSeconds > 0) {
+    display.style.color = 'var(--red)';
+  } else {
+    display.style.color = 'var(--amber)';
+  }
+}
+
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(() => {
+    if (timerCountdown) {
+      timerSeconds--;
+      if (timerSeconds <= 0) {
+        timerSeconds = 0;
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timerDisplay').style.color = 'var(--green)';
+        // vibrate if supported
+        if (navigator.vibrate) navigator.vibrate([200,100,200]);
       }
-    });
-  }, { threshold: 0.08 });
+    } else {
+      timerSeconds++;
+    }
+    updateTimerDisplay();
+  }, 1000);
+}
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerCountdown = false;
+  timerSeconds = 0;
+  updateTimerDisplay();
+}
+
+function setPreset(secs) {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerCountdown = true;
+  timerSeconds = secs;
+  updateTimerDisplay();
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+renderWeekNav();
+renderWeekPanel(1);
+updateProgressBar();
 </script>
-
 </body>
 </html>
