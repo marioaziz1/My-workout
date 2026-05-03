@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEAK — نظام التحول الأداء ٨ أسابيع</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0d;
+    --surface: #0d1117;
+    --panel: #111820;
+    --border: #1e2d3d;
+    --border-glow: #2a4a6b;
+    --amber: #f59e0b;
+    --amber-dim: #92600a;
+    --amber-glow: rgba(245,158,11,0.15);
+    --cyan: #06b6d4;
+    --cyan-dim: #0e4f5c;
+    --red: #ef4444;
+    --green: #22c55e;
+    --green-dim: #14532d;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #334155;
+    --mono: 'Share Tech Mono', monospace;
+    --arabic: 'Noto Kufi Arabic', sans-serif;
+    --display: 'Bebas Neue', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--arabic);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245,158,11,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,158,11,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ────────────────────────────────────────── */
+  .header {
+    position: relative;
+    z-index: 10;
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(13,17,23,0.98) 0%, transparent 100%);
+    text-align: center;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--amber-glow);
+    border: 1px solid var(--amber-dim);
+    border-radius: 2px;
+    padding: 4px 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .header-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .header-title {
+    font-family: var(--display);
+    font-size: clamp(42px, 10vw, 80px);
+    letter-spacing: 6px;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(245,158,11,0.3);
+  }
+
+  .header-title span {
+    color: var(--amber);
+  }
+
+  .header-sub {
+    font-family: var(--arabic);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* ── STATS ROW ─────────────────────────────────────── */
+  .stats-row {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-cell {
+    background: var(--surface);
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .stat-cell:hover { background: var(--panel); }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .stat-value {
+    font-family: var(--display);
+    font-size: 28px;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .stat-unit {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ── MAIN LAYOUT ───────────────────────────────────── */
+  .main {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  /* ── SECTION TITLE ─────────────────────────────────── */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    margin-top: 32px;
+  }
+
+  .section-title h2 {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #fff;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-glow), transparent);
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--amber);
+    letter-spacing: 2px;
+    background: var(--amber-glow);
+    border: 1px solid var(--amber-dim);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* ── WEEK NAVIGATOR ────────────────────────────────── */
+  .week-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .week-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 12px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: var(--arabic);
+    font-size: 11px;
+    font-weight: 600;
+    transition: all 0.2s;
+    position: relative;
+    text-align: center;
+  }
+
+  .week-btn .week-num {
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--text-dim);
+    display: block;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .week-btn .week-label {
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 3px;
+    display: block;
+  }
+
+  .week-btn:hover {
+    border-color: var(--border-glow);
+    background: var(--panel);
+  }
+
+  .week-btn.active {
+    border-color: var(--amber);
+    background: var(--amber-glow);
+  }
+
+  .week-btn.active .week-num { color: var(--amber); }
+  .week-btn.active .week-label { color: var(--amber); }
+
+  .week-btn.completed::after {
+    content: '✓';
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-size: 9px;
+    color: var(--green);
+    font-family: var(--mono);
+  }
+
+  /* ── WEEK DETAIL PANEL ─────────────────────────────── */
+  .week-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .week-header {
+    background: linear-gradient(135deg, var(--panel) 0%, rgba(245,158,11,0.05) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .week-number-display {
+    font-family: var(--display);
+    font-size: 52px;
+    color: var(--amber);
+    line-height: 1;
+    opacity: 0.9;
+    text-shadow: 0 0 20px var(--amber);
+  }
+
+  .week-info h3 {
+    font-family: var(--arabic);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .week-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .week-phase-tag {
+    margin-right: auto;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .phase-build { background: rgba(6,182,212,0.1); border: 1px solid var(--cyan-dim); color: var(--cyan); }
+  .phase-intensity { background: rgba(245,158,11,0.1); border: 1px solid var(--amber-dim); color: var(--amber); }
+  .phase-peak { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+  .phase-deload { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+
+  /* ── DAYS GRID ─────────────────────────────────────── */
+  .days-grid {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .day-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .day-card:hover { border-color: var(--border-glow); }
+
+  .day-card.day-rest {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .day-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .day-number {
+    font-family: var(--display);
+    font-size: 28px;
+    color: var(--text-dim);
+    line-height: 1;
+    min-width: 32px;
+  }
+
+  .day-label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .day-type {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .day-chevron {
+    margin-right: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+  }
+
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+  .day-card.open { border-color: var(--amber-dim); }
+
+  .session-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-right: auto;
+  }
+
+  .stag {
+    font-family: var(--mono);
+    font-size: 8px;
+    padding: 2px 7px;
+    border-radius: 1px;
+    letter-spacing: 1px;
+  }
+
+  .stag-morning { background: rgba(245,158,11,0.12); border: 1px solid var(--amber-dim); color: var(--amber); }
+  .stag-evening { background: rgba(6,182,212,0.12); border: 1px solid var(--cyan-dim); color: var(--cyan); }
+  .stag-flex { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+
+  .day-detail {
+    display: none;
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .day-card.open .day-detail { display: block; }
+
+  .session-block {
+    margin-top: 14px;
+  }
+
+  .session-block-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sbt-morning { color: var(--amber); }
+  .sbt-evening { color: var(--cyan); }
+  .sbt-flex { color: var(--green); }
+
+  .exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .exercise-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--surface);
+    border-radius: 2px;
+    border-right: 2px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .exercise-item:hover {
+    border-right-color: var(--amber-dim);
+    background: rgba(245,158,11,0.03);
+  }
+
+  .exercise-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .exercise-sets {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+
+  .exercise-check {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    font-size: 10px;
+    color: transparent;
+  }
+
+  .exercise-check.checked {
+    background: var(--green-dim);
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* ── WARM-UP SECTION ───────────────────────────────── */
+  .warmup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .warmup-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+  }
+
+  .warmup-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .warmup-header .tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--cyan);
+    background: rgba(6,182,212,0.1);
+    border: 1px solid var(--cyan-dim);
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    margin-right: auto;
+  }
+
+  .warmup-body {
+    padding: 16px 20px;
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .warmup-body.open { display: grid; }
+
+  .warmup-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .warmup-item span:first-child {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .warmup-item span:last-child {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--cyan);
+  }
+
+  /* ── MOBILITY TABLE ────────────────────────────────── */
+  .mobility-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .mobility-header {
+    padding: 16px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mobility-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .mobility-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .mobility-item {
+    background: var(--surface);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobility-item span:first-child {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .mobility-item span:last-child {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+  }
+
+  /* ── ANKLE PROTOCOL ────────────────────────────────── */
+  .ankle-card {
+    background: var(--surface);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .ankle-header {
+    padding: 16px 20px;
+    background: rgba(239,68,68,0.05);
+    border-bottom: 1px solid rgba(239,68,68,0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ankle-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--red);
+  }
+
+  .ankle-icon {
+    font-size: 20px;
+  }
+
+  .ankle-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ankle-rule {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+  }
+
+  .pain-level {
+    font-family: var(--display);
+    font-size: 22px;
+    min-width: 50px;
+  }
+
+  .pain-level.safe { color: var(--green); }
+  .pain-level.caution { color: var(--amber); }
+  .pain-level.stop { color: var(--red); }
+
+  .ankle-action {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── METRICS TABLE ─────────────────────────────────── */
+  .metrics-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .metrics-header {
+    padding: 16px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .metrics-header h3 {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .metric-cell {
+    background: var(--surface);
+    padding: 14px 16px;
+    position: relative;
+  }
+
+  .metric-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .metric-goal {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .metric-arrow {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-size: 14px;
+    color: var(--amber);
+  }
+
+  /* ── GOLDEN RULE ───────────────────────────────────── */
+  .golden-rule {
+    background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
+    border: 1px solid var(--amber-dim);
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .golden-rule::before {
+    content: 'GOLDEN RULE';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--amber-dim);
+    letter-spacing: 3px;
+  }
+
+  .golden-rule p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1.7;
+  }
+
+  /* ── PROGRESS TRACKER ──────────────────────────────── */
+  .progress-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .progress-week {
+    flex: 1;
+    height: 6px;
+    background: var(--panel);
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+
+  .progress-week:hover { transform: scaleY(2); }
+
+  .progress-week.done { background: var(--amber); }
+  .progress-week.current { background: linear-gradient(90deg, var(--amber), transparent); animation: shimmer 2s ease-in-out infinite; }
+
+  /* ── RESULTS SECTION ───────────────────────────────── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .result-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .result-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--amber);
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .result-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ── TIMER WIDGET ──────────────────────────────────── */
+  .timer-widget {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .timer-display {
+    font-family: var(--display);
+    font-size: 56px;
+    color: var(--amber);
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(245,158,11,0.4);
+    margin: 12px 0;
+    line-height: 1;
+  }
+
+  .timer-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+  }
+
+  .timer-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .timer-btn {
+    font-family: var(--arabic);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 2px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-start {
+    background: var(--amber-glow);
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  .btn-start:hover {
+    background: var(--amber);
+    color: #000;
+  }
+
+  .btn-pause {
+    background: rgba(6,182,212,0.1);
+    border-color: var(--cyan-dim);
+    color: var(--cyan);
+  }
+
+  .btn-reset {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text-muted);
+  }
+
+  .btn-reset:hover { border-color: var(--red); color: var(--red); }
+
+  .preset-btns {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .preset-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-muted);
+    background: var(--panel);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .preset-btn:hover {
+    border-color: var(--amber-dim);
+    color: var(--amber);
+  }
+
+  /* ── ANIMATIONS ────────────────────────────────────── */
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* ── MOBILE ────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .week-nav { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .week-btn .week-num { font-size: 18px; }
+    .week-btn .week-label { display: none; }
+    .week-btn { padding: 10px 4px; }
+    .warmup-body { grid-template-columns: 1fr; }
+    .mobility-grid { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .session-tags { display: none; }
+    .week-phase-tag { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-badge">PERFORMANCE SYSTEM · ACTIVE</div>
+  <div class="header-title">PEAK <span>8</span></div>
+  <div class="header-sub">نظام التحول الأداء الشخصي · ٨ أسابيع · ٥ أيام تدريب · جلستان يومياً</div>
+</header>
+
+<!-- STATS ROW -->
+<div class="stats-row">
+  <div class="stat-cell">
+    <div class="stat-label">الأسابيع</div>
+    <div class="stat-value">8</div>
+    <div class="stat-unit">WEEKS</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">الجلسات</div>
+    <div class="stat-value">80</div>
+    <div class="stat-unit">SESSIONS</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">دقيقة / جلسة</div>
+    <div class="stat-value">30</div>
+    <div class="stat-unit">MIN EACH</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">أيام راحة</div>
+    <div class="stat-value">2</div>
+    <div class="stat-unit">REST DAYS</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- WEEK PROGRESS -->
+  <div class="section-title" style="margin-top:0;">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>تتبع التقدم</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="progress-track" style="margin-bottom:16px;">
+    <div class="progress-week" id="pw1" onclick="selectWeek(1)" title="أسبوع 1"></div>
+    <div class="progress-week" id="pw2" onclick="selectWeek(2)" title="أسبوع 2"></div>
+    <div class="progress-week" id="pw3" onclick="selectWeek(3)" title="أسبوع 3"></div>
+    <div class="progress-week" id="pw4" onclick="selectWeek(4)" title="أسبوع 4"></div>
+    <div class="progress-week" id="pw5" onclick="selectWeek(5)" title="أسبوع 5"></div>
+    <div class="progress-week" id="pw6" onclick="selectWeek(6)" title="أسبوع 6"></div>
+    <div class="progress-week" id="pw7" onclick="selectWeek(7)" title="أسبوع 7"></div>
+    <div class="progress-week" id="pw8" onclick="selectWeek(8)" title="أسبوع 8"></div>
+  </div>
+
+  <!-- WEEK SELECTOR -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>اختر الأسبوع</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="week-nav" id="weekNav"></div>
+
+  <!-- WEEK DETAIL -->
+  <div id="weekPanel"></div>
+
+  <!-- WARM-UP -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>الإحماء الثابت</h2>
+    <div class="section-line"></div>
+    <div class="section-tag">5 MIN</div>
+  </div>
+
+  <div class="warmup-card">
+    <div class="warmup-header" onclick="toggleWarmup()">
+      <h3>WARM-UP PROTOCOL</h3>
+      <span style="font-family:var(--mono);font-size:9px;color:var(--text-muted)">قبل كل جلسة</span>
+      <span class="tag">اضغط للتفاصيل ▾</span>
+    </div>
+    <div class="warmup-body" id="warmupBody">
+      <div class="warmup-item"><span>مشي سريع / March in Place</span><span>60 ث</span></div>
+      <div class="warmup-item"><span>دوران كاحل</span><span>30ث / جهة</span></div>
+      <div class="warmup-item"><span>Arm Circles</span><span>30 ث</span></div>
+      <div class="warmup-item"><span>Bodyweight Squat</span><span>×15</span></div>
+      <div class="warmup-item"><span>Hip Hinge</span><span>×15</span></div>
+      <div class="warmup-item"><span>Calf Raises</span><span>×15</span></div>
+    </div>
+  </div>
+
+  <!-- TIMER -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>مؤقت التدريب</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timer-widget">
+    <div class="timer-label">SESSION TIMER</div>
+    <div class="timer-display" id="timerDisplay">00:00</div>
+    <div class="timer-controls">
+      <button class="timer-btn btn-start" onclick="startTimer()">▶ ابدأ</button>
+      <button class="timer-btn btn-pause" onclick="pauseTimer()">⏸ إيقاف</button>
+      <button class="timer-btn btn-reset" onclick="resetTimer()">↺ إعادة</button>
+    </div>
+    <div class="preset-btns">
+      <button class="preset-btn" onclick="setPreset(20)">20ث عمل</button>
+      <button class="preset-btn" onclick="setPreset(30)">30ث عمل</button>
+      <button class="preset-btn" onclick="setPreset(40)">40ث عمل</button>
+      <button class="preset-btn" onclick="setPreset(1800)">30 دقيقة</button>
+    </div>
+  </div>
+
+  <!-- MOBILITY -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>المرونة اليومية</h2>
+    <div class="section-line"></div>
+    <div class="section-tag">5–8 MIN</div>
+  </div>
+
+  <div class="mobility-card">
+    <div class="mobility-header">
+      <span style="font-size:16px">🟢</span>
+      <h3>DAILY MOBILITY PROTOCOL</h3>
+      <span style="font-family:var(--mono);font-size:9px;color:var(--text-muted);margin-right:auto;">بعد كل جلسة</span>
+    </div>
+    <div class="mobility-grid">
+      <div class="mobility-item"><span>Hip Flexor Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Hamstring Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Glute Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Calf Stretch</span><span>30ث / جهة</span></div>
+      <div class="mobility-item"><span>Chest Opener</span><span>30 ث</span></div>
+      <div class="mobility-item"><span>Thoracic Rotation</span><span>×6 / جهة</span></div>
+      <div class="mobility-item" style="grid-column:span 2;"><span>Child's Pose</span><span>30–45 ث</span></div>
+    </div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>مؤشرات القياس</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="metrics-card">
+    <div class="metrics-header">
+      <span style="font-size:16px">📊</span>
+      <h3>WEEKLY PERFORMANCE METRICS</h3>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Push-ups Max</div>
+        <div class="metric-goal">زيادة تدريجية كل أسبوع</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Plank Time</div>
+        <div class="metric-goal">زيادة الزمن الأسبوعي</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Rope / Shadow Rope</div>
+        <div class="metric-goal">زيادة الاستمرارية</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Goblet Squat</div>
+        <div class="metric-goal">وزن أو تكرار أعلى</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↑</div>
+        <div class="metric-name">Deadlift</div>
+        <div class="metric-goal">قوة أعلى تدريجياً</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-arrow">↓</div>
+        <div class="metric-name">RPE</div>
+        <div class="metric-goal">تحكم وكفاءة أعلى</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANKLE PROTOCOL -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>بروتوكول الكاحل</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="ankle-card">
+    <div class="ankle-header">
+      <span class="ankle-icon">⚠️</span>
+      <h3>ANKLE PAIN PROTOCOL</h3>
+    </div>
+    <div class="ankle-body">
+      <div class="ankle-rule">
+        <div class="pain-level safe">0–3</div>
+        <div>
+          <div class="ankle-action">استمر بحذر</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">مستوى الألم آمن — راقب باستمرار</div>
+        </div>
+      </div>
+      <div class="ankle-rule">
+        <div class="pain-level caution">4+</div>
+        <div>
+          <div class="ankle-action">Shadow Rope / March فقط</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">حول إلى بدائل منخفضة الصدمة</div>
+        </div>
+      </div>
+      <div class="ankle-rule">
+        <div class="pain-level stop">مستمر</div>
+        <div>
+          <div class="ankle-action">تقليل الصدمات التام</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">ألم مستمر = تعديل كامل للبرنامج</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>النتائج المتوقعة</h2>
+    <div class="section-line"></div>
+    <div class="section-tag">8 WEEKS</div>
+  </div>
+
+  <div class="results-grid">
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">حرق دهون واضح ومستمر</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">لياقة بدنية عامة أعلى</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">تحسن قوي في الكارديو</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">استعادة القوة الكاملة</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">تحمل عضلي أعلى</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">أداء رياضي منزلي قوي</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">قدرة أفضل على الحبل</div></div>
+    <div class="result-item"><div class="result-dot"></div><div class="result-text">تحسن في الحركة والمرونة</div></div>
+  </div>
+
+  <!-- GOLDEN RULE -->
+  <div class="section-title">
+    <div class="section-line" style="background:linear-gradient(270deg,var(--border-glow),transparent);"></div>
+    <h2>القاعدة الذهبية</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="golden-rule">
+    <p>ابدأ ذكيًا · تقدّم تدريجيًا · لا تدمّر الكاحل · ابنِ الأداء الحقيقي</p>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ── DATA ───────────────────────────────────────────────────────────────
+
+const weeks = [
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 1 — FOUNDATION: الأساس التكتيكي
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 1, name: "Foundation — الأساس التكتيكي", phase: "BUILD", phaseClass: "phase-build",
+    desc: "بناء القاعدة الحركية · تفعيل الآلة الأيضية · 4 جولات صباح · 4 سيتات مساء · RPE 6–7",
+    days: [
+      {
+        n:1, name:"Lower MetCon + Posterior Strength", rest:false,
+        morning:{ title:"صباح — CrossFit MetCon (Fasted)", items:[
+          {name:"Warm-up: Hip Circles + Leg Swings + Slow Squats", sets:"3 دقائق تفعيل"},
+          {name:"Circuit — 4 Rounds (راحة 45ث بين الجولات)", sets:"FORMAT: CIRCUIT"},
+          {name:"Jump Rope / Shadow Rope", sets:"60 ثانية"},
+          {name:"Kettlebell Swing", sets:"20 تكرار — فرجة الورك كاملة"},
+          {name:"Mountain Climbers", sets:"40 ثانية — إيقاع ثابت"},
+          {name:"Bodyweight Squat", sets:"20 تكرار — عمق كامل"},
+          {name:"Dead Bug", sets:"10 تكرار / جهة — تحكم"},
+          {name:"⚡ Finisher: Burpee Ladder", sets:"5 → 8 → 5 تكرار · راحة 20ث بين المجموعات"}
+        ]},
+        evening:{ title:"مساء — Lower Posterior Strength", items:[
+          {name:"Goblet Squat", sets:"4×8 · راحة 90ث · RPE 7"},
+          {name:"DB Romanian Deadlift", sets:"4×10 · راحة 90ث · ركبة شبه مستقيمة"},
+          {name:"Bulgarian Split Squat", sets:"3×8/جهة · راحة 90ث · وزن خفيف"},
+          {name:"Calf Raises (bodyweight)", sets:"4×15 · راحة 45ث · نطاق كامل"},
+          {name:"Plank", sets:"3×40 ثانية · راحة 30ث"}
+        ]},
+        flex:"Hip Flexor 45ث/جهة · Hamstring 45ث/جهة · Calf 45ث/جهة · Glute Figure-4 · Child Pose 60ث"
+      },
+      {
+        n:2, name:"Upper Push/Pull MetCon + Upper Strength", rest:false,
+        morning:{ title:"صباح — Upper CrossFit Circuit (Fasted)", items:[
+          {name:"Warm-up: Arm Circles + Band Pull-Apart + Push-up Negatives", sets:"3 دقائق"},
+          {name:"Circuit — 4 Rounds (راحة 45ث)", sets:"FORMAT: CIRCUIT"},
+          {name:"Push-ups (أي نوع)", sets:"15 تكرار — صدر وكتف كامل"},
+          {name:"DB Row / Band Row", sets:"15 تكرار / جهة"},
+          {name:"Jump Rope / Shadow Rope", sets:"60 ثانية"},
+          {name:"Shoulder Taps", sets:"20 تكرار (10/جهة) — ثبات الكور"},
+          {name:"⚡ Finisher: Push-up Max × 2", sets:"استراحة 90ث بين المحاولتين"}
+        ]},
+        evening:{ title:"مساء — Upper Push/Pull Strength", items:[
+          {name:"DB Floor Press", sets:"4×10 · راحة 90ث · RPE 7"},
+          {name:"DB Bent-Over Row", sets:"4×10 · راحة 90ث · صدر ثابت"},
+          {name:"DB Overhead Press", sets:"4×8 · راحة 90ث · لا تقوس الظهر"},
+          {name:"Lateral Raise", sets:"3×15 · راحة 60ث · حركة بطيئة"},
+          {name:"Bicep Curl + Tricep Overhead Extension", sets:"3×12 (superset) · راحة 60ث"}
+        ]},
+        flex:"Chest Opener 45ث · Shoulder Cross-Body 45ث/جهة · Thoracic Rotation 8×/جهة · Lat Stretch 45ث/جهة"
+      },
+      {
+        n:3, name:"Sprint Intervals + Posterior Power", rest:false,
+        morning:{ title:"صباح — Sprint Protocol + KB Power (Fasted)", items:[
+          {name:"Warm-up: High Knees + Ankle Circles + Hip Hinge Drill", sets:"3 دقائق"},
+          {name:"Sprint Intervals — 10 Rounds", sets:"FORMAT: INTERVALS"},
+          {name:"Sprint in Place / Outdoor Sprint", sets:"20 ثانية MAX effort"},
+          {name:"Active Walk / Rest", sets:"40 ثانية استشفاء"},
+          {name:"KB Clean & Press (بعد الـ Sprints)", sets:"4×10 — تسلسل نظيف"}
+        ]},
+        evening:{ title:"مساء — Posterior Chain Power", items:[
+          {name:"DB Deadlift (هينج كامل)", sets:"5×5 · راحة 2 دقيقة · RPE 7–8"},
+          {name:"KB Swing — Power Focus", sets:"5×15 · راحة 90ث · انفجار من الورك"},
+          {name:"DB Push Press", sets:"4×6 · راحة 90ث · قوة كاملة"},
+          {name:"Reverse Lunge + Knee Drive", sets:"3×10/جهة · راحة 60ث"}
+        ]},
+        flex:"Glute Pigeon 60ث/جهة · Hamstring Lying 45ث/جهة · Lower Back Cat-Cow 10×"
+      },
+      {
+        n:4, name:"EMOM Full Body + Hypertrophy", rest:false,
+        morning:{ title:"صباح — EMOM 20 دقيقة (Fasted)", items:[
+          {name:"Warm-up: Jumping Jacks + World's Greatest Stretch", sets:"3 دقائق"},
+          {name:"EMOM 20 دقيقة — دقيقة بدقيقة", sets:"FORMAT: EMOM"},
+          {name:"دقيقة 1: DB Thruster", sets:"12 تكرار · RPE 7"},
+          {name:"دقيقة 2: Jump Rope / Shadow Rope", sets:"45 ثانية متواصلة"},
+          {name:"دقيقة 3: Push-ups", sets:"15 تكرار"},
+          {name:"دقيقة 4: DB Row", sets:"15 تكرار / جهة"}
+        ]},
+        evening:{ title:"مساء — Full Body Hypertrophy", items:[
+          {name:"Goblet Squat", sets:"4×12 · راحة 75ث · وزن متوسط"},
+          {name:"DB Floor Press", sets:"4×12 · راحة 75ث"},
+          {name:"DB Row", sets:"4×12 · راحة 75ث"},
+          {name:"DB Shoulder Press", sets:"3×12 · راحة 75ث"},
+          {name:"Core Circuit (Plank + Dead Bug + Side Plank)", sets:"3 جولات · 30ث لكل حركة"}
+        ]},
+        flex:"Full Body Flow — Hip Flexor + Hamstring + Chest + Shoulder + Thoracic (30ث لكل واحد)"
+      },
+      {
+        n:5, name:"Hero WOD + Strength Benchmark", rest:false,
+        morning:{ title:"صباح — Hero WOD: AMRAP 25 دقيقة (Fasted)", items:[
+          {name:"Warm-up: Full Joint Mobilization", sets:"4 دقائق"},
+          {name:"AMRAP 25 دقيقة — أقصى جولات ممكنة", sets:"FORMAT: AMRAP"},
+          {name:"Bodyweight Squat", sets:"10 تكرار"},
+          {name:"Push-ups", sets:"15 تكرار"},
+          {name:"KB Swing", sets:"20 تكرار"},
+          {name:"Jump Rope / Shadow Rope", sets:"30 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"📋 سجّل عدد الجولات المكتملة", sets:"BENCHMARK W1"}
+        ]},
+        evening:{ title:"مساء — Strength Benchmark 5×5", items:[
+          {name:"Goblet Squat — Benchmark", sets:"5×5 · أثقل وزن ممكن بتقنية نظيفة"},
+          {name:"DB Floor Press — Benchmark", sets:"5×5 · راحة 2 دقيقة"},
+          {name:"DB Deadlift — Benchmark", sets:"5×5 · راحة 2 دقيقة"},
+          {name:"📋 سجّل الأوزان المستخدمة", sets:"للمقارنة مع أسبوع 7"}
+        ]},
+        flex:"Deep Full Body Stretch — 10 دقائق ممتدة · Child Pose + Pigeon + Spinal Twist + Hamstring"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري 10 دقائق" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility اختياري 10 دقائق" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 2 — FOUNDATION+: زيادة الحجم التدريجية
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 2, name: "Foundation+ — تصاعد الحجم", phase: "BUILD", phaseClass: "phase-build",
+    desc: "+1 جولة كل صباح · +1 سيت كل مساء · Rope +20ث · Burpees أصعب · RPE 7–8",
+    days: [
+      {
+        n:1, name:"Lower MetCon+ + Posterior Strength+", rest:false,
+        morning:{ title:"صباح — CrossFit MetCon+ (5 Rounds)", items:[
+          {name:"Warm-up: Hip Circles + Leg Swings + Inchworm", sets:"3 دقائق تفعيل"},
+          {name:"Circuit — 5 Rounds (راحة 40ث)", sets:"FORMAT: CIRCUIT (+1 جولة من W1)"},
+          {name:"Jump Rope / Shadow Rope", sets:"80 ثانية — (+20ث من W1)"},
+          {name:"Kettlebell Swing", sets:"22 تكرار — قوة أعلى"},
+          {name:"Mountain Climbers", sets:"45 ثانية"},
+          {name:"Jump Squat (بديل: Bodyweight Squat x25)", sets:"20 تكرار — انفجاري"},
+          {name:"Dead Bug + Leg Raise", sets:"12 تكرار / جهة"},
+          {name:"⚡ Finisher: Burpee + Lateral Jump", sets:"5 → 8 → 10 → 8 → 5 تكرار"}
+        ]},
+        evening:{ title:"مساء — Lower Posterior Strength+", items:[
+          {name:"Goblet Squat", sets:"5×8 · راحة 90ث · +وزن من W1"},
+          {name:"DB Romanian Deadlift", sets:"5×10 · راحة 90ث"},
+          {name:"Bulgarian Split Squat", sets:"3×10/جهة · راحة 90ث"},
+          {name:"Calf Raises", sets:"4×18 · راحة 45ث"},
+          {name:"Plank", sets:"3×45 ثانية"}
+        ]},
+        flex:"Hip Flexor 50ث/جهة · Hamstring 50ث · Calf 45ث · Glute Bridge Stretch · Child Pose 60ث"
+      },
+      {
+        n:2, name:"Upper Push/Pull+ + Upper Strength+", rest:false,
+        morning:{ title:"صباح — Upper CrossFit Circuit+ (5 Rounds)", items:[
+          {name:"Warm-up: Band Work + Thoracic Rolls + Shoulder Prep", sets:"3 دقائق"},
+          {name:"Circuit — 5 Rounds (راحة 40ث)", sets:"FORMAT: CIRCUIT (+1 جولة)"},
+          {name:"Push-ups (الأصعب ممكن)", sets:"18 تكرار"},
+          {name:"DB Row / Band Row", sets:"18 تكرار / جهة"},
+          {name:"Jump Rope / Shadow Rope", sets:"80 ثانية"},
+          {name:"Shoulder Taps + Plank Walk", sets:"24 تكرار"},
+          {name:"⚡ Finisher: Push-up Max × 2 (+ 5 تكرار هدف)", sets:"استراحة 90ث"}
+        ]},
+        evening:{ title:"مساء — Upper Push/Pull Strength+", items:[
+          {name:"DB Floor Press", sets:"5×10 · راحة 90ث"},
+          {name:"DB Bent-Over Row", sets:"5×10 · راحة 90ث"},
+          {name:"DB Overhead Press", sets:"4×8 · راحة 90ث"},
+          {name:"Lateral Raise", sets:"3×15 · راحة 60ث"},
+          {name:"Bicep Curl + Tricep Overhead (superset)", sets:"3×12 · راحة 60ث"}
+        ]},
+        flex:"Chest Opener 50ث · Shoulder 50ث/جهة · Thoracic Rotation 10×/جهة · Lat Stretch 50ث/جهة"
+      },
+      {
+        n:3, name:"Sprint+ + Posterior Power+", rest:false,
+        morning:{ title:"صباح — Sprint Protocol+ (12 Rounds)", items:[
+          {name:"Warm-up: High Knees + Hip Hinge Drill + Ankle Prep", sets:"3 دقائق"},
+          {name:"Sprint Intervals — 12 Rounds (+2 من W1)", sets:"FORMAT: INTERVALS"},
+          {name:"Sprint in Place / Outdoor Sprint", sets:"20 ثانية MAX — لا مهادنة"},
+          {name:"Active Walk", sets:"40 ثانية"},
+          {name:"KB Clean & Press (بعد الـ Sprints)", sets:"5×10 — +1 سيت من W1"}
+        ]},
+        evening:{ title:"مساء — Posterior Chain Power+", items:[
+          {name:"DB Deadlift", sets:"5×5 · +وزن من W1 · راحة 2 دقيقة"},
+          {name:"KB Swing — الانفجارية أعلى", sets:"5×18 · راحة 90ث"},
+          {name:"DB Push Press", sets:"4×6 · راحة 90ث"},
+          {name:"Reverse Lunge + Knee Drive", sets:"4×10/جهة · راحة 60ث · (+1 سيت)"}
+        ]},
+        flex:"Glute 60ث/جهة · Hamstring 50ث/جهة · Lower Back Cat-Cow + Cobra 10×"
+      },
+      {
+        n:4, name:"EMOM+ Full Body + Hypertrophy+", rest:false,
+        morning:{ title:"صباح — EMOM 24 دقيقة+ (Fasted)", items:[
+          {name:"Warm-up: Full Joint Flow", sets:"3 دقائق"},
+          {name:"EMOM 24 دقيقة (6 دورات)", sets:"FORMAT: EMOM (+4 دقائق من W1)"},
+          {name:"دقيقة 1: DB Thruster", sets:"14 تكرار · RPE 7–8"},
+          {name:"دقيقة 2: Jump Rope / Shadow Rope", sets:"50 ثانية"},
+          {name:"دقيقة 3: Push-ups", sets:"18 تكرار"},
+          {name:"دقيقة 4: DB Row", sets:"15/جهة"}
+        ]},
+        evening:{ title:"مساء — Full Body Hypertrophy+", items:[
+          {name:"Goblet Squat", sets:"5×12 · راحة 75ث"},
+          {name:"DB Floor Press", sets:"5×12 · راحة 75ث"},
+          {name:"DB Row", sets:"5×12 · راحة 75ث"},
+          {name:"DB Shoulder Press", sets:"4×12 · راحة 75ث"},
+          {name:"Core Circuit (Plank + Dead Bug + Side Plank + V-Sit)", sets:"3 جولات · 35ث/حركة"}
+        ]},
+        flex:"Full Body Flow ممتد — Hip Flexor + Hamstring + Chest + Shoulder + Thoracic + Spinal Twist"
+      },
+      {
+        n:5, name:"Hero WOD+ + Strength+ Benchmark Compare", rest:false,
+        morning:{ title:"صباح — Hero WOD+: AMRAP 28 دقيقة", items:[
+          {name:"Warm-up: Full Joint Mobilization", sets:"4 دقائق"},
+          {name:"AMRAP 28 دقيقة (+3 دقائق من W1)", sets:"FORMAT: AMRAP"},
+          {name:"Bodyweight Squat", sets:"12 تكرار"},
+          {name:"Push-ups", sets:"18 تكرار"},
+          {name:"KB Swing", sets:"22 تكرار"},
+          {name:"Jump Rope / Shadow Rope", sets:"40 ثانية"},
+          {name:"Burpees", sets:"12 تكرار"},
+          {name:"📋 هل تجاوزت جولات W1؟", sets:"BENCHMARK COMPARE"}
+        ]},
+        evening:{ title:"مساء — Strength+ 5×5", items:[
+          {name:"Goblet Squat", sets:"5×5 · +وزن من W1"},
+          {name:"DB Floor Press", sets:"5×5 · +وزن من W1"},
+          {name:"DB Deadlift", sets:"5×5 · +وزن من W1"},
+          {name:"📋 سجّل التقدم عن W1", sets:"Progressive Overload"}
+        ]},
+        flex:"Deep Full Body Stretch 12 دقيقة · Child Pose + Pigeon + Spinal Twist + Hamstring + Lat"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility 10 دقائق" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility 10 دقائق" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 3 — VOLUME: زيادة الحجم والكثافة
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 3, name: "Volume — كثافة الحجم", phase: "INTENSITY", phaseClass: "phase-intensity",
+    desc: "5 جولات صباح · Rope 75ث · Burpee Ladder 5-8-10-8-5 · PM: 5 سيتات · RPE 7.5–8.5",
+    days: [
+      {
+        n:1, name:"Lower Volume + Bilateral Strength", rest:false,
+        morning:{ title:"صباح — Lower Volume MetCon (5 Rounds)", items:[
+          {name:"Warm-up: Dynamic Hip Flow + Leg Swings + Squat Prep", sets:"3 دقائق"},
+          {name:"Circuit — 5 Rounds (راحة 35ث)", sets:"FORMAT: CIRCUIT"},
+          {name:"Jump Rope / Shadow Rope", sets:"75 ثانية — (+15ث من W2)"},
+          {name:"KB Swing — Power Double", sets:"25 تكرار — قوة من الورك"},
+          {name:"Jump Squat (بديل: Squat Pulse x30)", sets:"15 تكرار"},
+          {name:"Mountain Climbers", sets:"45 ثانية — إيقاع سريع"},
+          {name:"⚡ Finisher: Burpee Ladder", sets:"5 → 8 → 10 → 8 → 5 تكرار"}
+        ]},
+        evening:{ title:"مساء — Lower Bilateral Strength", items:[
+          {name:"Goblet Squat", sets:"5×8 · +وزن · راحة 2 دقيقة · RPE 8"},
+          {name:"DB RDL", sets:"5×10 · راحة 90ث"},
+          {name:"Bulgarian Split Squat", sets:"4×10/جهة · راحة 90ث"},
+          {name:"Standing Calf Raise (weighted)", sets:"4×15 · راحة 45ث"},
+          {name:"Core: Hanging Knee Raise / V-Sit", sets:"4×12 · راحة 45ث"}
+        ]},
+        flex:"Hip Flexor 60ث/جهة · Pigeon 60ث/جهة · Hamstring 50ث · Calf 45ث · Cobra 45ث"
+      },
+      {
+        n:2, name:"Upper Volume + Pressing Strength", rest:false,
+        morning:{ title:"صباح — Upper Volume MetCon (5 Rounds)", items:[
+          {name:"Warm-up: Band Pull-Apart + Shoulder Circles + Push-up Flow", sets:"3 دقائق"},
+          {name:"Circuit — 5 Rounds (راحة 35ث)", sets:"FORMAT: CIRCUIT"},
+          {name:"Push-ups (Diamond / Wide / Normal تناوب)", sets:"20 تكرار"},
+          {name:"DB Row أحادي — ثقيل", sets:"18 تكرار / جهة"},
+          {name:"Jump Rope / Shadow Rope", sets:"75 ثانية"},
+          {name:"DB Shoulder Press Standing", sets:"10 تكرار"},
+          {name:"⚡ Finisher: Push-up Max x3 (استراحة 60ث)", sets:"سجّل المجموع الكلي"}
+        ]},
+        evening:{ title:"مساء — Pressing + Back Strength", items:[
+          {name:"DB Floor Press", sets:"5×8 · +وزن · راحة 90ث"},
+          {name:"DB Bent-Over Row", sets:"5×10 · راحة 90ث"},
+          {name:"DB Overhead Press", sets:"4×8 · راحة 90ث · RPE 8"},
+          {name:"Lateral Raise + Front Raise (superset)", sets:"3×12+12 · راحة 60ث"},
+          {name:"Skull Crusher + Hammer Curl (superset)", sets:"3×10+10"}
+        ]},
+        flex:"Chest Door Stretch 50ث · Band Shoulder 50ث/جهة · Thoracic Foam Roll 2 دقائق · Child Pose 60ث"
+      },
+      {
+        n:3, name:"Conditioning Day + Hinge Power", rest:false,
+        morning:{ title:"صباح — EMOM 20 + Power Complex (Fasted)", items:[
+          {name:"Warm-up: Hip Hinge + Ankle Prep + High Knees", sets:"3 دقائق"},
+          {name:"EMOM 20 دقيقة — 4 حركات", sets:"FORMAT: EMOM"},
+          {name:"دقيقة 1: DB Thruster", sets:"12 تكرار"},
+          {name:"دقيقة 2: KB Swing Heavy", sets:"18 تكرار"},
+          {name:"دقيقة 3: Push-ups", sets:"18 تكرار"},
+          {name:"دقيقة 4: Bent-over Row", sets:"15/جهة"},
+          {name:"⚡ Finisher: KB Swing Burnout", sets:"Max في 90 ثانية"}
+        ]},
+        evening:{ title:"مساء — Hinge Power + Carry", items:[
+          {name:"DB Deadlift — ثقيل", sets:"5×5 · راحة 2.5 دقيقة · RPE 8"},
+          {name:"KB Swing — Maximal Power", sets:"5×15 · راحة 90ث"},
+          {name:"DB Push Press", sets:"4×6 · راحة 90ث"},
+          {name:"Farmer Carry (DB في يدين)", sets:"3×40 خطوة · راحة 60ث"},
+          {name:"Reverse Lunge", sets:"3×10/جهة"}
+        ]},
+        flex:"Glute 60ث/جهة · Hamstring 55ث/جهة · Lower Back Quadruped + Cat-Cow"
+      },
+      {
+        n:4, name:"AMRAP Day + Full Body Power", rest:false,
+        morning:{ title:"صباح — AMRAP 20 دقيقة (Fasted)", items:[
+          {name:"Warm-up: Dynamic Full Body Flow", sets:"4 دقائق"},
+          {name:"AMRAP 20 دقيقة — max rounds", sets:"FORMAT: AMRAP"},
+          {name:"Goblet Squat", sets:"10 تكرار"},
+          {name:"Push-up", sets:"12 تكرار"},
+          {name:"KB Swing", sets:"15 تكرار"},
+          {name:"DB Row", sets:"10/جهة"},
+          {name:"Mountain Climbers", sets:"20 تكرار (10/جهة)"},
+          {name:"📋 سجّل عدد الجولات", sets:"VOLUME BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — Full Body Power", items:[
+          {name:"DB Thruster", sets:"5×6 · راحة 90ث · RPE 8"},
+          {name:"KB Swing", sets:"5×15 · راحة 90ث"},
+          {name:"DB Floor Press", sets:"4×8 · راحة 75ث"},
+          {name:"DB Row", sets:"4×10 · راحة 75ث"},
+          {name:"Core Superset (Dead Bug + V-Sit)", sets:"3×12/12"}
+        ]},
+        flex:"Full Body 10 دقائق — Hip Flexor + Hamstring + Chest + Lat + Thoracic + Cobra"
+      },
+      {
+        n:5, name:"Hero WOD Vol + Strength Volume", rest:false,
+        morning:{ title:"صباح — Hero WOD Volume: AMRAP 30 دقيقة", items:[
+          {name:"Warm-up: Full Joint Mobilization", sets:"4 دقائق"},
+          {name:"AMRAP 30 دقيقة — (+2 دقيقة من W2)", sets:"FORMAT: AMRAP"},
+          {name:"Bodyweight Squat", sets:"12 تكرار"},
+          {name:"Push-ups", sets:"15 تكرار"},
+          {name:"KB Swing", sets:"20 تكرار"},
+          {name:"Jump Rope / Shadow Rope", sets:"45 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"Dead Bug", sets:"10/جهة"},
+          {name:"📋 سجّل الجولات + قارن مع W1 & W2", sets:"PROGRESS TRACKER"}
+        ]},
+        evening:{ title:"مساء — Strength Volume", items:[
+          {name:"Goblet Squat", sets:"5×6 · ثقيل · راحة 2 دقيقة"},
+          {name:"DB Floor Press", sets:"5×6 · ثقيل"},
+          {name:"DB Deadlift", sets:"5×5 · ثقيل"},
+          {name:"Push Press", sets:"3×8 · انفجاري"}
+        ]},
+        flex:"Deep Full Body 12 دقيقة · Pigeon + Spinal Twist + Hamstring + Chest + Child Pose"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll + Mobility 15 دقيقة" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll + Mobility 15 دقيقة" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 4 — VOLUME+: تقليل الراحة + AMRAP أطول
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 4, name: "Volume+ — ضغط الوقت", phase: "INTENSITY", phaseClass: "phase-intensity",
+    desc: "راحة -30% · EMOM أطول · AMRAP 30 دقيقة · Sprint 12–15 جولة · RPE 8–8.5",
+    days: [
+      {
+        n:1, name:"Lower MetCon Density + Strength Peak", rest:false,
+        morning:{ title:"صباح — Density Circuit (5 Rounds / راحة 30ث فقط)", items:[
+          {name:"Warm-up: Hip Flow + Squat Prep + Ankle Circles", sets:"3 دقائق"},
+          {name:"Circuit — 5 Rounds (راحة 30ث فقط — -15ث من W3)", sets:"FORMAT: DENSITY CIRCUIT"},
+          {name:"Jump Rope / Shadow Rope", sets:"80 ثانية"},
+          {name:"KB Swing", sets:"25 تكرار — سرعة أعلى"},
+          {name:"Jump Squat (بديل: Squat x30)", sets:"20 تكرار"},
+          {name:"Mountain Climbers", sets:"50 ثانية"},
+          {name:"Dead Bug + Hollow Hold", sets:"12/جهة + 20ث"},
+          {name:"⚡ Finisher: Tabata Burpees", sets:"8 جولات · 20ث عمل / 10ث راحة"}
+        ]},
+        evening:{ title:"مساء — Lower Strength Peak", items:[
+          {name:"Goblet Squat", sets:"5×6 · أثقل وزن ممكن · راحة 2.5 دقيقة"},
+          {name:"DB Romanian Deadlift", sets:"5×8 · راحة 2 دقيقة"},
+          {name:"Bulgarian Split Squat", sets:"4×10/جهة · راحة 90ث"},
+          {name:"Single-Leg Calf Raise", sets:"4×15/جهة · راحة 45ث"},
+          {name:"Hanging Knee Raise / V-Sit", sets:"4×15 · راحة 45ث"}
+        ]},
+        flex:"Deep Hip Flexor 60ث/جهة · Pigeon 75ث/جهة · Hamstring 60ث · Calf 45ث"
+      },
+      {
+        n:2, name:"Upper Density + Pressing Power", rest:false,
+        morning:{ title:"صباح — Upper Density Circuit (5 Rounds / راحة 30ث)", items:[
+          {name:"Warm-up: Band Work + Shoulder Prep", sets:"3 دقائق"},
+          {name:"Circuit — 5 Rounds (راحة 30ث فقط)", sets:"FORMAT: DENSITY CIRCUIT"},
+          {name:"Push-ups (Weighted / Elevated أصعب نوع)", sets:"20 تكرار"},
+          {name:"DB Row — ثقيل", sets:"18/جهة"},
+          {name:"Jump Rope / Shadow Rope", sets:"80 ثانية"},
+          {name:"DB Push Press", sets:"10 تكرار"},
+          {name:"⚡ Finisher: Max Push-up Test (شكل كامل)", sets:"MAX تكرار — سجّل الرقم"}
+        ]},
+        evening:{ title:"مساء — Upper Pressing Power", items:[
+          {name:"DB Floor Press", sets:"5×6 · +وزن · راحة 2 دقيقة · RPE 8.5"},
+          {name:"DB Bent-Over Row — ثقيل", sets:"5×8 · راحة 90ث"},
+          {name:"DB Overhead Press", sets:"4×6 · راحة 2 دقيقة"},
+          {name:"Cable/Band Lateral + Rear Delt Fly (superset)", sets:"3×15+15"},
+          {name:"Tricep Dip (كرسي) + Hammer Curl (superset)", sets:"3×12+12"}
+        ]},
+        flex:"Chest Stretch 60ث · Shoulder 60ث/جهة · Thoracic Foam Roll 3 دقائق · Neck Stretch"
+      },
+      {
+        n:3, name:"Sprint Peak + Power Complex", rest:false,
+        morning:{ title:"صباح — Sprint Peak (15 Rounds)", items:[
+          {name:"Warm-up: Hip Hinge + Ankle Prep + Progressive Run-up", sets:"3 دقائق"},
+          {name:"Sprint Intervals — 15 Rounds (MAX من البرنامج)", sets:"FORMAT: INTERVALS"},
+          {name:"Sprint in Place / Outdoor Sprint", sets:"20 ثانية MAX — أقصى جهد"},
+          {name:"Walk", sets:"30 ثانية (راحة أقل من W3)"},
+          {name:"Power Complex بعد Sprints", sets:"KB Clean → Press → Front Squat x6 · 4 جولات"}
+        ]},
+        evening:{ title:"مساء — Power Complex Peak", items:[
+          {name:"DB Deadlift — أثقل وزن", sets:"5×5 · راحة 2.5 دقيقة · RPE 8.5"},
+          {name:"KB Swing — Ballistic", sets:"6×15 · راحة 90ث"},
+          {name:"DB Push Press", sets:"5×5 · انفجاري · راحة 2 دقيقة"},
+          {name:"Farmer Carry", sets:"4×30 خطوة · ثقيل"},
+          {name:"Reverse Lunge + Overhead Press (complex)", sets:"3×8/جهة"}
+        ]},
+        flex:"Full Posterior Chain — Glute 75ث/جهة + Hamstring 60ث + Lower Back Flow + Hip Flexor"
+      },
+      {
+        n:4, name:"AMRAP 30 دقيقة + Full Hypertrophy", rest:false,
+        morning:{ title:"صباح — AMRAP 30 دقيقة (Fasted)", items:[
+          {name:"Warm-up: Full Body Flow", sets:"4 دقائق"},
+          {name:"AMRAP 30 دقيقة — قصوى الجولات", sets:"FORMAT: AMRAP (أطول من W3)"},
+          {name:"Goblet Squat", sets:"10 تكرار"},
+          {name:"Push-ups", sets:"12 تكرار"},
+          {name:"KB Swing", sets:"15 تكرار"},
+          {name:"DB Row", sets:"10/جهة"},
+          {name:"Burpees", sets:"5 تكرار"},
+          {name:"Mountain Climbers", sets:"20 تكرار"},
+          {name:"📋 سجّل الجولات + قارن W3", sets:"DENSITY BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — Full Hypertrophy", items:[
+          {name:"DB Thruster", sets:"5×8 · راحة 75ث"},
+          {name:"KB Swing", sets:"5×18 · راحة 75ث"},
+          {name:"DB Floor Press", sets:"4×10 · راحة 75ث"},
+          {name:"DB Row", sets:"4×12 · راحة 75ث"},
+          {name:"Core: Plank Variations + Dead Bug", sets:"4 جولات · 40ث/حركة"}
+        ]},
+        flex:"Full Body 12 دقيقة شاملة"
+      },
+      {
+        n:5, name:"Benchmark Hero Day + Strength Test", rest:false,
+        morning:{ title:"صباح — BENCHMARK HERO WOD: AMRAP 30 دقيقة", items:[
+          {name:"Warm-up: كامل 5 دقائق", sets:"لا تختصر"},
+          {name:"AMRAP 30 دقيقة — أقصى أداء", sets:"FORMAT: AMRAP BENCHMARK"},
+          {name:"Bodyweight Squat", sets:"15 تكرار"},
+          {name:"Push-ups", sets:"20 تكرار"},
+          {name:"KB Swing", sets:"25 تكرار"},
+          {name:"Jump Rope / Shadow Rope", sets:"60 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"📋 هذا Benchmark المرحلة الأولى", sets:"W4 PHASE 1 TEST"}
+        ]},
+        evening:{ title:"مساء — Strength Max Test", items:[
+          {name:"Goblet Squat Max Weight", sets:"3×3 · RPE 9 · هذا أثقل وزن لك الآن"},
+          {name:"DB Floor Press Max", sets:"3×3 · RPE 9"},
+          {name:"DB Deadlift Max", sets:"3×3 · RPE 9"},
+          {name:"📋 سجّل كل شيء — ستقارنه في W7", sets:"PHASE 1 MAX BENCHMARK"}
+        ]},
+        flex:"Extended Recovery 15 دقيقة — Full Body Deep Stretch"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll Full Body 15 دقيقة" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll Full Body 15 دقيقة" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 5 — INTENSITY HELL: الجحيم التدريبي
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 5, name: "Intensity Hell — جحيم الشدة", phase: "INTENSITY+", phaseClass: "phase-peak",
+    desc: "30ث/15ث Intervals · 6–8 حركات متواصلة · Heavy 5×5 مساء · Carry Finishers · RPE 8.5–9",
+    days: [
+      {
+        n:1, name:"Tabata Lower + Deadlift Power", rest:false,
+        morning:{ title:"صباح — Tabata Complex 6 حركات (30/15)", items:[
+          {name:"Warm-up: Dynamic Full Lower Flow", sets:"4 دقائق"},
+          {name:"Tabata Complex — 30ث عمل / 15ث راحة × 6 حركات × 3 جولات", sets:"FORMAT: TABATA COMPLEX"},
+          {name:"DB Thruster", sets:"30ث / 15ث"},
+          {name:"Jump Rope / Shadow Rope", sets:"30ث / 15ث"},
+          {name:"KB Swing Power", sets:"30ث / 15ث"},
+          {name:"Push-up Explosive", sets:"30ث / 15ث"},
+          {name:"Bent-Over DB Row", sets:"30ث / 15ث"},
+          {name:"Jump Lunge (بديل: Reverse Lunge Fast)", sets:"30ث / 15ث"},
+          {name:"⚡ Finisher: Farmer Carry March", sets:"3×40 خطوة ثقيل · راحة 60ث"}
+        ]},
+        evening:{ title:"مساء — Deadlift + Lower Heavy", items:[
+          {name:"DB Deadlift — Heavy 5×5", sets:"5×5 · راحة 3 دقيقة · RPE 8.5–9"},
+          {name:"Goblet Squat — Heavy", sets:"5×5 · راحة 2.5 دقيقة"},
+          {name:"KB Swing — Burnout", sets:"4×20 · راحة 90ث"},
+          {name:"Calf Raise Heavy", sets:"4×15 · راحة 45ث"},
+          {name:"⚡ Finisher: KB Swing 50 reps — unbroken هدف", sets:"Max continuous"}
+        ]},
+        flex:"Hip Flexor 75ث/جهة · Pigeon 75ث/جهة · Hamstring 60ث · Cobra + Sphinx 60ث"
+      },
+      {
+        n:2, name:"Tabata Upper + Press Heavy", rest:false,
+        morning:{ title:"صباح — Tabata Complex Upper (30/15 × 6 × 3)", items:[
+          {name:"Warm-up: Shoulder Prep + Thoracic Flow", sets:"4 دقائق"},
+          {name:"Tabata Complex — 30/15 × 6 حركات × 3 جولات", sets:"FORMAT: TABATA COMPLEX"},
+          {name:"Push-up Clap / Explosive (بديل: Wide Push-up)", sets:"30ث / 15ث"},
+          {name:"Jump Rope / Shadow Rope", sets:"30ث / 15ث"},
+          {name:"DB Row Heavy", sets:"30ث / 15ث"},
+          {name:"DB Push Press", sets:"30ث / 15ث"},
+          {name:"Mountain Climbers", sets:"30ث / 15ث"},
+          {name:"Band Face Pull / Rear Delt", sets:"30ث / 15ث"},
+          {name:"⚡ Finisher: KB Burnout", sets:"Max KB Swings في 2 دقيقة"}
+        ]},
+        evening:{ title:"مساء — Push Heavy + Upper Volume", items:[
+          {name:"DB Floor Press — Heavy 5×5", sets:"5×5 · راحة 3 دقيقة · RPE 9"},
+          {name:"DB Overhead Press — Heavy", sets:"5×5 · راحة 2.5 دقيقة"},
+          {name:"DB Row", sets:"5×8 · راحة 90ث"},
+          {name:"Lateral Raise Drop Set", sets:"3×15 → 12 → 10 (وزن يقل كل مجموعة)"},
+          {name:"Tricep + Bicep Superset", sets:"4×12+12 · راحة 60ث"}
+        ]},
+        flex:"Chest 60ث · Shoulder 60ث/جهة · Thoracic 3 دقائق · Lat 60ث/جهة"
+      },
+      {
+        n:3, name:"Max Effort Conditioning + Push Press Heavy", rest:false,
+        morning:{ title:"صباح — Tabata Complex Full Body (30/15 × 8 حركات)", items:[
+          {name:"Warm-up: Hip + Ankle + Shoulder Full Flow", sets:"4 دقائق"},
+          {name:"Tabata Complex — 30/15 × 8 حركات × 2 جولات", sets:"FORMAT: EXTENDED TABATA"},
+          {name:"DB Thruster", sets:"30ث / 15ث"},
+          {name:"KB Swing", sets:"30ث / 15ث"},
+          {name:"Push-up", sets:"30ث / 15ث"},
+          {name:"Jump Rope / Shadow", sets:"30ث / 15ث"},
+          {name:"DB Row", sets:"30ث / 15ث"},
+          {name:"Mountain Climbers", sets:"30ث / 15ث"},
+          {name:"Jump Lunge / Reverse Lunge", sets:"30ث / 15ث"},
+          {name:"Dead Bug", sets:"30ث / 15ث"},
+          {name:"⚡ Finisher: Plank Max Hold", sets:"حتى الفشل التام"}
+        ]},
+        evening:{ title:"مساء — Push Press + Posterior Heavy", items:[
+          {name:"DB Push Press — Heavy", sets:"5×5 · راحة 3 دقيقة · RPE 9"},
+          {name:"KB Swing — Max Power", sets:"6×15 · راحة 2 دقيقة"},
+          {name:"Reverse Lunge + DB Overhead", sets:"4×8/جهة · complex"},
+          {name:"Farmer Carry — Heavy", sets:"4×30 خطوة · أثقل وزن ممكن"},
+          {name:"Dead Bug", sets:"3×12/جهة"}
+        ]},
+        flex:"Glute 75ث/جهة · Hamstring 65ث · Lower Back + Cobra · Pigeon 75ث"
+      },
+      {
+        n:4, name:"Strength EMOM + Density Hypertrophy", rest:false,
+        morning:{ title:"صباح — Strength EMOM 24 دقيقة (Fasted)", items:[
+          {name:"Warm-up: Full Body Dynamic Flow", sets:"4 دقائق"},
+          {name:"EMOM 24 دقيقة — Heavy Movements", sets:"FORMAT: STRENGTH EMOM"},
+          {name:"دقيقة 1–2: DB Thruster Heavy", sets:"8 تكرار · RPE 8"},
+          {name:"دقيقة 3–4: KB Swing Ballistic", sets:"18 تكرار"},
+          {name:"دقيقة 5–6: Push-up + Plank", sets:"Max push + 20ث plank"},
+          {name:"📋 6 دورات = 24 دقيقة", sets:"لا راحة بين الدقائق إلا ما تبقى"},
+          {name:"⚡ Finisher: Burpee Death", sets:"21-15-9 Burpees + KB Swing"}
+        ]},
+        evening:{ title:"مساء — Density Hypertrophy", items:[
+          {name:"DB Thruster", sets:"5×8 · راحة 60ث فقط"},
+          {name:"KB Swing", sets:"5×20 · راحة 60ث فقط"},
+          {name:"DB Floor Press", sets:"5×10 · راحة 60ث"},
+          {name:"DB Row", sets:"5×12 · راحة 60ث"},
+          {name:"Core: V-Sit + L-Sit + Side Plank", sets:"3 جولات · 30ث/حركة"}
+        ]},
+        flex:"Full Body 10 دقائق — أسرع Stretch بعد الإرهاق"
+      },
+      {
+        n:5, name:"Intensity Benchmark + Strength Max", rest:false,
+        morning:{ title:"صباح — INTENSITY BENCHMARK: AMRAP 35 دقيقة", items:[
+          {name:"Warm-up: كامل 5 دقائق", sets:"إجباري"},
+          {name:"AMRAP 35 دقيقة — INTENSITY HELL BENCHMARK", sets:"FORMAT: AMRAP BENCHMARK"},
+          {name:"DB Thruster", sets:"10 تكرار"},
+          {name:"KB Swing", sets:"15 تكرار"},
+          {name:"Push-ups", sets:"15 تكرار"},
+          {name:"Jump Rope / Shadow", sets:"45 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"Dead Bug", sets:"10/جهة"},
+          {name:"📋 هذا أصعب WOD حتى الآن", sets:"INTENSITY BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — Triple Strength Max", items:[
+          {name:"DB Deadlift 5×5 Heavy", sets:"5×5 · أثقل من W4"},
+          {name:"DB Floor Press 5×5 Heavy", sets:"5×5 · أثقل من W4"},
+          {name:"DB Squat / Goblet 5×5 Heavy", sets:"5×5 · أثقل من W4"},
+          {name:"📋 سجّل كل وزن", sets:"PRE-PEAK BENCHMARK"}
+        ]},
+        flex:"Extended Recovery 15 دقيقة — Pigeon + Hamstring + Chest + Thoracic + Child Pose"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll Full Body + Mobility 20 دقيقة" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll Full Body + Mobility 20 دقيقة" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 6 — SUPERSETS: كثافة بنائية متقدمة
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 6, name: "Superset Density — البناء الكثيف", phase: "INTENSITY+", phaseClass: "phase-peak",
+    desc: "Supersets ثقيلة · Drop Sets · Density Training · نفس الحجم بزمن أقل · RPE 8.5–9",
+    days: [
+      {
+        n:1, name:"Lower Superset Density + Hinge", rest:false,
+        morning:{ title:"صباح — Superset MetCon (Fasted)", items:[
+          {name:"Warm-up: Dynamic Lower Flow", sets:"4 دقائق"},
+          {name:"Superset Circuit — 5 Rounds (راحة 25ث فقط بين السيتات)", sets:"FORMAT: SUPERSET CIRCUIT"},
+          {name:"A1: Goblet Squat × 15", sets:"ثم مباشرةً ←"},
+          {name:"A2: KB Swing × 20", sets:"راحة 30ث ثم الجولة التالية"},
+          {name:"B1: Jump Rope / Shadow Rope", sets:"75 ثانية ثم ←"},
+          {name:"B2: Mountain Climbers", sets:"45 ثانية · راحة 30ث"},
+          {name:"C1: Push-up × 20 ثم ←", sets:""},
+          {name:"C2: Dead Bug × 12/جهة", sets:"راحة 30ث"},
+          {name:"⚡ Finisher: Tabata KB Swing", sets:"8 × 20ث/10ث"}
+        ]},
+        evening:{ title:"مساء — Lower Drop Sets", items:[
+          {name:"Goblet Squat — Drop Set", sets:"سيت 1: ثقيل جداً ×5 → مباشرة وزن أقل ×8 → أقل ×12 · 3 مرات"},
+          {name:"DB RDL Superset + Calf Raise", sets:"4 × (10 RDL + 15 Calf) · راحة 75ث"},
+          {name:"Bulgarian Split Squat Superset + Plank", sets:"4 × (10/جهة + 40ث plank) · راحة 75ث"}
+        ]},
+        flex:"Pigeon 75ث/جهة · Hip Flexor 75ث/جهة · Hamstring 60ث · Calf 50ث"
+      },
+      {
+        n:2, name:"Upper Superset Density + Press", rest:false,
+        morning:{ title:"صباح — Upper Superset MetCon (Fasted)", items:[
+          {name:"Warm-up: Shoulder + Thoracic Prep", sets:"4 دقائق"},
+          {name:"Superset Circuit — 5 Rounds (راحة 25ث)", sets:"FORMAT: SUPERSET"},
+          {name:"A1: Push-up × 20 ثم ←", sets:""},
+          {name:"A2: DB Row × 18/جهة", sets:"راحة 30ث"},
+          {name:"B1: Jump Rope / Shadow × 75ث ثم ←", sets:""},
+          {name:"B2: DB Push Press × 10", sets:"راحة 30ث"},
+          {name:"C1: Shoulder Tap × 30 ثم ←", sets:""},
+          {name:"C2: Band Face Pull × 20", sets:"راحة 30ث"},
+          {name:"⚡ Finisher: Push-up Pyramid", sets:"1-2-3-4-5-4-3-2-1 بدون راحة"}
+        ]},
+        evening:{ title:"مساء — Upper Drop Sets + Superset", items:[
+          {name:"DB Floor Press Drop Set", sets:"ثقيل ×5 → وزط ×8 → خفيف ×12 · 3 مرات"},
+          {name:"DB Row Superset + OHP", sets:"4 × (10 Row + 8 OHP) · راحة 75ث"},
+          {name:"Lateral Raise + Rear Delt Fly (superset)", sets:"4×15+15 · راحة 60ث"},
+          {name:"Skull Crusher + Hammer Curl (superset)", sets:"4×12+12"}
+        ]},
+        flex:"Chest 60ث · Shoulder 60ث/جهة · Thoracic Foam Roll 3 دقائق"
+      },
+      {
+        n:3, name:"Conditioning Peak + Complex Power", rest:false,
+        morning:{ title:"صباح — Complex MetCon (Fasted)", items:[
+          {name:"Warm-up: Hip Hinge + Ankle + Shoulder", sets:"4 دقائق"},
+          {name:"EMOM 30 دقيقة — Peak EMOM (أطول من W5)", sets:"FORMAT: EXTENDED EMOM"},
+          {name:"دقيقة 1: DB Thruster Heavy", sets:"10 تكرار"},
+          {name:"دقيقة 2: KB Swing Ballistic", sets:"20 تكرار"},
+          {name:"دقيقة 3: Push-ups", sets:"20 تكرار"},
+          {name:"دقيقة 4: DB Row", sets:"15/جهة"},
+          {name:"دقيقة 5: Burpees", sets:"8 تكرار"},
+          {name:"📋 6 دورات كاملة", sets:"لا راحة إلا ما تبقى من كل دقيقة"}
+        ]},
+        evening:{ title:"مساء — Power Complex + Carry", items:[
+          {name:"DB Deadlift Heavy — Superset + KB Swing", sets:"5 × (5 Deadlift + 12 Swing) · راحة 2 دقيقة"},
+          {name:"DB Push Press Superset + Reverse Lunge", sets:"5 × (5 Press + 8/جهة Lunge)"},
+          {name:"Farmer Carry Heavy", sets:"5×30 خطوة · أثقل وزن ممكن"},
+          {name:"Dead Bug Superset + V-Sit", sets:"4×10+10"}
+        ]},
+        flex:"Full Posterior 15 دقيقة — Pigeon + Glute + Hamstring + Lower Back + Cobra"
+      },
+      {
+        n:4, name:"AMRAP 35 Max + Full Hypertrophy", rest:false,
+        morning:{ title:"صباح — AMRAP 35 دقيقة (Fasted)", items:[
+          {name:"Warm-up: كامل 5 دقائق", sets:"إجباري"},
+          {name:"AMRAP 35 دقيقة — MAX EFFORT", sets:"FORMAT: AMRAP"},
+          {name:"DB Thruster", sets:"8 تكرار"},
+          {name:"KB Swing", sets:"15 تكرار"},
+          {name:"Push-ups", sets:"15 تكرار"},
+          {name:"DB Row", sets:"10/جهة"},
+          {name:"Burpees", sets:"8 تكرار"},
+          {name:"Mountain Climbers", sets:"20 تكرار"},
+          {name:"📋 هل تجاوزت W5؟", sets:"AMRAP PROGRESSION"}
+        ]},
+        evening:{ title:"مساء — Full Body Superset Hypertrophy", items:[
+          {name:"Goblet Squat + DB Floor Press (superset)", sets:"5 × (12+10) · راحة 75ث"},
+          {name:"KB Swing + DB Row (superset)", sets:"5 × (18+12) · راحة 75ث"},
+          {name:"DB OHP + Lateral Raise (superset)", sets:"4 × (8+15) · راحة 75ث"},
+          {name:"Core Superset: Dead Bug + V-Sit + Plank", sets:"4 جولات · 30ث لكل"}
+        ]},
+        flex:"Full Body Flow 12 دقيقة"
+      },
+      {
+        n:5, name:"Peak Benchmark + Max Strength", rest:false,
+        morning:{ title:"صباح — SUPER BENCHMARK: AMRAP 35 دقيقة", items:[
+          {name:"Warm-up: كامل 5 دقائق", sets:"لا تختصر"},
+          {name:"AMRAP 35 دقيقة — W6 PEAK BENCHMARK", sets:"FORMAT: AMRAP MAX"},
+          {name:"DB Thruster", sets:"10 تكرار"},
+          {name:"KB Swing", sets:"20 تكرار"},
+          {name:"Push-ups", sets:"20 تكرار"},
+          {name:"Jump Rope / Shadow", sets:"60 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"Dead Bug", sets:"12/جهة"},
+          {name:"📋 هذا أقوى WOD حتى الآن", sets:"PHASE 2 BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — Max Strength Week 6", items:[
+          {name:"DB Deadlift — أثقل من W5", sets:"5×3 · RPE 9.5 · راحة 3 دقيقة"},
+          {name:"DB Floor Press — أثقل من W5", sets:"5×3 · راحة 3 دقيقة"},
+          {name:"DB Squat / Thruster Heavy", sets:"5×3 · راحة 3 دقيقة"},
+          {name:"📋 سجّل كل شيء للمقارنة W7", sets:"PRE-PEAK NUMBERS"}
+        ]},
+        flex:"Extended Recovery 20 دقيقة — Full Deep Stretch · كل عضلة"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll + Ice + Mobility 20 دقيقة" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Foam Roll + Ice + Mobility 20 دقيقة" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 7 — PEAK WAR: أسبوع الذروة
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 7, name: "Peak War — أسبوع الذروة", phase: "PEAK", phaseClass: "phase-peak",
+    desc: "Hero WODs يومياً · AMRAP 40 دقيقة · Strength 5×3 Heavy · No Mercy Pace · RPE 9–9.5",
+    days: [
+      {
+        n:1, name:"HERO WOD 1 + Squat Heavy", rest:false,
+        morning:{ title:"صباح — HERO WOD: PEAK STORM (AMRAP 40 دقيقة)", items:[
+          {name:"Warm-up: كامل 6 دقائق", sets:"إجباري — لا تختصر"},
+          {name:"AMRAP 40 دقيقة — NO MERCY PACE", sets:"FORMAT: HERO WOD"},
+          {name:"DB Thruster Heavy", sets:"10 تكرار"},
+          {name:"KB Swing Ballistic", sets:"20 تكرار"},
+          {name:"Push-ups (أصعب نوع)", sets:"15 تكرار"},
+          {name:"Jump Rope / Shadow Rope", sets:"60 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"DB Row Heavy", sets:"12/جهة"},
+          {name:"Mountain Climbers", sets:"20 تكرار"},
+          {name:"📋 سجّل الجولات الكاملة + الوقت", sets:"PEAK W7 BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — Squat Heavy 5×3", items:[
+          {name:"Goblet Squat — Peak Heavy", sets:"5×3 · أثقل وزن ممكن · راحة 3 دقيقة · RPE 9.5"},
+          {name:"DB RDL", sets:"4×8 · ثقيل · راحة 2 دقيقة"},
+          {name:"Bulgarian Split Squat", sets:"3×8/جهة · ثقيل"},
+          {name:"Farmer Carry — Heavy", sets:"4×40 خطوة"},
+          {name:"📋 قارن مع W4 وW6", sets:"SQUAT PEAK"}
+        ]},
+        flex:"Full Lower 15 دقيقة — Pigeon + Hip Flexor + Hamstring + Calf + Glute"
+      },
+      {
+        n:2, name:"HERO WOD 2 + Press Heavy", rest:false,
+        morning:{ title:"صباح — HERO WOD: IRON LUNG (AMRAP 40 دقيقة)", items:[
+          {name:"Warm-up: كامل 6 دقائق", sets:"إجباري"},
+          {name:"AMRAP 40 دقيقة — IRON LUNG", sets:"FORMAT: HERO WOD"},
+          {name:"Push-up Explosive", sets:"20 تكرار"},
+          {name:"DB Row", sets:"15/جهة"},
+          {name:"Jump Rope / Shadow Rope", sets:"75 ثانية"},
+          {name:"DB Push Press", sets:"12 تكرار"},
+          {name:"Shoulder Tap + Plank Walk", sets:"20 تكرار"},
+          {name:"Burpees", sets:"8 تكرار"},
+          {name:"📋 سجّل الجولات", sets:"W7 DAY 2 BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — Press Heavy 5×3", items:[
+          {name:"DB Floor Press — Peak", sets:"5×3 · RPE 9.5 · راحة 3 دقيقة"},
+          {name:"DB Overhead Press — Peak", sets:"5×3 · RPE 9.5 · راحة 3 دقيقة"},
+          {name:"DB Row Heavy", sets:"5×5 · راحة 2 دقيقة"},
+          {name:"Lateral Raise + Rear Delt Fly", sets:"4×15+15"},
+          {name:"📋 قارن مع W6", sets:"PRESS PEAK"}
+        ]},
+        flex:"Chest 75ث · Shoulder 75ث/جهة · Thoracic Full 4 دقائق · Lat 60ث/جهة"
+      },
+      {
+        n:3, name:"HERO WOD 3 + Deadlift Heavy", rest:false,
+        morning:{ title:"صباح — HERO WOD: DEAD WARRIOR (AMRAP 40 دقيقة)", items:[
+          {name:"Warm-up: كامل 6 دقائق", sets:"إجباري"},
+          {name:"AMRAP 40 دقيقة — DEAD WARRIOR", sets:"FORMAT: HERO WOD"},
+          {name:"DB Thruster", sets:"10 تكرار"},
+          {name:"KB Swing Max Power", sets:"25 تكرار"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"Jump Rope / Shadow", sets:"60 ثانية"},
+          {name:"Push-up", sets:"20 تكرار"},
+          {name:"Dead Bug", sets:"15/جهة"},
+          {name:"📋 هذا أقسى WOD في البرنامج", sets:"DAY 3 PEAK"}
+        ]},
+        evening:{ title:"مساء — Deadlift Peak 5×3", items:[
+          {name:"DB Deadlift — PEAK MAX", sets:"5×3 · أثقل وزن في البرنامج · راحة 3–4 دقيقة"},
+          {name:"KB Swing — Power Cluster", sets:"6×12 · راحة 2 دقيقة"},
+          {name:"DB Push Press — Heavy", sets:"5×5 · راحة 2 دقيقة"},
+          {name:"Farmer Carry Heavy", sets:"5×30 خطوة"},
+          {name:"📋 سجّل الـ Deadlift Peak", sets:"DEADLIFT BENCHMARK"}
+        ]},
+        flex:"Full Posterior 20 دقيقة — Pigeon + Glute + Hamstring + Lower Back + Cobra + Child Pose"
+      },
+      {
+        n:4, name:"HERO WOD 4 + Sled Simulation", rest:false,
+        morning:{ title:"صباح — HERO WOD: IRON CROSS (AMRAP 40 دقيقة)", items:[
+          {name:"Warm-up: كامل 6 دقائق", sets:"إجباري"},
+          {name:"AMRAP 40 دقيقة — IRON CROSS", sets:"FORMAT: HERO WOD"},
+          {name:"Goblet Squat", sets:"15 تكرار"},
+          {name:"Push-ups", sets:"20 تكرار"},
+          {name:"KB Swing", sets:"20 تكرار"},
+          {name:"Mountain Climbers", sets:"30 تكرار"},
+          {name:"DB Row", sets:"12/جهة"},
+          {name:"Burpees", sets:"8 تكرار"},
+          {name:"Jump Rope / Shadow", sets:"60 ثانية"},
+          {name:"📋 أقصى جولات ممكنة", sets:"W7 DAY 4"}
+        ]},
+        evening:{ title:"مساء — Sled Simulation + Carries", items:[
+          {name:"Farmer Carry — MAX WEIGHT", sets:"6×40 خطوة · راحة 90ث"},
+          {name:"March + Load (DB في يدين مرفوعتين)", sets:"4×30 خطوة"},
+          {name:"KB Swing Burnout", sets:"Max reps في 3 دقائق"},
+          {name:"Push-up Hold + Shoulder Tap", sets:"5×30ث hold + 10 taps"},
+          {name:"Dead Bug", sets:"4×15/جهة"}
+        ]},
+        flex:"Full Body Recovery Flow 15 دقيقة"
+      },
+      {
+        n:5, name:"PEAK BENCHMARK DAY — Final Test", rest:false,
+        morning:{ title:"صباح — PEAK BENCHMARK: AMRAP 40 دقيقة", items:[
+          {name:"Warm-up: كامل 6 دقائق", sets:"يوم القياس الأخير"},
+          {name:"AMRAP 40 دقيقة — PEAK WAR FINAL", sets:"FORMAT: HERO WOD FINAL"},
+          {name:"DB Thruster", sets:"10 تكرار"},
+          {name:"KB Swing", sets:"20 تكرار"},
+          {name:"Push-ups", sets:"20 تكرار"},
+          {name:"Jump Rope / Shadow", sets:"75 ثانية"},
+          {name:"Burpees", sets:"10 تكرار"},
+          {name:"Dead Bug", sets:"12/جهة"},
+          {name:"DB Row", sets:"12/جهة"},
+          {name:"📋 قارن مع كل Benchmark سابق", sets:"W7 FINAL WOD BENCHMARK"}
+        ]},
+        evening:{ title:"مساء — TRIPLE BENCHMARK FINAL", items:[
+          {name:"Goblet Squat MAX TEST", sets:"3×3 · أثقل في البرنامج · راحة 4 دقيقة"},
+          {name:"DB Floor Press MAX TEST", sets:"3×3 · أثقل في البرنامج"},
+          {name:"DB Deadlift MAX TEST", sets:"3×3 · أثقل في البرنامج"},
+          {name:"Push-up Max — Unbroken", sets:"MAX تكرار في سيت واحد"},
+          {name:"Plank Max Hold", sets:"MAX ثانية في محاولة واحدة"},
+          {name:"📋 سجّل كل شيء — هذا رقمك الجديد", sets:"PEAK WAR FINAL BENCHMARK"}
+        ]},
+        flex:"Extended Recovery 20 دقيقة — يوم قياسي يستحق 20 دقيقة كاملة"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Ice + Foam Roll + Mobility 20 دقيقة" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Ice + Foam Roll + Mobility 20 دقيقة" }
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════
+  // WEEK 8 — TACTICAL DELOAD: استشفاء تكتيكي
+  // ═══════════════════════════════════════════════════════════
+  {
+    num: 8, name: "Tactical Deload — استشفاء تكتيكي", phase: "DELOAD", phaseClass: "phase-deload",
+    desc: "60% حجم · 70% أوزان · Tempo Slow · حركة مستمرة · الاستشفاء = جزء من التدريب",
+    days: [
+      {
+        n:1, name:"Lower Flow + Deload Strength", rest:false,
+        morning:{ title:"صباح — Deload Flow (حركة مستمرة / 60% شدة)", items:[
+          {name:"Warm-up: Full Slow Mobilization", sets:"5 دقائق — حركة هادئة"},
+          {name:"Circuit — 3 Rounds فقط (راحة 60ث)", sets:"FORMAT: DELOAD CIRCUIT"},
+          {name:"Shadow Rope / Slow March in Place", sets:"60 ثانية — إيقاع هادئ"},
+          {name:"Slow Bodyweight Squat", sets:"15 تكرار — Tempo 3-1-3"},
+          {name:"Slow Dead Bug", sets:"10/جهة — تحكم كامل"},
+          {name:"Slow Reverse Lunge", sets:"10/جهة — وزن خفيف"},
+          {name:"⚡ Finisher: March in Place", sets:"90 ثانية فقط — استشفاء"}
+        ]},
+        evening:{ title:"مساء — Lower Deload (70% وزن / Tempo)", items:[
+          {name:"Goblet Squat — Tempo 3-1-3", sets:"3×8 · وزن أقل 30% من W7"},
+          {name:"DB RDL — Slow", sets:"3×10 · Tempo بطيء"},
+          {name:"Calf Raise", sets:"3×15 · راحة 60ث"},
+          {name:"Plank", sets:"2×30 ثانية"}
+        ]},
+        flex:"Hip Flexor 90ث/جهة · Pigeon 90ث/جهة · Hamstring 75ث · Calf 60ث · Child Pose 90ث"
+      },
+      {
+        n:2, name:"Upper Flow + Deload Press", rest:false,
+        morning:{ title:"صباح — Deload Upper Flow (60% شدة)", items:[
+          {name:"Warm-up: Slow Shoulder + Thoracic Flow", sets:"5 دقائق"},
+          {name:"Circuit — 3 Rounds فقط (راحة 60ث)", sets:"FORMAT: DELOAD CIRCUIT"},
+          {name:"Slow Push-ups Tempo", sets:"10 تكرار — Tempo 3-1-3"},
+          {name:"Light DB Row", sets:"12/جهة — وزن خفيف"},
+          {name:"Shadow Rope / March", sets:"60 ثانية"},
+          {name:"Slow Shoulder Tap", sets:"20 تكرار — استقرار فقط"},
+          {name:"⚡ Finisher: Slow Mountain Climbers", sets:"60 ثانية — لا احتراق"}
+        ]},
+        evening:{ title:"مساء — Upper Deload (70% وزن)", items:[
+          {name:"DB Floor Press — Tempo 3-1-3", sets:"3×8 · -30% وزن"},
+          {name:"DB Row", sets:"3×10 · Tempo"},
+          {name:"OHP", sets:"3×6 · خفيف"},
+          {name:"Lateral Raise", sets:"2×15 · خفيف جداً"}
+        ]},
+        flex:"Chest 75ث · Shoulder 75ث/جهة · Thoracic Foam Roll 4 دقائق · Lat 75ث"
+      },
+      {
+        n:3, name:"Active Recovery + Light Complex", rest:false,
+        morning:{ title:"صباح — Deload Active Recovery", items:[
+          {name:"Warm-up: Full Slow Mobilization", sets:"5 دقائق"},
+          {name:"AMRAP 15 دقيقة فقط — إيقاع راحة", sets:"FORMAT: LIGHT AMRAP"},
+          {name:"Slow Goblet Squat", sets:"8 تكرار"},
+          {name:"Push-up Slow", sets:"8 تكرار"},
+          {name:"Light DB Row", sets:"8/جهة"},
+          {name:"Shadow Rope", sets:"30 ثانية"},
+          {name:"⚡ Finisher: Slow March", sets:"90 ثانية فقط"}
+        ]},
+        evening:{ title:"مساء — Light Full Body", items:[
+          {name:"KB Swing خفيف", sets:"3×10 · Tempo · وزن خفيف"},
+          {name:"DB Push Press خفيف", sets:"3×6 · انفجار خفيف"},
+          {name:"Dead Bug", sets:"3×10/جهة"},
+          {name:"Plank", sets:"2×30ث"}
+        ]},
+        flex:"Full Posterior 15 دقيقة — Glute + Hamstring + Lower Back + Cobra"
+      },
+      {
+        n:4, name:"Tempo Full Body + Assessment", rest:false,
+        morning:{ title:"صباح — Deload Tempo Circuit", items:[
+          {name:"Warm-up: Full Body Mobilization", sets:"5 دقائق"},
+          {name:"Circuit — 3 Rounds (راحة 90ث)", sets:"FORMAT: SLOW CIRCUIT"},
+          {name:"Bodyweight Squat Tempo 3-1-3", sets:"15 تكرار"},
+          {name:"Push-up Tempo", sets:"10 تكرار"},
+          {name:"Light DB Row", sets:"10/جهة"},
+          {name:"March in Place", sets:"90 ثانية"},
+          {name:"Dead Bug", sets:"10/جهة"}
+        ]},
+        evening:{ title:"مساء — Assessment + Light Full Body", items:[
+          {name:"Push-up Max Test", sets:"1 سيت ×Max · سجّل مقارنة W1"},
+          {name:"Plank Max Hold", sets:"1 محاولة · سجّل مقارنة W1"},
+          {name:"Goblet Squat", sets:"2×6 · خفيف جداً"},
+          {name:"📋 قارن كل أرقامك مع أسبوع 1 وأسبوع 7", sets:"FINAL ASSESSMENT"}
+        ]},
+        flex:"Full Body Flow 15 دقيقة ممتد"
+      },
+      {
+        n:5, name:"Final Movement Day + Reflect", rest:false,
+        morning:{ title:"صباح — Final Easy Flow", items:[
+          {name:"Warm-up: Full Flow", sets:"5 دقائق هادئة"},
+          {name:"Circuit — 2 Rounds فقط (راحة كافية)", sets:"FORMAT: FINAL FLOW"},
+          {name:"Slow Squat", sets:"12 تكرار"},
+          {name:"Push-up", sets:"10 تكرار"},
+          {name:"Light KB Swing", sets:"12 تكرار"},
+          {name:"March in Place", sets:"60 ثانية"},
+          {name:"Dead Bug", sets:"10/جهة"}
+        ]},
+        evening:{ title:"مساء — Final Reflection Day", items:[
+          {name:"Farmer Carry خفيف", sets:"2×20 خطوة · استمتع بالحركة"},
+          {name:"KB Swing خفيف", sets:"2×10 · آخر سيت"},
+          {name:"Push-up", sets:"1×10 · آخر تكرار"},
+          {name:"📋 اكتب ملاحظاتك النهائية + خطة الـ 8 أسابيع القادمة", sets:"PROGRAM COMPLETE ✓"}
+        ]},
+        flex:"Extended Final Recovery 20 دقيقة — كل العضلات · انتهيت من حرب قاسية"
+      },
+      { n:6, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility خفيفة اختيارية" },
+      { n:7, name:"راحة كاملة", rest:true, morning:null, evening:null, flex:"Mobility خفيفة اختيارية" }
+    ]
+  }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let currentWeek = 1;
+let completedWeeks = JSON.parse(localStorage.getItem('peak8_completed') || '[]');
+let checkedExercises = JSON.parse(localStorage.getItem('peak8_exercises') || '{}');
+
+// ── RENDER WEEK NAV ────────────────────────────────────────────────────
+function renderWeekNav() {
+  const nav = document.getElementById('weekNav');
+  nav.innerHTML = weeks.map(w => `
+    <button class="week-btn ${w.num === currentWeek ? 'active' : ''} ${completedWeeks.includes(w.num) ? 'completed' : ''}"
+      onclick="selectWeek(${w.num})">
+      <span class="week-num">${w.num}</span>
+      <span class="week-label">${w.name.split('—')[0].trim().substring(0,8)}</span>
+    </button>
+  `).join('');
+}
+
+// ── RENDER WEEK PANEL ──────────────────────────────────────────────────
+function renderWeekPanel(wk) {
+  const panel = document.getElementById('weekPanel');
+  const w = weeks[wk - 1];
+  const daysHtml = w.days.map(d => renderDay(d, wk)).join('');
+  panel.innerHTML = `
+    <div class="week-panel">
+      <div class="week-header">
+        <div class="week-number-display">${w.num}</div>
+        <div class="week-info">
+          <h3>${w.name}</h3>
+          <p>${w.desc}</p>
+        </div>
+        <span class="week-phase-tag ${w.phaseClass}">${w.phase}</span>
+      </div>
+      <div class="days-grid">${daysHtml}</div>
+    </div>
+  `;
+}
+
+function renderDay(d, wk) {
+  if (d.rest) {
+    return `
+      <div class="day-card day-rest">
+        <div class="day-card-header">
+          <div class="day-number">${d.n}</div>
+          <div>
+            <div class="day-label">${d.name}</div>
+            <div class="day-type">${d.flex}</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  const morningHtml = d.morning ? renderSession(d.morning, 'morning', wk, d.n) : '';
+  const eveningHtml = d.evening ? renderSession(d.evening, 'evening', wk, d.n) : '';
+  const flexHtml = `
+    <div class="session-block">
+      <div class="session-block-title sbt-flex">🟢 المرونة الليلية</div>
+      <div style="font-size:12px;color:var(--text-muted);padding:6px 0;">${d.flex}</div>
+    </div>`;
+
+  return `
+    <div class="day-card" id="day-${wk}-${d.n}">
+      <div class="day-card-header" onclick="toggleDay(${wk},${d.n})">
+        <div class="day-number">${d.n}</div>
+        <div style="flex:1">
+          <div class="day-label">${d.name}</div>
+          <div class="day-type">اليوم ${d.n}</div>
+        </div>
+        <div class="session-tags">
+          ${d.morning ? '<span class="stag stag-morning">صباح</span>' : ''}
+          ${d.evening ? '<span class="stag stag-evening">مساء</span>' : ''}
+          <span class="stag stag-flex">مرونة</span>
+        </div>
+        <div class="day-chevron">▾</div>
+      </div>
+      <div class="day-detail">
+        ${morningHtml}
+        ${eveningHtml}
+        ${flexHtml}
+      </div>
+    </div>`;
+}
+
+function renderSession(s, type, wk, dn) {
+  const cls = type === 'morning' ? 'sbt-morning' : 'sbt-evening';
+  const icon = type === 'morning' ? '🟡' : '🔵';
+  const itemsHtml = s.items.map((item, idx) => {
+    const key = `${wk}-${dn}-${type}-${idx}`;
+    const checked = checkedExercises[key] ? 'checked' : '';
+    return `
+      <div class="exercise-item">
+        <div class="exercise-check ${checked}" onclick="toggleCheck('${key}',event)">
+          ${checked ? '✓' : ''}
+        </div>
+        <div class="exercise-name">${item.name}</div>
+        <div class="exercise-sets">${item.sets}</div>
+      </div>`;
+  }).join('');
+  return `
+    <div class="session-block">
+      <div class="session-block-title ${cls}">${icon} ${s.title}</div>
+      <div class="exercise-list">${itemsHtml}</div>
+    </div>`;
+}
+
+function toggleDay(wk, dn) {
+  const card = document.getElementById(`day-${wk}-${dn}`);
+  if (card) card.classList.toggle('open');
+}
+
+function toggleCheck(key, e) {
+  e.stopPropagation();
+  const el = e.currentTarget;
+  const isChecked = el.classList.toggle('checked');
+  el.textContent = isChecked ? '✓' : '';
+  checkedExercises[key] = isChecked;
+  if (!isChecked) delete checkedExercises[key];
+  localStorage.setItem('peak8_exercises', JSON.stringify(checkedExercises));
+}
+
+function selectWeek(n) {
+  currentWeek = n;
+  renderWeekNav();
+  renderWeekPanel(n);
+  updateProgressBar();
+  document.getElementById('weekPanel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function updateProgressBar() {
+  weeks.forEach(w => {
+    const el = document.getElementById(`pw${w.num}`);
+    if (!el) return;
+    el.className = 'progress-week';
+    if (completedWeeks.includes(w.num)) el.classList.add('done');
+    else if (w.num === currentWeek) el.classList.add('current');
+  });
+}
+
+// ── WARM-UP TOGGLE ─────────────────────────────────────────────────────
+function toggleWarmup() {
+  const body = document.getElementById('warmupBody');
+  body.classList.toggle('open');
+}
+
+// ── TIMER ──────────────────────────────────────────────────────────────
+let timerInterval = null;
+let timerSeconds = 0;
+let timerRunning = false;
+let timerCountdown = false;
+let timerTarget = 0;
+
+function formatTime(s) {
+  const m = Math.floor(Math.abs(s) / 60).toString().padStart(2,'0');
+  const sec = (Math.abs(s) % 60).toString().padStart(2,'0');
+  return `${m}:${sec}`;
+}
+
+function updateTimerDisplay() {
+  const display = document.getElementById('timerDisplay');
+  display.textContent = formatTime(timerSeconds);
+  if (timerCountdown && timerSeconds <= 5 && timerSeconds > 0) {
+    display.style.color = 'var(--red)';
+  } else {
+    display.style.color = 'var(--amber)';
+  }
+}
+
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(() => {
+    if (timerCountdown) {
+      timerSeconds--;
+      if (timerSeconds <= 0) {
+        timerSeconds = 0;
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timerDisplay').style.color = 'var(--green)';
+        // vibrate if supported
+        if (navigator.vibrate) navigator.vibrate([200,100,200]);
+      }
+    } else {
+      timerSeconds++;
+    }
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerCountdown = false;
+  timerSeconds = 0;
+  updateTimerDisplay();
+}
+
+function setPreset(secs) {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerCountdown = true;
+  timerSeconds = secs;
+  updateTimerDisplay();
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────
+renderWeekNav();
+renderWeekPanel(1);
+updateProgressBar();
+</script>
+</body>
+</html>
